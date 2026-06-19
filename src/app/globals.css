@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Brand Colours (Orange Accent) */
+  --color-accent-primary: #f97e1a;
+  --color-accent-secondary: #e89548;
+  --color-accent-glow: rgba(249, 126, 26, 0.15);
+
+  /* Neutral Text Colours */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #dedede;
+  --color-text-muted: #afafaf;
+  --color-text-dark: #626262;
+
+  /* Surfaces & Backgrounds (Dark-first Deep Slate Surface System) */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #171717;
+  --color-surface-primary: #141414;
+  --color-surface-secondary: #262626;
+  --color-surface-elevated: #3d3d3d;
+
+  /* Borders */
+  --color-border-soft: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Border Radii */
+  --radius-sm: 0.25rem;
+  --radius-default: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.0rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows & Elevation */
+  --shadow-card: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 50px 10px rgba(249, 126, 26, 0.15);
+}
+
+@theme {
+  /* Map CSS variables to Tailwind classes */
+  --color-brand-primary: var(--color-accent-primary);
+  --color-brand-secondary: var(--color-accent-secondary);
+  --color-brand-glow: var(--color-accent-glow);
+
+  --color-text-main: var(--color-text-primary);
+  --color-text-sub: var(--color-text-secondary);
+  --color-text-muted-gray: var(--color-text-muted);
+  --color-text-dark-gray: var(--color-text-dark);
+
+  --color-background-slate: var(--color-bg-primary);
+  --color-background-dark: var(--color-bg-secondary);
+  --color-surface-main: var(--color-surface-primary);
+  --color-surface-input: var(--color-surface-secondary);
+  --color-surface-elevated: var(--color-surface-elevated);
+
+  --color-border-soft-val: var(--color-border-soft);
+  --color-border-strong-val: var(--color-border-strong);
+
+  --radius-radius-sm: var(--radius-sm);
+  --radius-radius-default: var(--radius-default);
+  --radius-radius-md: var(--radius-md);
+  --radius-radius-lg: var(--radius-lg);
+  --radius-radius-xl: var(--radius-xl);
+  --radius-radius-full: var(--radius-full);
+
+  --shadow-shadow-card: var(--shadow-card);
+  --shadow-shadow-glow: var(--shadow-glow);
+
+  /* Fonts */
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+  --font-label: var(--font-label), system-ui, sans-serif;
+  --font-code: var(--font-code), monospace;
+}
+
+/* Global Reset overrides according to DESIGN.md */
+body {
+  background-color: #0f172a;
+  color: var(--color-text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Selection and focus styling */
+::selection {
+  background-color: var(--color-accent-primary);
+  color: #ffffff;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Glassmorphism & Aurora custom classes */
+.glass-transparent-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-transparent-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3),
+    transparent,
+    rgba(255, 255, 255, 0.1)
+  );
+  pointer-events: none;
+}
+
+/* Hover Aurora Effect (Accent primary color glow) */
+.glass-card-aurora {
+  position: relative;
+}
+
+.glass-card-aurora::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    circle 150px at var(--aurora-x, 50%) var(--aurora-y, 50%),
+    rgba(249, 126, 26, 0.2),
+    transparent 80%
+  );
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card-aurora:hover::after {
+  opacity: 1;
+}
+

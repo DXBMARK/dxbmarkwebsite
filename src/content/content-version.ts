@@ -1,0 +1,1 @@
+export const CONTENT_VERSION = "DXBMARK-CONTENT-0.1.0";
