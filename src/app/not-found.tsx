@@ -4,21 +4,16 @@ import * as React from "react";
 import Link from "next/link";
 import { Container, Section } from "@/components/ui/layout";
 import { Button } from "@/components/ui/button";
+import { Glow } from "@/components/visual";
 
 export default function NotFound() {
   const [imgError, setImgError] = React.useState(false);
 
   return (
     <Section className="relative min-h-[80vh] flex items-center justify-center bg-background-slate overflow-hidden py-16">
-      {/* Background Radial Glow Effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none -z-10"
-        style={{
-          backgroundImage: `radial-gradient(circle 600px at 50% 50%, rgba(249, 126, 26, 0.08), transparent)`,
-        }}
-      />
+      <Glow className="absolute inset-0 z-0" />
       
-      <Container className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-center">
+      <Container className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-center">
         {/* Left Column: Visual Illustration with subtle 3D hover depth */}
         <div className="lg:col-span-6 flex items-center justify-center relative w-full h-72 sm:h-96 group">
           {!imgError ? (

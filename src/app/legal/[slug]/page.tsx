@@ -9,6 +9,8 @@ import { calculateReadingTime } from "@/components/legal/legal-render-utils";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Glow } from "@/components/visual";
+
 
 interface PageProps {
   params: Promise<{
@@ -77,8 +79,9 @@ export default async function LegalPlaceholderPage({ params }: PageProps) {
   ];
 
   return (
-    <Section className="relative bg-background-slate min-h-[75vh] py-12">
-      <Container className="flex flex-col gap-8 text-left">
+    <Section className="relative bg-background-slate min-h-[75vh] py-12 overflow-hidden">
+      <Glow className="absolute inset-0 z-0" />
+      <Container className="relative z-10 flex flex-col gap-8 text-left">
         {/* Breadcrumbs */}
         <Breadcrumbs items={breadcrumbItems} />
 

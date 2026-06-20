@@ -6,7 +6,7 @@ import { HomeScrollController } from "@/components/home/scroll/HomeScrollControl
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-[#0f172a] relative overflow-hidden">
+    <div className="min-h-screen w-full bg-background-slate relative overflow-hidden">
       {/* Blue Radial Glow Background */}
       <Glow className="absolute inset-0 z-0" />
 
