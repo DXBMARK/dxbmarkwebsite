@@ -39,6 +39,7 @@
     "zod": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "latest",
     "@types/react": "latest",
@@ -46,6 +47,7 @@
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "16.2.9",
+    "playwright": "^1.61.0",
     "postcss": "latest",
     "prettier": "latest",
     "tailwindcss": "latest",

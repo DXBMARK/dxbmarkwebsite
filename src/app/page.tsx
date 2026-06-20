@@ -1,19 +1,24 @@
 import * as React from "react";
 import { Glow } from "@/components/visual";
+import { HeroSection } from "@/components/home/hero/HeroSection";
+import { NextSectionPlaceholder } from "@/components/home/sections/NextSectionPlaceholder";
+import { HomeScrollController } from "@/components/home/scroll/HomeScrollController";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-[#0f172a] relative flex flex-col overflow-hidden font-sans selection:bg-brand-primary selection:text-white">
+    <div className="min-h-screen w-full bg-[#0f172a] relative overflow-hidden">
       {/* Blue Radial Glow Background */}
       <Glow className="absolute inset-0 z-0" />
 
+      {/* GSAP Scroll/Snap Controller */}
+      <HomeScrollController />
+
       {/* Main Canvas Area */}
-      <main className="flex-1 relative z-10">
-        {/* 
-          [Canvas Reset Area]
-          Future dynamic sections, interactive blocks and marketing grids will be inserted here 
-        */}
+      <main className="relative z-10">
+        <HeroSection />
+        <NextSectionPlaceholder />
       </main>
     </div>
   );
 }
+
