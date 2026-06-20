@@ -208,35 +208,36 @@ body {
 
 .footer-glow-layer {
   position: absolute;
-  inset: auto -10% -22% -10%;
-  height: min(48vw, 520px);
+  inset: auto -12% -8% -12%;
+  height: min(64vw, 720px);
   background:
-    radial-gradient(ellipse at bottom center, rgba(249, 126, 26, 0.16), transparent 58%),
-    radial-gradient(circle at 14% 78%, rgba(249, 126, 26, 0.08), transparent 36%),
-    radial-gradient(circle at 86% 82%, rgba(232, 149, 72, 0.07), transparent 36%);
-  filter: blur(30px);
+    radial-gradient(ellipse at bottom center, rgba(249, 126, 26, 0.18), transparent 58%),
+    radial-gradient(circle at 12% 82%, rgba(249, 126, 26, 0.09), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(232, 149, 72, 0.08), transparent 36%);
+  filter: blur(42px);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(18px);
   will-change: opacity, transform;
 }
 
 .footer-brand-word {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) translateY(55%);
-  font-family: var(--font-inter), Inter, sans-serif;
-  font-size: clamp(4rem, 16vw, 15rem);
-  font-weight: 900;
-  line-height: 0.75;
-  letter-spacing: -0.075em;
+  bottom: 2.5rem;
+  transform: translateX(-50%) translateY(30%);
+  font-family: utopian, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.10;
+  letter-spacing: 0.035em;
   text-transform: uppercase;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(249, 126, 26, 0.16);
+  -webkit-text-stroke: 1.15px rgba(249, 126, 26, 0.34);
   text-shadow:
-    0 0 32px rgba(249, 126, 26, 0.08),
-    0 0 90px rgba(249, 126, 26, 0.04);
+    0 0 24px rgba(249, 126, 26, 0.12),
+    0 0 80px rgba(249, 126, 26, 0.05);
+  font-size: clamp(4rem, 16vw, 15rem);
   opacity: 0;
   will-change: opacity, transform;
 }
@@ -244,7 +245,7 @@ body {
 @media (max-width: 640px) {
   .footer-brand-word {
     font-size: clamp(3.5rem, 22vw, 7rem);
-    -webkit-text-stroke: 1px rgba(249, 126, 26, 0.11);
+    -webkit-text-stroke: 1px rgba(249, 126, 26, 0.18);
   }
 
   .footer-glow-layer {

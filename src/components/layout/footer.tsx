@@ -32,14 +32,12 @@ export function Footer() {
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      if (glowRef.current) {
-        glowRef.current.style.opacity = "0.55";
-        glowRef.current.style.transform = "translateY(0px)";
-      }
-      if (brandRef.current) {
-        brandRef.current.style.opacity = "0.45";
-        brandRef.current.style.transform = "translate(-50%, 35%)";
-      }
+      gsap.set(glowRef.current, { opacity: 0.55, y: 0 });
+      gsap.set(brandRef.current, {
+        opacity: 0.62,
+        xPercent: -50,
+        yPercent: 12,
+      });
       return;
     }
 
@@ -63,11 +61,11 @@ export function Footer() {
       })
       .fromTo(brandRef.current, {
         opacity: 0,
-        yPercent: 55
+        yPercent: 30
       }, {
-        opacity: 0.55,
-        yPercent: 35,
-        duration: 1.4,
+        opacity: 0.72,
+        yPercent: 12,
+        duration: 1.25,
         ease: "power2.out"
       }, "<0.1");
     }, atmosphereRef);
@@ -94,7 +92,7 @@ export function Footer() {
         <div ref={brandRef} className="footer-brand-word">DXBMARK</div>
       </div>
       
-      <Container className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 pt-20 sm:pt-24 lg:pt-32">
+      <Container className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 pt-[55px] sm:pt-[66px] lg:pt-[87px]">
         {/* Brand Column (Wider - Spans 2 columns on large screens) */}
         <div className="flex flex-col gap-6 lg:col-span-2 text-left">
           <div className="flex items-center gap-1.5 font-sans text-2xl font-black tracking-tight text-text-main">
@@ -277,6 +275,9 @@ export function Footer() {
           &copy; {currentYear} DXBMARK LLC. All rights reserved.
         </p>
       </Container>
+
+      {/* Visual spacer for background brand word and glow */}
+      <div aria-hidden="true" className="h-[65px] sm:h-[97px] lg:h-[129px]" />
     </footer>
   );
 }

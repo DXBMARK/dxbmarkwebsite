@@ -45,6 +45,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
+      </head>
       <body className="min-h-full flex flex-col bg-background-slate text-text-main pt-20" suppressHydrationWarning>
         <Script
           id="Cookiebot"
