@@ -11,6 +11,7 @@ import { SeparatorPro } from "@/components/ui/separator-pro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/layout";
 import { Glow } from "@/components/visual";
+import { ContactFAQStack } from "@/components/contact/ContactFAQStack";
 
 // Conditional Form Option Constants
 const SERVICE_OPTIONS = [
@@ -1618,6 +1619,8 @@ export default function ContactSection() {
             )}
           </form>
         </div>
+
+        <ContactFAQStack className="mt-20 sm:mt-24 lg:mt-28" />
 
       </Container>
     </section>
