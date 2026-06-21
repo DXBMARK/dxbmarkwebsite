@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { ArrowRight, Mail, Phone, Clock, MapPin, Star } from "lucide-react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getCountries, getCountryCallingCode, parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js/max";
 
 import GlobeWireframe from "@/components/ui/globe-wireframe";
 import { SeparatorPro } from "@/components/ui/separator-pro";
@@ -90,6 +91,7 @@ export default function ContactSection() {
   const formRef = useRef<HTMLDivElement | null>(null);
 
   const [isDesktop, setIsDesktop] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Validation & notices state
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -106,7 +108,116 @@ export default function ContactSection() {
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
+
+  // Linked phone and country validation states
+  const [countryCode, setCountryCode] = useState<CountryCode>("AE");
+  const [countryName, setCountryName] = useState("United Arab Emirates");
+  const [callingCode, setCallingCode] = useState("+971");
+  const [phoneE164, setPhoneE164] = useState("");
+  const [phoneValidationType, setPhoneValidationType] = useState("");
+
+  // Generate list of countries dynamically using libphonenumber-js and native display names
+  const countriesList = useMemo(() => {
+    const codes = getCountries();
+    let displayNames: Intl.DisplayNames | null = null;
+    try {
+      displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
+    } catch {}
+
+    const fallbackNames: Record<string, string> = {
+      AE: "United Arab Emirates",
+      EG: "Egypt",
+      GB: "United Kingdom",
+      US: "United States"
+    };
+
+    const list = codes.map(code => {
+      let name = code as string;
+      if (displayNames) {
+        try {
+          name = displayNames.of(code) || code;
+        } catch {
+          name = fallbackNames[code] || code;
+        }
+      } else {
+        name = fallbackNames[code] || code;
+      }
+      
+      let callingCodeVal = '';
+      try {
+        callingCodeVal = getCountryCallingCode(code);
+      } catch {}
+      
+      // Flag emoji generator helper
+      let emoji = '';
+      try {
+        const codePoints = code.toUpperCase().split('').map(char => 127397 + char.charCodeAt(0));
+        emoji = String.fromCodePoint(...codePoints);
+      } catch {}
+
+      return {
+        code: code as CountryCode,
+        name,
+        callingCode: callingCodeVal ? `+${callingCodeVal}` : '',
+        emoji
+      };
+    }).filter(c => c.callingCode);
+
+    // Pre-sort and pin key markets: AE, EG, GB, US
+    const pinnedCodes: CountryCode[] = ['AE', 'EG', 'GB', 'US'];
+    const pinned = list.filter(c => pinnedCodes.includes(c.code));
+    pinned.sort((a, b) => pinnedCodes.indexOf(a.code) - pinnedCodes.indexOf(b.code));
+    
+    const others = list.filter(c => !pinnedCodes.includes(c.code));
+    others.sort((a, b) => a.name.localeCompare(b.name));
+
+    return [...pinned, ...others];
+  }, []);
+
+  // Validate phone number locally and normalize it
+  // Some countries do not expose strict mobile type metadata. Server-side validation must repeat this check before production routing.
+  const validatePhoneInput = (val: string, cc: CountryCode, callCode: string): boolean => {
+    const trimmed = val.trim();
+    if (!trimmed) {
+      setPhoneE164("");
+      setPhoneValidationType("");
+      return false;
+    }
+
+    let searchVal = trimmed;
+    // Prefix calling code if not already present
+    if (!searchVal.startsWith('+') && !searchVal.startsWith(callCode)) {
+      searchVal = `${callCode}${searchVal}`;
+    } else if (!searchVal.startsWith('+') && searchVal.startsWith(callCode.replace('+', ''))) {
+      searchVal = `+${searchVal}`;
+    }
+
+    try {
+      const parsed = parsePhoneNumberFromString(searchVal, cc);
+      if (!parsed || !parsed.isValid()) {
+        setPhoneE164("");
+        setPhoneValidationType("");
+        return false;
+      }
+
+      const type = parsed.getType();
+      const isValidType = type === "MOBILE" || type === "FIXED_LINE_OR_MOBILE";
+      
+      if (!isValidType) {
+        setPhoneE164("");
+        setPhoneValidationType("");
+        return false;
+      }
+
+      setPhoneE164(parsed.number);
+      setPhoneValidationType(type || "MOBILE");
+      return true;
+    } catch {
+      setPhoneE164("");
+      setPhoneValidationType("");
+      return false;
+    }
+  };
 
   // Conditional fields states - New Project
   const [newProjectStep, setNewProjectStep] = useState<number>(0);
@@ -141,6 +252,15 @@ export default function ContactSection() {
     return {
       messageType,
       contact: {
+        fullName,
+        company,
+        email,
+        phone,
+        countryCode,
+        countryName,
+        callingCode,
+        phoneE164,
+        phoneValidationType,
         preferredContactMethod,
         preferredLanguage,
       },
@@ -186,7 +306,15 @@ export default function ContactSection() {
     };
     checkViewport();
     window.addEventListener("resize", checkViewport);
-    return () => window.removeEventListener("resize", checkViewport);
+    
+    const raf = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+
+    return () => {
+      window.removeEventListener("resize", checkViewport);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
@@ -322,8 +450,13 @@ export default function ContactSection() {
     }
     if (!phone.trim()) {
       errors.phone = "Phone number is required";
+    } else {
+      const isPhoneValid = validatePhoneInput(phone, countryCode, callingCode);
+      if (!isPhoneValid) {
+        errors.phone = "Please enter a valid mobile number for the selected country.";
+      }
     }
-    if (!country.trim()) {
+    if (!countryCode) {
       errors.country = "Country / Region is required";
     }
     if (!preferredLanguage) {
@@ -721,14 +854,86 @@ export default function ContactSection() {
                   )}
                 </Field>
 
+                <Field label="Country / Region *">
+                  {!mounted ? (
+                    <select className={fieldClassName} disabled>
+                      <option className="bg-background-slate text-text-main">Loading regions...</option>
+                    </select>
+                  ) : (
+                    <select
+                      name="countryCode"
+                      value={countryCode}
+                      onChange={(e) => {
+                        const code = e.target.value as CountryCode;
+                        const selected = countriesList.find(c => c.code === code);
+                        if (selected) {
+                          setCountryCode(code);
+                          setCountryName(selected.name);
+                          setCallingCode(selected.callingCode);
+                          
+                          // Re-validate phone dynamically if it has value
+                          if (phone.trim()) {
+                            const isValid = validatePhoneInput(phone, code, selected.callingCode);
+                            if (isValid) {
+                              setFormErrors((prev) => {
+                                const copy = { ...prev };
+                                delete copy.phone;
+                                return copy;
+                              });
+                            } else {
+                              setFormErrors((prev) => ({
+                                ...prev,
+                                phone: "Please enter a valid mobile number for the selected country."
+                              }));
+                            }
+                          }
+                        }
+                        
+                        if (formErrors.country) {
+                          setFormErrors((prev) => {
+                            const copy = { ...prev };
+                            delete copy.country;
+                            return copy;
+                          });
+                        }
+                      }}
+                      className={fieldClassName}
+                    >
+                      <option value="" className="bg-background-slate text-text-main">Select Country / Region</option>
+                      {countriesList.map((c) => (
+                        <option key={c.code} value={c.code} className="bg-background-slate text-text-main">
+                          {c.emoji} {c.name} ({c.callingCode})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {formErrors.country && (
+                    <span className="text-[11px] text-red-400 font-medium mt-1 block">
+                      {formErrors.country}
+                    </span>
+                  )}
+                </Field>
+
                 <Field label="Phone Number *">
                   <input
                     type="tel"
                     name="phone"
                     value={phone}
                     onChange={(e) => {
-                      setPhone(e.target.value);
-                      if (formErrors.phone) {
+                      const val = e.target.value;
+                      setPhone(val);
+                      
+                      // Validate dynamically as the user types
+                      if (val.trim()) {
+                        const isValid = validatePhoneInput(val, countryCode, callingCode);
+                        if (isValid) {
+                          setFormErrors((prev) => {
+                            const copy = { ...prev };
+                            delete copy.phone;
+                            return copy;
+                          });
+                        }
+                      } else {
                         setFormErrors((prev) => {
                           const copy = { ...prev };
                           delete copy.phone;
@@ -736,39 +941,12 @@ export default function ContactSection() {
                         });
                       }
                     }}
-                    placeholder="+971 50 000 0000"
-                    required
+                    placeholder={`${callingCode} 50 000 0000`}
                     className={fieldClassName}
                   />
                   {formErrors.phone && (
                     <span className="text-[11px] text-red-400 font-medium mt-1 block">
                       {formErrors.phone}
-                    </span>
-                  )}
-                </Field>
-
-                <Field label="Country / Region *">
-                  <input
-                    type="text"
-                    name="country"
-                    value={country}
-                    onChange={(e) => {
-                      setCountry(e.target.value);
-                      if (formErrors.country) {
-                        setFormErrors((prev) => {
-                          const copy = { ...prev };
-                          delete copy.country;
-                          return copy;
-                        });
-                      }
-                    }}
-                    placeholder="Your country or region"
-                    required
-                    className={fieldClassName}
-                  />
-                  {formErrors.country && (
-                    <span className="text-[11px] text-red-400 font-medium mt-1 block">
-                      {formErrors.country}
                     </span>
                   )}
                 </Field>

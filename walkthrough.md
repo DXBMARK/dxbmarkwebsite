@@ -1,43 +1,49 @@
-# DXBMARK Final Implementation Report - Contact FAQ Polish & Content Balancing
+# DXBMARK Final Implementation Report - Contact Form Country & Phone Validation Linkage
 
 - **Constitution Version**: `v2.2`
 - **Files Inspected**:
-  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx)
-  - [contact-faq.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/content/faqs/contact-faq.ts)
-- **Files Created**:
-  - None (reused previous files).
-- **Files Modified**:
-  - [contact-faq.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/content/faqs/contact-faq.ts) (Added targeted bullets for cards 02, 03, 04, 05, and 08 to balance layout density)
-  - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md)
-- **Files Explicitly Not Touched**:
-  - [FAQCard.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/faq/FAQCard.tsx)
-  - [FAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/faq/FAQStack.tsx)
-  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx)
-  - [layer-stack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/ui/layer-stack.tsx)
-  - [progress.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/ui/progress.tsx)
   - [ContactSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactSection.tsx)
-  - All Header, Footer, Hero components, and Legal pages.
+  - [package.json](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/package.json)
+- **Files Changed**:
+  - [ContactSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactSection.tsx)
+  - [package.json](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/package.json)
+  - [package-lock.json](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/package-lock.json)
+  - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md)
+- **Packages Installed**:
+  - `libphonenumber-js` (Newly installed, types included)
+  - `react-phone-number-input` (Newly installed, not imported in code to keep UX custom and native)
 
-- **Content Balance Summary**:
-  - Card 01: Kept concise and clear.
-  - Card 02: Added bullets for goal, current system, timeline, and main challenge.
-  - Card 03: Added bullets for review request, routing, next steps, and follow-ups.
-  - Card 04: Added bullets for audit, friction, recommendations, and quick wins.
-  - Card 05: Added bullets for websites, SaaS, automation, and cloud integrations.
-  - Card 06: Maintained data security details with clean links.
-  - Card 07: Maintained clear AI training terms and legal policy links.
-  - Card 08: Added bullets specifying terms dependencies, controlling agreement, and non-refundable fees.
+- **Country Dropdown & Linkage Result**:
+  - Reordered the fields so `Country / Region` select appears before `Phone Number`.
+  - Replaced free-text input with a custom `<select>` styled using DXBMARK dark glass design tokens.
+  - Dynamically resolved and localized country list using `getCountries()` from `libphonenumber-js/max` and native `Intl.DisplayNames` (with a safe static fallback for key markets: UAE, Egypt, UK, US).
+  - Automatically prepends country flag emojis (using char code conversion) and calling codes (e.g. `🇦🇪 United Arab Emirates (+971)`).
+  - Updates the phone placeholder (e.g. `+971 50 000 0000`) dynamically when a new country is selected.
+
+- **Phone Validation Result**:
+  - Integrated local mobile validation using `libphonenumber-js/max` parsing metadata inside `handleSubmit` and onChange.
+  - Limits acceptable types to `MOBILE` and `FIXED_LINE_OR_MOBILE` (to handle fallback regions gracefully), rejecting landlines and invalid formats.
+  - Shows custom controlled inline warning: `"Please enter a valid mobile number for the selected country."`
+
+- **Payload Structure Result**:
+  - Upgraded `buildContactPayload` to serialize:
+    - `fullName`
+    - `company`
+    - `email`
+    - `phone` (raw string input)
+    - `countryCode` (e.g., `AE`)
+    - `countryName` (e.g., `United Arab Emirates`)
+    - `callingCode` (e.g., `+971`)
+    - `phoneE164` (normalized standard string, e.g., `+971505121583`)
+    - `phoneValidationType` (e.g., `MOBILE`)
 
 - **Validation Command Results**:
-  - `npm run typecheck`: Passed successfully (0 errors)
-  - `npx eslint src`: Passed successfully (0 errors)
-  - `npm run build`: Passed successfully (0 errors)
+  - `npm run typecheck`: Passed with 0 errors.
+  - `npx eslint src`: Passed with 0 errors.
+  - `npm run build`: Passed with 0 errors (compiled Next.js Turbopack build successfully).
 
-- **Visual Evidence Status**:
-  - Visual QA not confirmed (due to browser subagent initialization issue).
-
-- **Confirmation No Backend Added**: Confirmed.
+- **Confirmation No Backend Added**: Confirmed (frontend validation only; added comments for future server-side validation and Reply-To email behavior).
 - **Confirmation No Turnstile Added**: Confirmed.
-- **Confirmation No Home FAQ Added**: Confirmed.
+- **Git State**: Untracked modifications and lockfile updates staged locally. Not committed or pushed in this turn as requested.
 
 Built with ❤️ by [DXBMARK LLC](https://dxbmark.com/)

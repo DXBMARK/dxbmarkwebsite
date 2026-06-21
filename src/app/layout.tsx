@@ -47,8 +47,6 @@ export default function RootLayout({
     >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
-      </head>
-      <body className="min-h-full flex flex-col bg-background-slate text-text-main pt-20" suppressHydrationWarning>
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"
@@ -56,6 +54,8 @@ export default function RootLayout({
           data-blockingmode="auto"
           strategy="beforeInteractive"
         />
+      </head>
+      <body className="min-h-full flex flex-col bg-background-slate text-text-main pt-20" suppressHydrationWarning>
         <Header />
         {children}
         <Footer />
