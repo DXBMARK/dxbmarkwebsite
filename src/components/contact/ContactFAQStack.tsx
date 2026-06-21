@@ -50,15 +50,15 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'How do we handle customer data?',
-    answer: 'We use customer information only for agreed business purposes.',
+    answer: 'We use customer information only for agreed service purposes.',
     bullets: [
       'Service delivery',
-      'Support communication',
+      'Support',
       'Billing and security',
       'Project operations',
     ],
     closing: (
-      <div className="space-y-2">
+      <div className="space-y-3">
         <p>We do not sell personal data or use it for unrelated marketing.</p>
         <p className="pt-1">
           <a
@@ -75,10 +75,10 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'Do we train AI on client data?',
-    answer: 'No. We do not use client personal data, payment data, confidential project data, or production data to train public AI models.',
+    answer: 'No. We do not use client personal, payment, confidential project, production, or customer-owned business data to train public AI models.',
     closing: (
-      <div className="space-y-2">
-        <p>If AI tools are used in a workflow, they must follow the agreed privacy, security, and customer authorization rules.</p>
+      <div className="space-y-3">
+        <p>AI-assisted workflows must follow the applicable agreement, privacy rules, security requirements, and customer authorization.</p>
         <p className="pt-1">
           <a
             href="/legal/security-statement"
@@ -86,7 +86,7 @@ const CONTACT_FAQS: FAQItem[] = [
             rel="noopener noreferrer"
             className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
           >
-            Review the Security Statement
+            Security Statement
           </a>
           {' '}and{' '}
           <a
@@ -105,14 +105,14 @@ const CONTACT_FAQS: FAQItem[] = [
   {
     question: 'Do you have a refund or cancellation policy?',
     answer: (
-      <div className="space-y-3">
-        <p className="font-body text-sm leading-relaxed text-text-sub">
+      <div className="space-y-3 font-body text-xs sm:text-sm leading-relaxed text-text-sub">
+        <p>
           Yes. Refund and cancellation terms depend on the service type, project stage, and written agreement.
         </p>
-        <p className="font-body text-sm leading-relaxed text-text-sub">
+        <p>
           Custom project deposits, setup, onboarding, discovery, and development fees are generally non-refundable once work has started, unless required by law or stated in the agreement.
         </p>
-        <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
+        <p className="pt-1">
           <a
             href="/legal/refund-cancellation"
             target="_blank"
@@ -203,7 +203,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
           <LayerStack
             cardWidth={390}
             cardGap={18}
-            stageHeight={460}
+            stageHeight={500}
             lastCardFullWidth
             mobileSensitivity={1.6}
           >
@@ -212,10 +212,10 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                 key={item.question}
                 className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.035] hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-3xl transition-all duration-300'
               >
-                <article className='relative flex h-full flex-col justify-between gap-5 p-6 md:p-8 text-left'>
+                <article className='relative flex h-full flex-col justify-between gap-3 p-5 md:p-6 text-left'>
                   <div
                     aria-hidden='true'
-                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-[0.08]'
+                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-[0.06]'
                   />
 
                   <div className='relative z-10 flex items-center justify-between'>
@@ -225,21 +225,21 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                     <span className='h-2 w-2 rounded-full bg-brand-primary/70 shadow-[0_0_8px_var(--color-accent-primary)]' />
                   </div>
 
-                  <div className='relative z-10 flex-1 space-y-4'>
+                  <div className='relative z-10 flex-1 space-y-3'>
                     <div className='h-px w-10 bg-brand-primary/60' />
 
-                    <h3 className='max-w-[26rem] font-sans text-lg font-extrabold sm:text-xl md:text-2xl leading-tight tracking-tight text-text-main'>
+                    <h3 className='max-w-[26rem] font-sans text-lg font-extrabold sm:text-xl leading-tight tracking-tight text-text-main'>
                       {item.question}
                     </h3>
 
                     {item.answer && (
-                      <div className='font-body text-sm leading-relaxed text-text-sub'>
+                      <div className='font-body text-xs sm:text-sm leading-relaxed text-text-sub'>
                         {item.answer}
                       </div>
                     )}
 
                     {item.bullets && item.bullets.length > 0 && (
-                      <ul className='grid gap-1.5 font-body text-sm leading-relaxed text-text-sub'>
+                      <ul className='grid gap-1.5 font-body text-xs sm:text-sm leading-relaxed text-text-sub'>
                         {item.bullets.map((bullet) => (
                           <li key={bullet} className='flex gap-2 items-start'>
                             <span className='mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary' />
@@ -250,13 +250,13 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                     )}
 
                     {item.closing && (
-                      <div className='font-body text-sm leading-relaxed text-text-sub'>
+                      <div className='font-body text-xs sm:text-sm leading-relaxed text-text-sub'>
                         {item.closing}
                       </div>
                     )}
                   </div>
 
-                  <div className='relative z-10 border-t border-border-soft-val pt-4'>
+                  <div className='relative z-10 border-t border-border-soft-val pt-3'>
                     <p className='font-label text-[10px] uppercase tracking-[0.16em] text-text-muted-gray'>
                       Question {index + 1} of {CONTACT_FAQS.length}
                     </p>
