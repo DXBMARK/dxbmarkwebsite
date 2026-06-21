@@ -49,17 +49,17 @@ const CONTACT_FAQS: FAQItem[] = [
       'We work on websites, web applications, SaaS platforms, automation workflows, integrations, cloud and hosting infrastructure, dashboards, portals, managed hosting, and technical consulting for startups and growing businesses.',
   },
   {
-    question: 'How do you handle customer data and project information?',
-    answer: 'Use customer information only for agreed business purposes:',
+    question: 'How do we handle customer data?',
+    answer: 'We use customer information only for agreed business purposes:',
     bullets: [
       'Service delivery',
       'Communication and support',
-      'Billing and security',
+      'Billing, security, and account administration',
       'Project operations',
     ],
     closing: (
       <div className="space-y-2">
-        <p>We do not sell personal data or use customer information for unrelated marketing.</p>
+        <p>We never sell personal data or use customer information for unrelated marketing.</p>
         <p className="pt-1">
           <a
             href="/legal/privacy-policy"
@@ -74,7 +74,7 @@ const CONTACT_FAQS: FAQItem[] = [
     ),
   },
   {
-    question: 'Do you train AI models on customer data?',
+    question: 'Do we train AI on customer data?',
     answer: 'No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data.',
     closing: (
       <div className="space-y-2">

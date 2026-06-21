@@ -1,8 +1,8 @@
-# DXBMARK Final Implementation Report - Contact FAQ Polish (Phase 2C.2 Layout Updates)
+# DXBMARK Final Implementation Report - Contact FAQ Polish (Phase 2C.2 Content Refinements)
 
 - **Constitution Version**: `v2.2`
 - **Files Changed**:
-  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Updated bullets to a 2-column grid layout for Q1 and Q6 to optimize height; set backdrop blur to `backdrop-blur-3xl`)
+  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Refined copy and questions for Card 06 and Card 07; setup target='_blank' links separately for security statement and privacy policy)
   - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md) (Updated final report in project root)
 - **Whether layer-stack.tsx was changed or not**: Not changed.
 - **Final stageHeight value**: `440` (Desktop).
