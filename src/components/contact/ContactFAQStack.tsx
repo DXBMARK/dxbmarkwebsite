@@ -50,13 +50,31 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'How do we handle customer data?',
-    answer: 'We use customer information only for agreed business purposes:',
-    bullets: [
-      'Service delivery',
-      'Support and communication',
-      'Billing and security',
-      'Project operations',
-    ],
+    answer: (
+      <div className="space-y-3">
+        <p className="font-body text-sm leading-relaxed text-text-sub">
+          We use customer information only for agreed business purposes:
+        </p>
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-2 font-body text-xs sm:text-sm leading-relaxed text-text-sub">
+          <li className="flex gap-2 items-start">
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>Service delivery</span>
+          </li>
+          <li className="flex gap-2 items-start">
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>Support and communication</span>
+          </li>
+          <li className="flex gap-2 items-start">
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>Billing and security</span>
+          </li>
+          <li className="flex gap-2 items-start">
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>Project operations</span>
+          </li>
+        </ul>
+      </div>
+    ),
     closing: (
       <div className="space-y-2">
         <p>We do not sell personal data or use customer information for unrelated marketing.</p>
