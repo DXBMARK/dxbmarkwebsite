@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { motion } from 'motion/react';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LayerStack, Card } from '@/components/ui/layer-stack';
 
@@ -20,14 +19,14 @@ interface ContactFAQStackProps {
 const CONTACT_FAQS: FAQItem[] = [
   {
     question: 'Will you help solve my business problem?',
-    answer: 'We start by understanding the problem before suggesting a solution:',
+    answer: 'Yes — we start by understanding the real problem before recommending a solution.',
     bullets: [
-      'Review the business goal.',
-      'Review the current workflow.',
-      'Identify the technical gap.',
-      'Recommend the most practical next step.',
+      'Business goal',
+      'Current workflow',
+      'Technical gap',
+      'Practical next step',
     ],
-    closing: 'If we are not the right fit, we will say that clearly and guide you toward a better direction.',
+    closing: 'If we are not the right fit, we will say that clearly.',
   },
   {
     question: 'Do I need a full technical brief before contacting you?',
@@ -54,26 +53,31 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          We process information in alignment with agreed business purposes:
+          We use customer information only for agreed business purposes such as service delivery, communication, support, billing, security, and project operations.
         </p>
         <ul className="grid gap-2 font-body text-sm leading-relaxed text-text-sub">
-          <li className="flex gap-2 items-start">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>We use customer information for service delivery, communication, support, billing, security, and agreed business purposes.</span>
-          </li>
           <li className="flex gap-2 items-start">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
             <span>We do not sell personal data.</span>
           </li>
           <li className="flex gap-2 items-start">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>We do not share customer information for independent third-party marketing without consent.</span>
+            <span>We do not use customer data for unrelated marketing.</span>
+          </li>
+          <li className="flex gap-2 items-start">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>We protect project information according to the applicable agreement and policies.</span>
           </li>
         </ul>
         <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
-          <Link href="/legal/privacy-policy" className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4">
+          <a
+            href="/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
+          >
             Read the Privacy Policy for full details.
-          </Link>
+          </a>
         </p>
       </div>
     ),
@@ -83,17 +87,30 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data. If AI-assisted tools are used in a workflow, they must follow the applicable agreement, privacy rules, security requirements, and customer authorization.
+          No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data.
         </p>
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          <Link href="/legal/security-statement" className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4">
+          If AI-assisted tools are used, they must follow the applicable agreement, privacy rules, security requirements, and customer authorization.
+        </p>
+        <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
+          <a
+            href="/legal/security-statement"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
+          >
             Review the Security Statement
-          </Link>
+          </a>
           {' '}and{' '}
-          <Link href="/legal/privacy-policy" className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4">
+          <a
+            href="/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
+          >
             Privacy Policy
-          </Link>
-          {' '}for more information.
+          </a>
+          .
         </p>
       </div>
     ),
@@ -103,12 +120,20 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          Yes. Refund and cancellation terms depend on the service type, payment stage, and written agreement. Custom project deposits, milestone payments, setup fees, onboarding fees, discovery fees, and development fees are generally non-refundable once work has started, except where required by law or stated in the applicable agreement.
+          Yes. Refund and cancellation terms depend on the service type, payment stage, and written agreement.
         </p>
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          <Link href="/legal/refund-cancellation" className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4">
+          Custom project deposits, milestone payments, setup fees, onboarding fees, discovery fees, and development fees are generally non-refundable once work has started, except where required by law or stated in the applicable agreement.
+        </p>
+        <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
+          <a
+            href="/legal/refund-cancellation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
+          >
             Read the Refund and Cancellation Policy for full details.
-          </Link>
+          </a>
         </p>
       </div>
     ),
@@ -198,12 +223,12 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
             {CONTACT_FAQS.map((item, index) => (
               <Card
                 key={item.question}
-                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.03] hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-xl transition-all duration-300'
+                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-background-dark/95 hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-2xl transition-all duration-300'
               >
                 <article className='relative flex h-full flex-col justify-between gap-5 p-6 md:p-8 text-left'>
                   <div
                     aria-hidden='true'
-                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,var(--color-accent-glow),transparent_34%)] opacity-30'
+                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,var(--color-accent-glow),transparent_34%)] opacity-15'
                   />
 
                   <div className='relative z-10 flex items-center justify-between'>
