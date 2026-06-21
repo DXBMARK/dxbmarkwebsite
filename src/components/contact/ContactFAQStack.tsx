@@ -50,34 +50,16 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'How do we handle customer data?',
-    answer: (
-      <div className="space-y-3">
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          We use customer information only for agreed business purposes:
-        </p>
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-2 font-body text-xs sm:text-sm leading-relaxed text-text-sub">
-          <li className="flex gap-2 items-start">
-            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Service delivery</span>
-          </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Support and communication</span>
-          </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Billing and security</span>
-          </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Project operations</span>
-          </li>
-        </ul>
-      </div>
-    ),
+    answer: 'We use customer information only for agreed business purposes.',
+    bullets: [
+      'Service delivery',
+      'Support communication',
+      'Billing and security',
+      'Project operations',
+    ],
     closing: (
       <div className="space-y-2">
-        <p>We do not sell personal data or use customer information for unrelated marketing.</p>
+        <p>We do not sell personal data or use it for unrelated marketing.</p>
         <p className="pt-1">
           <a
             href="/legal/privacy-policy"
@@ -221,7 +203,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
           <LayerStack
             cardWidth={390}
             cardGap={18}
-            stageHeight={440}
+            stageHeight={460}
             lastCardFullWidth
             mobileSensitivity={1.6}
           >
@@ -233,7 +215,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                 <article className='relative flex h-full flex-col justify-between gap-5 p-6 md:p-8 text-left'>
                   <div
                     aria-hidden='true'
-                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-10'
+                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-[0.08]'
                   />
 
                   <div className='relative z-10 flex items-center justify-between'>
