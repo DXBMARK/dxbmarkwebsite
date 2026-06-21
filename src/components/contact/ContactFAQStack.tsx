@@ -55,21 +55,21 @@ const CONTACT_FAQS: FAQItem[] = [
         <p className="font-body text-sm leading-relaxed text-text-sub">
           Use customer information only for agreed business purposes:
         </p>
-        <ul className="grid gap-1.5 font-body text-sm leading-relaxed text-text-sub">
-          <li className="flex gap-2 items-start">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-2 font-body text-sm leading-relaxed text-text-sub">
+          <li className="flex gap-2 items-center">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
             <span>Service delivery</span>
           </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+          <li className="flex gap-2 items-center">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
             <span>Communication and support</span>
           </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+          <li className="flex gap-2 items-center">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
             <span>Billing and security</span>
           </li>
-          <li className="flex gap-2 items-start">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+          <li className="flex gap-2 items-center">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
             <span>Project operations</span>
           </li>
         </ul>
@@ -230,7 +230,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
             {CONTACT_FAQS.map((item, index) => (
               <Card
                 key={item.question}
-                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.035] hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-[28px] transition-all duration-300'
+                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.035] hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-3xl transition-all duration-300'
               >
                 <article className='relative flex h-full flex-col justify-between gap-5 p-6 md:p-8 text-left'>
                   <div
@@ -259,10 +259,10 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                     )}
 
                     {item.bullets && item.bullets.length > 0 && (
-                      <ul className='grid gap-2 font-body text-sm leading-relaxed text-text-sub'>
+                      <ul className='grid grid-cols-2 gap-x-4 gap-y-2 font-body text-sm leading-relaxed text-text-sub'>
                         {item.bullets.map((bullet) => (
-                          <li key={bullet} className='flex gap-2 items-start'>
-                            <span className='mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary' />
+                          <li key={bullet} className='flex gap-2 items-center'>
+                            <span className='h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary' />
                             <span>{bullet}</span>
                           </li>
                         ))}

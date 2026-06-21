@@ -1,13 +1,13 @@
-# DXBMARK Final Implementation Report - Contact FAQ Polish (Phase 2C.2)
+# DXBMARK Final Implementation Report - Contact FAQ Polish (Phase 2C.2 Layout Updates)
 
 - **Constitution Version**: `v2.2`
 - **Files Changed**:
-  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Updated copy density, darkened base glass card, reduced internal glow opacity, and configured all legal links to open in a new tab)
+  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Updated bullets to a 2-column grid layout for Q1 and Q6 to optimize height; set backdrop blur to `backdrop-blur-3xl`)
   - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md) (Updated final report in project root)
-- **Whether layer-stack.tsx was changed or not**: Not changed (the dynamic auto height calculations already support responsive layout height updates on mobile).
+- **Whether layer-stack.tsx was changed or not**: Not changed.
 - **Final stageHeight value**: `440` (Desktop).
 - **Final card background/blur classes**:
-  - Background & Blur: `bg-white/[0.035] backdrop-blur-[28px] border border-border-soft-val shadow-shadow-card`
+  - Background & Blur: `bg-white/[0.035] backdrop-blur-3xl border border-border-soft-val shadow-shadow-card`
   - Spotlight Glare Overlay: `bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-10`
 - **Confirmation Card 01 no longer clips**: Confirmed.
 - **Confirmation Cards 06/07/08 readable**: Confirmed.
