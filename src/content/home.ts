@@ -22,5 +22,9 @@ export const HOME_HERO_CONTENT = {
       label: "Northern Estates logo",
       src: "/assets/trust-logos/northernestates.webp",
     },
+    {
+      label: "Fizah Grocers logo",
+      src: "/assets/trust-logos/fizahgrocers.webp",
+    },
   ],
 };

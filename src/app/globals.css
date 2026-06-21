@@ -197,7 +197,7 @@ body {
 }
 
 .animate-dxb-marquee {
-  animation: dxb-hero-marquee 50s linear infinite;
+  animation: dxb-hero-marquee 33.3s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -281,4 +281,42 @@ body {
 .contact-input option {
   background: #0f172a;
   color: white;
+}
+
+/* Service Card Mouse-Tracking Hover Glow */
+.service-card-glow {
+  background:
+    radial-gradient(
+      260px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in srgb, var(--color-accent-primary) 22%, transparent),
+      transparent 58%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card {
+    transform: none !important;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .service-card-glow {
+    display: none;
+  }
+}
+
+/* Custom adjustments for Hero Trust Logos */
+.hero-trust-logos-elem {
+  position: relative !important;
+  top: -16px !important;
+}
+
+.hero-trust-logos-elem img {
+  filter: grayscale(1) brightness(0.88) contrast(0.95) !important;
+  opacity: 0.90 !important;
+}
+
+.hero-trust-logos-elem img:hover {
+  filter: grayscale(0) brightness(1) contrast(1) !important;
+  opacity: 1 !important;
+  transform: scale(1.03) !important;
 }

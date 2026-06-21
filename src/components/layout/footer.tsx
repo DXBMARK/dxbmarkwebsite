@@ -78,7 +78,7 @@ export function Footer() {
 
   return (
     <footer 
-      className="relative overflow-visible z-20 w-full bg-[#0a101d] pb-16 text-text-muted-gray shadow-[0_-10px_30px_-5px_rgba(249,126,26,0.05)] mt-24"
+      className="relative overflow-visible z-20 w-full bg-[#0a101d] pb-16 text-text-muted-gray shadow-[0_-10px_30px_-5px_rgba(249,126,26,0.05)] mt-36"
       aria-label="DXBMARK footer"
     >
       <FooterSvgDivider />

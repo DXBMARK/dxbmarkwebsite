@@ -10,18 +10,22 @@ interface HeroScrollCueProps {
 export function HeroScrollCue({ className }: HeroScrollCueProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document.getElementById("next-section")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    const target = document.getElementById("services");
+    if (target) {
+      const targetTop = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: targetTop,
+        behavior: "smooth"
+      });
+    }
   };
 
   return (
     <a 
-      href="#next-section"
+      href="#services"
       onClick={handleClick}
       className={cn(
-        "hero-scroll-cue flex flex-col items-center gap-2 pointer-events-auto cursor-pointer z-10 select-none group",
+        "hero-scroll-cue opacity-0 flex flex-col items-center gap-2 pointer-events-auto cursor-pointer z-10 select-none group",
         className || "absolute bottom-8 left-1/2 -translate-x-1/2"
       )}
       aria-label="Scroll to explore"

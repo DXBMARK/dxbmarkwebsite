@@ -55,18 +55,14 @@ export function useHeroMotion() {
         "-=0.4"
       );
 
-      // Scroll Trigger Animations
-      gsap.to(".hero-scroll-cue", {
-        opacity: 0,
-        y: 15,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "100px top",
-          scrub: true,
-        }
-      });
+      tl.fromTo(
+        ".hero-scroll-cue",
+        { opacity: 0, y: 0 },
+        { opacity: 1, y: -60, duration: 0.6 },
+        "-=0.4"
+      );
 
+      // Scroll Trigger Animations
       gsap.to(".hero-content-wrapper", {
         opacity: 0.9,
         y: 20,
