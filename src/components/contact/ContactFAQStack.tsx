@@ -50,33 +50,17 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'How do you handle customer data and project information?',
-    answer: (
-      <div className="space-y-3">
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          Use customer information only for agreed business purposes:
-        </p>
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-2 font-body text-sm leading-relaxed text-text-sub">
-          <li className="flex gap-2 items-center">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Service delivery</span>
-          </li>
-          <li className="flex gap-2 items-center">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Communication and support</span>
-          </li>
-          <li className="flex gap-2 items-center">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Billing and security</span>
-          </li>
-          <li className="flex gap-2 items-center">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>Project operations</span>
-          </li>
-        </ul>
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          We do not sell personal data or use customer information for unrelated marketing.
-        </p>
-        <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
+    answer: 'Use customer information only for agreed business purposes:',
+    bullets: [
+      'Service delivery',
+      'Communication and support',
+      'Billing and security',
+      'Project operations',
+    ],
+    closing: (
+      <div className="space-y-2">
+        <p>We do not sell personal data or use customer information for unrelated marketing.</p>
+        <p className="pt-1">
           <a
             href="/legal/privacy-policy"
             target="_blank"
@@ -91,15 +75,11 @@ const CONTACT_FAQS: FAQItem[] = [
   },
   {
     question: 'Do you train AI models on customer data?',
-    answer: (
-      <div className="space-y-3">
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data.
-        </p>
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          If AI-assisted tools are used, they must follow the applicable agreement, privacy rules, security requirements, and customer authorization.
-        </p>
-        <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
+    answer: 'No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data.',
+    closing: (
+      <div className="space-y-2">
+        <p>If AI-assisted tools are used, they must follow the applicable agreement, privacy rules, security requirements, and customer authorization.</p>
+        <p className="pt-1">
           <a
             href="/legal/security-statement"
             target="_blank"
