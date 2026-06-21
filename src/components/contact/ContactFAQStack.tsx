@@ -103,7 +103,7 @@ const CONTACT_FAQS: FAQItem[] = [
     ),
   },
   {
-    question: 'Do you have a refund or cancellation policy?',
+    question: 'Do we have a refund policy?',
     answer: (
       <div className="space-y-3 font-body text-xs sm:text-sm leading-relaxed text-text-sub">
         <p>
@@ -203,7 +203,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
           <LayerStack
             cardWidth={390}
             cardGap={18}
-            stageHeight={500}
+            stageHeight={460}
             lastCardFullWidth
             mobileSensitivity={1.6}
           >
