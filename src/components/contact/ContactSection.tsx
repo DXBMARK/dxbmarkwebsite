@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Mail, Phone, Clock, MapPin, Star, Globe } from "lucide-react";
+import { ArrowRight, Mail, Phone, Clock, MapPin, Star } from "lucide-react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -538,7 +538,9 @@ export default function ContactSection() {
                       </svg>
                     </a>
                     <a href="https://share.google/ukdlkEaeQyY8yI51l" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2.5 rounded-radius-default bg-white/5 border border-border-soft-val text-text-sub hover:bg-brand-primary/10 hover:border-brand-primary/45 hover:text-text-main transition-all duration-300" aria-label="Google Business Profile">
-                      <Globe className="h-5 w-5" aria-hidden="true" />
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M13.365 2.83a9.25 9.25 0 0 1 4.744 2.089c.338.284.336.794.024 1.106l-1.616 1.616c-.312.312-.816.306-1.171.044a5.365 5.365 0 1 0 1.615 6.705h-3.91a.8.8 0 0 1-.8-.8V11.3a.8.8 0 0 1 .8-.8h7.493c.316 0 .61.186.681.495c.313 1.362-.125 3.246-.158 3.384l-.004.016c-.528 1.963-1.661 3.706-3.274 4.944a9.25 9.25 0 1 1-4.424-16.51"/>
+                      </svg>
                     </a>
                     <a href="https://github.com/dxbmark" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2.5 rounded-radius-default bg-white/5 border border-border-soft-val text-text-sub hover:bg-brand-primary/10 hover:border-brand-primary/45 hover:text-text-main transition-all duration-300" aria-label="GitHub Profile">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
