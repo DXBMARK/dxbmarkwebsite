@@ -53,13 +53,13 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: 'We use customer information only for agreed business purposes:',
     bullets: [
       'Service delivery',
-      'Communication and support',
-      'Billing, security, and account administration',
+      'Support and communication',
+      'Billing and security',
       'Project operations',
     ],
     closing: (
       <div className="space-y-2">
-        <p>We never sell personal data or use customer information for unrelated marketing.</p>
+        <p>We do not sell personal data or use customer information for unrelated marketing.</p>
         <p className="pt-1">
           <a
             href="/legal/privacy-policy"
@@ -67,18 +67,18 @@ const CONTACT_FAQS: FAQItem[] = [
             rel="noopener noreferrer"
             className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
           >
-            Read the Privacy Policy for full details.
+            Read the Privacy Policy.
           </a>
         </p>
       </div>
     ),
   },
   {
-    question: 'Do we train AI on customer data?',
-    answer: 'No. We do not intentionally train public AI models on customer personal data, payment data, confidential project data, production data, or customer-owned business data.',
+    question: 'Do we train AI on client data?',
+    answer: 'No. We do not use client personal data, payment data, confidential project data, or production data to train public AI models.',
     closing: (
       <div className="space-y-2">
-        <p>If AI-assisted tools are used, they must follow the applicable agreement, privacy rules, security requirements, and customer authorization.</p>
+        <p>If AI tools are used in a workflow, they must follow the agreed privacy, security, and customer authorization rules.</p>
         <p className="pt-1">
           <a
             href="/legal/security-statement"
@@ -228,7 +228,7 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                   <div className='relative z-10 flex-1 space-y-4'>
                     <div className='h-px w-10 bg-brand-primary/60' />
 
-                    <h3 className='max-w-[26rem] font-sans text-xl font-extrabold leading-tight tracking-tight text-text-main md:text-2xl'>
+                    <h3 className='max-w-[26rem] font-sans text-lg font-extrabold sm:text-xl md:text-2xl leading-tight tracking-tight text-text-main'>
                       {item.question}
                     </h3>
 
@@ -239,10 +239,10 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
                     )}
 
                     {item.bullets && item.bullets.length > 0 && (
-                      <ul className='grid grid-cols-2 gap-x-4 gap-y-2 font-body text-sm leading-relaxed text-text-sub'>
+                      <ul className='grid gap-1.5 font-body text-sm leading-relaxed text-text-sub'>
                         {item.bullets.map((bullet) => (
-                          <li key={bullet} className='flex gap-2 items-center'>
-                            <span className='h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary' />
+                          <li key={bullet} className='flex gap-2 items-start'>
+                            <span className='mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary' />
                             <span>{bullet}</span>
                           </li>
                         ))}
