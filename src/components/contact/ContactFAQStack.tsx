@@ -19,7 +19,7 @@ interface ContactFAQStackProps {
 const CONTACT_FAQS: FAQItem[] = [
   {
     question: 'Will you help solve my business problem?',
-    answer: 'Yes — we start by understanding the real problem before recommending a solution.',
+    answer: 'Yes. We start by understanding the real issue before recommending a solution.',
     bullets: [
       'Business goal',
       'Current workflow',
@@ -53,22 +53,29 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          We use customer information only for agreed business purposes such as service delivery, communication, support, billing, security, and project operations.
+          Use customer information only for agreed business purposes:
         </p>
-        <ul className="grid gap-2 font-body text-sm leading-relaxed text-text-sub">
+        <ul className="grid gap-1.5 font-body text-sm leading-relaxed text-text-sub">
           <li className="flex gap-2 items-start">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>We do not sell personal data.</span>
+            <span>Service delivery</span>
           </li>
           <li className="flex gap-2 items-start">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>We do not use customer data for unrelated marketing.</span>
+            <span>Communication and support</span>
           </li>
           <li className="flex gap-2 items-start">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
-            <span>We protect project information according to the applicable agreement and policies.</span>
+            <span>Billing and security</span>
+          </li>
+          <li className="flex gap-2 items-start">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>Project operations</span>
           </li>
         </ul>
+        <p className="font-body text-sm leading-relaxed text-text-sub">
+          We do not sell personal data or use customer information for unrelated marketing.
+        </p>
         <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
           <a
             href="/legal/privacy-policy"
@@ -120,10 +127,10 @@ const CONTACT_FAQS: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          Yes. Refund and cancellation terms depend on the service type, payment stage, and written agreement.
+          Yes. Refund and cancellation terms depend on the service type, project stage, and written agreement.
         </p>
         <p className="font-body text-sm leading-relaxed text-text-sub">
-          Custom project deposits, milestone payments, setup fees, onboarding fees, discovery fees, and development fees are generally non-refundable once work has started, except where required by law or stated in the applicable agreement.
+          Custom project deposits, setup, onboarding, discovery, and development fees are generally non-refundable once work has started, unless required by law or stated in the agreement.
         </p>
         <p className="font-body text-sm leading-relaxed text-text-sub pt-1">
           <a
@@ -132,7 +139,7 @@ const CONTACT_FAQS: FAQItem[] = [
             rel="noopener noreferrer"
             className="font-bold text-brand-primary hover:text-brand-secondary underline underline-offset-4"
           >
-            Read the Refund and Cancellation Policy for full details.
+            Read the Refund and Cancellation Policy.
           </a>
         </p>
       </div>
@@ -216,19 +223,19 @@ export function ContactFAQStack({ className }: ContactFAQStackProps) {
           <LayerStack
             cardWidth={390}
             cardGap={18}
-            stageHeight={390}
+            stageHeight={440}
             lastCardFullWidth
             mobileSensitivity={1.6}
           >
             {CONTACT_FAQS.map((item, index) => (
               <Card
                 key={item.question}
-                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-background-dark/95 hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-2xl transition-all duration-300'
+                className='overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.035] hover:border-border-strong-val text-text-main shadow-shadow-card backdrop-blur-[28px] transition-all duration-300'
               >
                 <article className='relative flex h-full flex-col justify-between gap-5 p-6 md:p-8 text-left'>
                   <div
                     aria-hidden='true'
-                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,var(--color-accent-glow),transparent_34%)] opacity-15'
+                    className='pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-10'
                   />
 
                   <div className='relative z-10 flex items-center justify-between'>

@@ -2,15 +2,16 @@
 
 - **Constitution Version**: `v2.2`
 - **Files Changed**:
-  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Updated with compressed copy for cards 01, 06, 07, and 08; adjusted card design styles; set legal links to open in new tabs)
-  - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md) (Updated walkthrough report)
-- **FAQ Count**: Exactly 8 FAQ cards.
-- **Card Sizing Result**: Kept `lastCardFullWidth={true}` while other cards retain standard dimensions inside the interactive Layer Stack. Sizing is balanced at `cardWidth={390}` and `stageHeight={390}` with zero clipping or text overflow.
-- **Legal Link Target Behavior**: Internal legal links use `<a target="_blank" rel="noopener noreferrer">` to open in new browser tabs.
-- **Contrast/Readability Result**:
-  - Darkened card background to `bg-background-dark/95` (using the official theme token equivalent) for maximum contrast against white text.
-  - Increased backdrop blur style to `backdrop-blur-2xl`.
-  - Reduced background radial glow opacity behind text to `opacity-15` to ensure white text remains extremely clear.
+  - [ContactFAQStack.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/contact/ContactFAQStack.tsx) (Updated copy density, darkened base glass card, reduced internal glow opacity, and configured all legal links to open in a new tab)
+  - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md) (Updated final report in project root)
+- **Whether layer-stack.tsx was changed or not**: Not changed (the dynamic auto height calculations already support responsive layout height updates on mobile).
+- **Final stageHeight value**: `440` (Desktop).
+- **Final card background/blur classes**:
+  - Background & Blur: `bg-white/[0.035] backdrop-blur-[28px] border border-border-soft-val shadow-shadow-card`
+  - Spotlight Glare Overlay: `bg-[radial-gradient(circle_at_0%_0%,var(--color-accent-glow),transparent_34%)] opacity-10`
+- **Confirmation Card 01 no longer clips**: Confirmed.
+- **Confirmation Cards 06/07/08 readable**: Confirmed.
+- **Confirmation legal links open in new tabs**: Confirmed (using `target="_blank" rel="noopener noreferrer"`).
 - **Validation Command Results**:
   - `npm run typecheck`: Passed with 0 errors.
   - `npx eslint src`: Passed with 0 errors.
