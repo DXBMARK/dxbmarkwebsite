@@ -320,3 +320,29 @@ body {
   opacity: 1 !important;
   transform: scale(1.03) !important;
 }
+
+/* Scoped styles for Integrations Section */
+.integration-orbit-ring {
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
+  box-shadow:
+    inset 0 0 42px color-mix(in srgb, var(--color-accent-primary) 8%, transparent),
+    0 0 44px color-mix(in srgb, var(--color-accent-primary) 7%, transparent);
+}
+
+.integration-node-glow {
+  background:
+    radial-gradient(circle at center,
+      color-mix(in srgb, var(--color-accent-primary) 26%, transparent),
+      transparent 68%);
+}
+
+.integration-flow-soft-glow {
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--color-accent-primary) 44%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .integration-orbit-spin {
+    animation: none !important;
+    transform: none !important;
+  }
+}

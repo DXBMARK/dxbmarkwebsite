@@ -1,44 +1,58 @@
-# DXBMARK Final Implementation Report - Homepage Services Section
+# DXBMARK Phase 2D.12 Report - Homepage Integrations Flow Map Branch Flow Correction
 
 - **Constitution Version**: `v2.2`
-- **Files Inspected**:
-  - [page.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/app/page.tsx)
-  - [globals.css](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/app/globals.css)
-  - [HomeSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/sections/HomeSection.tsx)
-  - [HomeScrollController.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/scroll/HomeScrollController.tsx)
-- **Files Created**:
-  - [services.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/content/home/services.ts)
-  - [ServiceIcon.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/services/ServiceIcon.tsx)
-  - [ServiceCard.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/services/ServiceCard.tsx)
-  - [ServicesSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/services/ServicesSection.tsx)
-  - [useServicesMotion.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/services/useServicesMotion.ts)
 - **Files Modified**:
-  - [page.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/app/page.tsx)
-  - [globals.css](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/app/globals.css)
-  - [HeroSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/hero/HeroSection.tsx)
-  - [HeroScrollCue.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/hero/HeroScrollCue.tsx)
-  - [useHeroMotion.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/hero/useHeroMotion.ts)
-  - [home.ts](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/content/home.ts)
-  - [walkthrough.md](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/walkthrough.md)
-- **Files Explicitly Not Touched**:
-  - All Header, Footer, Contact, FAQ, Legal and Cookiebot files.
-  - [HomeScrollController.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/scroll/HomeScrollController.tsx) (Unmodified, magnetic snap scroll registered cleanly via `HomeSection`'s data attributes).
+  - [IntegrationTile.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/integrations/IntegrationTile.tsx) (Adjusted tooltip rules: CRM children open to the right to avoid viewport clipping, Payments children open above, high z-index, pointer-events-none enabled).
+  - [IntegrationFlowMap.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/integrations/IntegrationFlowMap.tsx) (Restored consistent `1200 x 640` coordinates system, centered hub at top: 50% / left: 50%, aligned source and destination tiles to target coordinates, mapped CRM subnodes to `x: 70` and Payments subnodes to targets).
+  - [IntegrationFlowPaths.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/integrations/IntegrationFlowPaths.tsx) (Redefined all path data to originate cleanly from Hub edges `{ x: 520, y: 320 }` and `{ x: 680, y: 320 }` and map outward to target coordinates. Sub-branch paths updated to start at parent tile centers and travel outward to children).
+  - [IntegrationsSection.tsx](file:///Users/sunmarke/Downloads/untitled%20folder%202/dxbmark-website/src/components/home/integrations/IntegrationsSection.tsx) (Adjusted flow map height to `h-[660px] lg:h-[700px] xl:h-[720px]` to provide more breathing room).
 
-- **Implementation Details**:
-  - Created content structure in `services.ts` defining 6 premium digital services.
-  - Created custom client-side `ServiceCard.tsx` updating CSS variables `--mouse-x` and `--mouse-y` dynamically on pointer move to render the orange brand accent hover glow (`.service-card-glow` in `globals.css`).
-  - Implemented client-side `useServicesMotion.ts` hook deploying safe `gsap.context` animations for header and cards entrance, respecting prefers-reduced-motion.
-  - Mounted the `ServicesSection` wrapped in `HomeSection` in `page.tsx` as the second panel in the homepage snap scroll timeline.
-  - Repositioned the `HeroScrollCue` using the relative position flow (`relative mt-2 sm:mt-4 lg:mt-6`) combined with a precise GSAP timeline translation of `y: -60` (equivalent to a 15-unit/60px lift) and ScrollTrigger animation mapping from `-60` to `-45` on scroll. This ensures the lift is respected and not overridden by GSAP's inline style transformation, keeping it perfectly under the trust logos above the fold.
-  - Fixed the click handler in `HeroScrollCue.tsx` using `window.scrollTo` to guarantee smooth, non-blocking scrolls that coordinate correctly with the GSAP snap scroll instance.
-  - Added `.hero-scroll-cue` to the load timeline (`tl`) in `useHeroMotion.ts` for a sequential fade-in animation and set `opacity-0` as its initial state to avoid layout flashes.
-  - Verified the integration of the new `Fizah Grocers` logo (`fizahgrocers.webp`) in the marquee loop in `home.ts`.
+## Implementation Details
 
-- **Validation Command Results**:
-  - `npm run typecheck`: Passed with 0 errors.
-  - `npm run build`: Passed successfully.
+### 1. Visual Center & Grid Coordination
+- **Unified Grid**: 1200 x 640 ViewBox.
+- **Hub Card**: Vertically and horizontally centered at `{ x: 600, y: 320 }` (`left: 50%`, `top: 50%`).
+- **Main Paths Origin**: Start exactly at `{ x: 520, y: 320 }` (left edge) and `{ x: 680, y: 320 }` (right edge) and curve outward.
 
-- **Confirmation No Backend Added**: Confirmed.
-- **Git State**: Local modifications staged but not committed. Pushing is deferred for final user review.
+### 2. Spacing & Spreading Coordinates
+- **Left Source Columns** (Spacing 80px):
+  - WordPress: `{ x: 170, y: 120 }`
+  - CRM Systems (Parent): `{ x: 170, y: 200 }`
+  - Gmail: `{ x: 170, y: 280 }`
+  - Outlook: `{ x: 170, y: 360 }`
+  - Shopify: `{ x: 170, y: 440 }`
+  - Payments Gateway (Parent): `{ x: 170, y: 520 }`
+- **Right Destination Columns** (Spacing 80px):
+  - Google Analytics: `{ x: 1030, y: 120 }`
+  - Slack: `{ x: 1030, y: 200 }`
+  - Google Sheets: `{ x: 1030, y: 280 }`
+  - Notion: `{ x: 1030, y: 360 }`
+  - WhatsApp: `{ x: 1030, y: 440 }`
+  - Telegram: `{ x: 1030, y: 520 }`
+
+### 3. Sub-branch Corrected Coordinates
+- **CRM Systems Branch**:
+  - Parent: `{ x: 170, y: 200 }`
+  - HubSpot: `{ x: 70, y: 120 }`
+  - Salesforce: `{ x: 70, y: 200 }`
+  - Zoho CRM: `{ x: 70, y: 280 }`
+  - *CRM Tooltips*: Open to the right (`left-full`) to prevent left-viewport clipping.
+- **Payments Gateway Branch**:
+  - Parent: `{ x: 170, y: 520 }`
+  - Stripe: `{ x: 55, y: 585 }`
+  - PayPal: `{ x: 130, y: 620 }`
+  - Paymob: `{ x: 215, y: 620 }`
+  - Tabby: `{ x: 295, y: 585 }`
+  - *Payments Tooltips*: Open above (`bottom-full`).
+
+### 4. Animation & Flow Direction
+- Particles and flow glow start from **DXBMARK Integration Layer** and travel outward to main tiles.
+- Subnode particles and paths start from parent center (`{ x: 170, y: 200 }` / `{ x: 170, y: 520 }`) and travel outward to child subnodes.
+- Removed all recurring opacity pulse animations on tiles (stable 100% opacity).
+
+## Validation Results
+- `npm run typecheck`: Passed successfully.
+- `npx eslint src`: Passed successfully.
+- `npm run build`: Production static compilation succeeded with zero errors.
 
 Built with ❤️ by [DXBMARK LLC](https://dxbmark.com/)

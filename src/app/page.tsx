@@ -2,6 +2,7 @@ import * as React from "react";
 import { Glow } from "@/components/visual";
 import { HeroSection } from "@/components/home/hero/HeroSection";
 import { ServicesSection } from "@/components/home/services/ServicesSection";
+import { IntegrationsSection } from "@/components/home/integrations/IntegrationsSection";
 import { HomeScrollController } from "@/components/home/scroll/HomeScrollController";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="relative z-10">
         <HeroSection />
         <ServicesSection />
+        <IntegrationsSection />
       </main>
     </div>
   );
