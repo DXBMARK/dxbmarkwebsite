@@ -27,7 +27,7 @@ export function IntegrationsSection() {
 
       <section
         ref={sectionRef}
-        className="relative z-10 flex min-h-[100svh] w-full flex-col justify-center px-6 pt-14 pb-7 sm:px-8 sm:pt-16 sm:pb-8 lg:px-10 lg:pt-9 lg:pb-6"
+        className="relative z-10 flex min-h-[100svh] w-full flex-col justify-center px-6 pt-14 pb-7 sm:px-8 sm:pt-16 sm:pb-8 lg:px-10 lg:pt-12 lg:pb-0"
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
           {/* Header area */}
@@ -68,7 +68,7 @@ export function IntegrationsSection() {
           {/* Large Integration Flow Map (Fitted height for laptop) */}
           <div 
             data-integrations-visual
-            className="relative w-full overflow-x-auto lg:overflow-x-visible"
+            className="relative mt-5 w-full overflow-x-auto lg:overflow-x-visible"
           >
             {/* Horizontal flow container minimum width on small screens to keep layout from wrapping */}
             <div className="h-[356px] min-w-[800px] w-full sm:h-[376px] lg:h-[360px] lg:min-w-0 xl:h-[366px]">
