@@ -10,10 +10,10 @@ interface IntegrationFeatureCardProps {
 
 export function IntegrationFeatureCard({ item }: IntegrationFeatureCardProps) {
   return (
-    <div className="flex flex-col items-start p-4 rounded-radius-lg border border-border-soft-val bg-white/[0.015] hover:bg-white/[0.035] hover:border-brand-primary/20 shadow-sm backdrop-blur-md transition-all duration-300">
+    <div className="flex flex-col items-start rounded-radius-lg border border-border-soft-val bg-white/[0.015] p-3 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-brand-primary/20 hover:bg-white/[0.035]">
       {/* Small Icon Header */}
-      <div className="flex size-7 items-center justify-center rounded-lg border border-brand-primary/20 bg-brand-primary/10 text-brand-primary mb-2.5">
-        <IntegrationBrandIcon name={item.icon} className="h-4 w-4" />
+      <div className="mb-2 flex size-6 items-center justify-center rounded-lg border border-brand-primary/20 bg-brand-primary/10 text-brand-primary">
+        <IntegrationBrandIcon name={item.icon} className="h-3.5 w-3.5" />
       </div>
 
       {/* Title */}
@@ -22,7 +22,7 @@ export function IntegrationFeatureCard({ item }: IntegrationFeatureCardProps) {
       </h4>
 
       {/* Description */}
-      <p className="mt-1 font-body text-[11px] sm:text-xs text-text-muted-gray leading-normal">
+      <p className="mt-1 font-body text-[11px] leading-snug text-text-muted-gray sm:text-xs">
         {item.description}
       </p>
     </div>

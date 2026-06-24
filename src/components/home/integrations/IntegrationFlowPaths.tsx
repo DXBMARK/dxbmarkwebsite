@@ -5,10 +5,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 interface IntegrationFlowPathsProps {
   containerRef: React.RefObject<HTMLElement | null>;
-  expandedTile?: string | null;
 }
 
-export function IntegrationFlowPaths({ containerRef, expandedTile }: IntegrationFlowPathsProps) {
+const FLOW_WIDTH = 1200;
+const FLOW_HEIGHT = 560;
+
+export function IntegrationFlowPaths({ containerRef }: IntegrationFlowPathsProps) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 80%", "center center"],
@@ -18,161 +20,85 @@ export function IntegrationFlowPaths({ containerRef, expandedTile }: Integration
 
   // Main flow paths (always visible)
   const paths = [
-    // Source (Left) - Starts from Hub (around x:520, y:320) and travels outward to Source Tiles
+    // Left side
     {
-      id: "src-1",
-      d: "M 520 320 C 420 320 340 120 198 120",
+      id: "source-hubspot",
+      d: "M 517 260 C 455 260 365 35 292 35",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 0 * 0.16,
+      duration: 6.4,
+      delay: 0,
     },
     {
-      id: "src-2",
-      d: "M 520 320 C 420 320 340 200 198 200",
+      id: "source-zapier",
+      d: "M 517 280 C 455 280 365 160 292 160",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 1 * 0.16,
+      duration: 6.4,
+      delay: 0.12,
     },
     {
-      id: "src-3",
-      d: "M 520 320 C 440 320 360 280 198 280",
+      id: "source-shopify",
+      d: "M 517 300 C 455 300 365 285 292 285",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 2 * 0.16,
+      duration: 6.4,
+      delay: 0.24,
     },
     {
-      id: "src-4",
-      d: "M 520 320 C 440 320 360 360 198 360",
+      id: "source-paypal",
+      d: "M 517 320 C 455 320 365 410 292 410",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 3 * 0.16,
+      duration: 6.4,
+      delay: 0.36,
     },
     {
-      id: "src-5",
-      d: "M 520 320 C 420 320 350 440 198 440",
+      id: "source-cloud",
+      d: "M 517 340 C 455 340 365 535 292 535",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 4 * 0.16,
-    },
-    {
-      id: "src-6",
-      d: "M 520 320 C 420 320 340 520 198 520",
-      stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 5 * 0.16,
+      duration: 6.4,
+      delay: 0.48,
     },
 
-    // Hub to Destination (Right) - Starts from Hub (around x:680, y:320) and travels outward
+    // Right side
     {
-      id: "dest-1",
-      d: "M 680 320 C 780 320 860 120 1002 120",
+      id: "dest-stripe",
+      d: "M 683 260 C 745 260 835 35 908 35",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 0 * 0.16 + 0.1,
+      duration: 6.4,
+      delay: 0.06,
     },
     {
-      id: "dest-2",
-      d: "M 680 320 C 780 320 850 200 1002 200",
+      id: "dest-analytics",
+      d: "M 683 280 C 745 280 835 160 908 160",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 1 * 0.16 + 0.1,
+      duration: 6.4,
+      delay: 0.18,
     },
     {
-      id: "dest-3",
-      d: "M 680 320 C 760 320 840 280 1002 280",
+      id: "dest-slack",
+      d: "M 683 300 C 745 300 835 285 908 285",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 2 * 0.16 + 0.1,
+      duration: 6.4,
+      delay: 0.3,
     },
     {
-      id: "dest-4",
-      d: "M 680 320 C 760 320 840 360 1002 360",
+      id: "dest-whatsapp",
+      d: "M 683 320 C 745 320 835 410 908 410",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 3 * 0.16 + 0.1,
+      duration: 6.4,
+      delay: 0.42,
     },
     {
-      id: "dest-5",
-      d: "M 680 320 C 780 320 850 440 1002 440",
+      id: "dest-telegram",
+      d: "M 683 340 C 745 340 835 535 908 535",
       stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 4 * 0.16 + 0.1,
-    },
-    {
-      id: "dest-6",
-      d: "M 680 320 C 780 320 860 520 1002 520",
-      stroke: "var(--color-accent-primary)",
-      duration: 5.8,
-      delay: 5 * 0.16 + 0.1,
+      duration: 6.4,
+      delay: 0.54,
     },
   ];
-
-  // Payments sub-flow paths (active only when Payments tile is expanded)
-  // Starts from Payments parent { x: 170, y: 520 } and travels outward to children
-  const paymentsSubPaths = [
-    {
-      id: "sub-stripe",
-      d: "M 170 520 C 130 540 90 560 55 585",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 0 * 0.12,
-    },
-    {
-      id: "sub-paypal",
-      d: "M 170 520 C 150 560 140 590 130 620",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 1 * 0.12,
-    },
-    {
-      id: "sub-paymob",
-      d: "M 170 520 C 190 560 200 590 215 620",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 2 * 0.12,
-    },
-    {
-      id: "sub-tabby",
-      d: "M 170 520 C 210 540 260 560 295 585",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 3 * 0.12,
-    },
-  ];
-
-  // CRM sub-flow paths (active only when CRM Systems tile is expanded)
-  // Starts from CRM parent { x: 170, y: 200 } and travels outward to children
-  const crmSubPaths = [
-    {
-      id: "sub-hubspot",
-      d: "M 170 200 C 130 180 90 140 70 120",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 0 * 0.12,
-    },
-    {
-      id: "sub-salesforce",
-      d: "M 170 200 C 130 200 100 200 70 200",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 1 * 0.12,
-    },
-    {
-      id: "sub-zoho",
-      d: "M 170 200 C 130 220 90 260 70 280",
-      stroke: "var(--color-accent-primary)",
-      duration: 3.1,
-      delay: 2 * 0.12,
-    },
-  ];
-
-  const crmActivePaths = expandedTile === "source-crm" ? crmSubPaths : [];
-  const paymentsActivePaths = expandedTile === "source-payments" ? paymentsSubPaths : [];
-  const activePaths = [...paths, ...crmActivePaths, ...paymentsActivePaths];
 
   return (
     <svg
-      viewBox="0 0 1200 640"
+      viewBox={`0 0 ${FLOW_WIDTH} ${FLOW_HEIGHT}`}
+      preserveAspectRatio="none"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="absolute inset-0 h-full w-full pointer-events-none select-none overflow-visible z-0"
@@ -196,42 +122,36 @@ export function IntegrationFlowPaths({ containerRef, expandedTile }: Integration
         </linearGradient>
       </defs>
 
-      {activePaths.map((path) => {
-        const isSubPath = path.id.startsWith("sub-");
+      {paths.map((path) => {
         return (
           <g key={path.id}>
             {/* Layer 1: Thin base guide path */}
             <path
               d={path.d}
               stroke="var(--color-border-soft)"
-              strokeWidth={1.25}
+              strokeWidth={1.5}
               fill="none"
-              strokeOpacity={isSubPath ? 0.45 : 0.14}
+              strokeOpacity={0.14}
             />
 
             {/* Layer 2: Scroll-drawn path */}
             <motion.path
               d={path.d}
-              style={isSubPath ? {} : { pathLength }}
-              initial={isSubPath ? { pathLength: 0, opacity: 0 } : {}}
-              animate={isSubPath ? { pathLength: 1 } : {}}
-              transition={isSubPath ? { duration: 0.6, ease: "easeOut" } : {}}
               stroke={path.stroke}
-              strokeWidth={1.25}
+              strokeWidth={1.5}
               fill="none"
               strokeLinecap="round"
-              strokeOpacity={isSubPath ? 0.45 : undefined}
-              className={isSubPath ? "" : "opacity-35"}
+              style={{ pathLength, opacity: 0.32 }}
             />
 
             {/* Layer 3: Animated glowing stroke */}
             <motion.path
               d={path.d}
               stroke="url(#integrationPulseGradient)"
-              strokeWidth={1.75}
+              strokeWidth={2}
               fill="none"
               strokeLinecap="round"
-              strokeDasharray="28 180"
+              strokeDasharray="26 160"
               animate={{ strokeDashoffset: [0, -208] }}
               transition={{
                 duration: path.duration,
@@ -240,12 +160,12 @@ export function IntegrationFlowPaths({ containerRef, expandedTile }: Integration
                 ease: "linear",
               }}
               filter="url(#integrationGlow)"
-              strokeOpacity={0.55}
+              strokeOpacity={0.75}
             />
 
             {/* Layer 4: Moving particle dot */}
             <motion.circle
-              r={3.5}
+              r={3.6}
               fill={path.stroke}
               filter="url(#integrationGlow)"
               className="opacity-80"

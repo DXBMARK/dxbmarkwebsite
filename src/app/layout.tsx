@@ -1,31 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-});
-
-const manrope = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-label",
-  subsets: ["latin"],
-  weight: ["500", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 export const metadata: Metadata = {
   title: "DXBMARK LLC - Premium Technical Services",
@@ -43,7 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
