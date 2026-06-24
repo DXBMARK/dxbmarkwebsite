@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Section } from "@/components/ui/layout";
 import { Card } from "@/components/ui/card";
@@ -8,6 +9,14 @@ import { calculateReadingTime } from "@/components/legal/legal-render-utils";
 import fs from "fs";
 import path from "path";
 import { Glow } from "@/components/visual";
+import { createPageMetadata } from "@/lib/seo/site";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Legal Documents",
+  description:
+    "Review DXBMARK LLC legal documents, privacy terms, cookie policy, data processing agreement, security statement, support policy, company information, and service policies.",
+  path: "/legal",
+});
 
 function getReadingTimeForSlug(filename: string): string {
   try {

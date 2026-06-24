@@ -13,12 +13,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Services Footer Links
 const SERVICES_FOOTER_LINKS = [
-  { label: "Web Design", href: "/services/web-design" },
-  { label: "Web / SaaS Applications", href: "/services/web-saas-applications" },
-  { label: "Automations & Workflows", href: "/services/automations-workflows" },
-  { label: "Integrations", href: "/services/integrations" },
-  { label: "Cloud & Hosting", href: "/services/cloud-hosting" },
-  { label: "Technical Consulting", href: "/services/technical-consulting" },
+  { label: "Web Design", href: "/services#business-websites" },
+  { label: "Web / SaaS Applications", href: "/services#web-saas-applications" },
+  { label: "Automations & Workflows", href: "/services#automation-workflows" },
+  { label: "Integrations", href: "/services#integrations-apis" },
+  { label: "Cloud & Hosting", href: "/services#cloud-managed-hosting" },
+  { label: "Technical Consulting", href: "/services#technical-consulting" },
 ];
 
 export function Footer() {

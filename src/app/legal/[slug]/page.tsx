@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, Section } from "@/components/ui/layout";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -10,6 +11,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Glow } from "@/components/visual";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildLegalDocumentJsonLd } from "@/lib/seo/structured-data";
+import { createPageMetadata } from "@/lib/seo/site";
 
 
 interface PageProps {
@@ -26,23 +30,26 @@ export async function generateStaticParams() {
 }
 
 // SEO Dynamic metadata mapping
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const doc = LEGAL_DOCUMENTS.find((d) => d.slug === resolvedParams.slug);
 
   if (!doc) {
     return {
-      title: "Document Not Found | DXBMARK LLC",
+      title: { absolute: "Document Not Found | DXBMARK LLC" },
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
-  return {
-    title: `${doc.title} | DXBMARK LLC`,
+  return createPageMetadata({
+    title: doc.title,
     description: doc.description,
-    alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.dxbmark.com"}${doc.href}`,
-    },
-  };
+    path: doc.href,
+    openGraphType: "article",
+  });
 }
 
 export default async function LegalPlaceholderPage({ params }: PageProps) {
@@ -79,44 +86,46 @@ export default async function LegalPlaceholderPage({ params }: PageProps) {
   ];
 
   return (
-    <Section className="relative bg-background-slate min-h-[75vh] py-12 overflow-hidden">
-      <Glow className="absolute inset-0 z-0" />
-      <Container className="relative z-10 flex flex-col gap-8 text-left">
-        {/* Breadcrumbs */}
-        <Breadcrumbs items={breadcrumbItems} />
+    <>
+      <JsonLd data={buildLegalDocumentJsonLd(doc)} />
+      <Section className="relative bg-background-slate min-h-[75vh] py-12 overflow-hidden">
+        <Glow className="absolute inset-0 z-0" />
+        <Container className="relative z-10 flex flex-col gap-8 text-left">
+          {/* Breadcrumbs */}
+          <Breadcrumbs items={breadcrumbItems} />
 
-        {/* Hero Header */}
-        <div className="flex flex-col gap-4 border-b border-border-soft-val pb-8 max-w-4xl">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
-              LEGAL DOCUMENTATION
-            </span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-radius-full bg-white/5 border border-border-soft-val text-text-muted-gray">
-              Version {doc.version}
-            </span>
+          {/* Hero Header */}
+          <div className="flex flex-col gap-4 border-b border-border-soft-val pb-8 max-w-4xl">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
+                LEGAL DOCUMENTATION
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-radius-full bg-white/5 border border-border-soft-val text-text-muted-gray">
+                Version {doc.version}
+              </span>
+            </div>
+
+            <h1 className="font-sans text-3xl md:text-5xl font-black text-text-main tracking-tight">
+              {doc.title}
+            </h1>
+            <p className="font-body text-base md:text-lg text-text-sub leading-relaxed">
+              {doc.description}
+            </p>
+
+            {/* Metadata pill */}
+            <LegalMetadataPill
+              effectiveDate={doc.effectiveDate}
+              lastUpdated={doc.lastUpdated}
+              version={doc.version}
+              readTime={readingTime}
+            />
           </div>
 
-          <h1 className="font-sans text-3xl md:text-5xl font-black text-text-main tracking-tight">
-            {doc.title}
-          </h1>
-          <p className="font-body text-base md:text-lg text-text-sub leading-relaxed">
-            {doc.description}
-          </p>
-
-          {/* Metadata pill */}
-          <LegalMetadataPill
-            effectiveDate={doc.effectiveDate}
-            lastUpdated={doc.lastUpdated}
-            version={doc.version}
-            readTime={readingTime}
-          />
-        </div>
-
-        {/* Two-Column Layout Wrapper */}
-        <LegalClientWrapper content={markdownContent} slug={doc.slug} />
-      </Container>
-    </Section>
+          {/* Two-Column Layout Wrapper */}
+          <LegalClientWrapper content={markdownContent} slug={doc.slug} />
+        </Container>
+      </Section>
+    </>
   );
 }
-
 

@@ -1,10 +1,46 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import { ROOT_DESCRIPTION, ROOT_TITLE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 
 export const metadata: Metadata = {
-  title: "DXBMARK LLC - Premium Technical Services",
-  description: "Official premium engineering, hosting, cloud systems, automation and IT consultancy solutions by DXBMARK.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: ROOT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: ROOT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    siteName: SITE_NAME,
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    title: ROOT_TITLE,
+    description: ROOT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ROOT_TITLE,
+    description: ROOT_DESCRIPTION,
+  },
 };
 
 import { Header } from "@/components/layout/header";
