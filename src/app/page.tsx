@@ -4,6 +4,7 @@ import { Glow } from "@/components/visual";
 import { HeroSection } from "@/components/home/hero/HeroSection";
 import { ServicesSection } from "@/components/home/services/ServicesSection";
 import { IntegrationsSection } from "@/components/home/integrations/IntegrationsSection";
+import { SaasSystemsSection } from "@/components/home/saas-systems/SaasSystemsSection";
 import { TechStackSection } from "@/components/home/tech-stack/TechStackSection";
 import { HomeScrollController } from "@/components/home/scroll/HomeScrollController";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -32,6 +33,7 @@ export default function Home() {
           <HeroSection />
           <ServicesSection />
           <IntegrationsSection />
+          <SaasSystemsSection />
           <TechStackSection />
         </main>
       </div>
