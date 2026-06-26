@@ -1,0 +1,8 @@
+[allowlist]
+description = "Ignore generated, build, and dependency folders"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)\.next/''',
+  '''(^|/)build/''',
+  '''(^|/)out/'''
+]

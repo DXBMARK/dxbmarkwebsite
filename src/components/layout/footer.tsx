@@ -8,6 +8,7 @@ import { LEGAL_DOCUMENTS } from "@/content/legal";
 import { Mail } from "lucide-react";
 import { CookieSettingsButton } from "./CookieSettingsButton";
 import { FooterSvgDivider } from "./FooterSvgDivider";
+import { PaymentTrustStrip } from "./PaymentTrustStrip";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -34,9 +35,10 @@ export function Footer() {
     if (prefersReduced) {
       gsap.set(glowRef.current, { opacity: 0.55, y: 0 });
       gsap.set(brandRef.current, {
-        opacity: 0.62,
+        opacity: 0.50,
         xPercent: -50,
-        yPercent: 12,
+        // yPercent kept low so the word stays in the footer's lower area
+        yPercent: 4,
       });
       return;
     }
@@ -61,10 +63,12 @@ export function Footer() {
       })
       .fromTo(brandRef.current, {
         opacity: 0,
-        yPercent: 30
+        yPercent: 20,
       }, {
-        opacity: 0.72,
-        yPercent: 12,
+        // Final yPercent is ≤ 6 so the watermark stays intentionally
+        // visible as a background brand element — not clipped below the footer.
+        opacity: 0.50,
+        yPercent: 6,
         duration: 1.25,
         ease: "power2.out"
       }, "<0.1");
@@ -201,8 +205,13 @@ export function Footer() {
         </div>
       </Container>
 
+      {/* Payment Trust Strip — integrated footer floor element, above bottom bar */}
+      <Container className="relative z-10">
+        <PaymentTrustStrip />
+      </Container>
+
       {/* Bottom Bar Divider */}
-      <hr className="my-12 border-border-soft-val max-w-[1200px] mx-auto" />
+      <hr className="my-8 border-border-soft-val max-w-[1200px] mx-auto" />
 
       {/* Bottom Bar Container */}
       <Container className="flex flex-col items-center justify-center text-center gap-6">
