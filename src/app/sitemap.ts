@@ -25,16 +25,27 @@ const staticRoutes = [
   },
 ] as const;
 
+const formatSitemapDate = (dateInput: Date | string) => {
+  const d = new Date(dateInput);
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const year = d.getFullYear();
+  return `${year}-${month}-${day}`;
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const currentDate = formatSitemapDate(new Date());
+
   const staticEntries = staticRoutes.map((route) => ({
     url: absoluteUrl(route.path),
+    lastModified: currentDate,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
 
   const legalEntries = LEGAL_DOCUMENTS.map((doc) => ({
     url: absoluteUrl(doc.href),
-    lastModified: doc.lastUpdated,
+    lastModified: formatSitemapDate(doc.lastUpdated),
     changeFrequency: "yearly" as const,
     priority: 0.4,
   }));
