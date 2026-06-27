@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Container } from "@/components/ui/layout";
-import { saasSystemFeatures } from "@/content/home/saas-systems";
+import { saasSystemFeatures, saasSystemFinalCTA } from "@/content/home/saas-systems";
 import { cn } from "@/lib/utils";
 
 /**
@@ -330,6 +330,93 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
             </div>
           </div>
         </div>
+
+        {/* Integrated closing conversion band for system-capabilities */}
+        {feature.id === "system-capabilities" && (
+          <div className="mt-16 sm:mt-20 md:mt-24 border-t border-white/[0.06] pt-16 sm:pt-20 text-center relative">
+            {/* Subtle radial orange glow behind headline */}
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-glow opacity-[0.06] blur-[90px]"
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10 mx-auto max-w-3xl">
+              {/* Label */}
+              <p className="font-label text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-brand-primary">
+                BUILT AROUND YOUR WORKFLOW
+              </p>
+
+              {/* Headline */}
+              <h3 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-black tracking-tight text-text-main sm:text-3xl lg:text-4xl leading-[1.1]">
+                From scattered tools to one reliable system.
+              </h3>
+
+              {/* Supporting Copy */}
+              <p className="mx-auto mt-4 max-w-xl font-body text-[11px] sm:text-xs md:text-sm leading-relaxed text-text-sub">
+                DXBMARK builds the software layer that connects workflows, data, tools, and daily operations into reliable systems your business can actually run.
+              </p>
+
+              {/* Mini Flow Visual - Staggered elegant curves */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 my-8 max-w-md mx-auto">
+                {/* Problem */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="flex items-center gap-2 font-label text-[9px] sm:text-[10px] uppercase tracking-widest text-text-sub">
+                    <span className="h-1.2 w-1.2 rounded-full bg-rose-500/60" aria-hidden="true" />
+                    <span>Problem</span>
+                  </div>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Connect tools</span>
+                </div>
+
+                {/* Path 1 */}
+                <svg className="hidden md:block w-10 h-2.5 text-white/10" viewBox="0 0 40 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M 0 5 C 10 0, 30 0, 40 5" stroke="currentColor" strokeWidth="0.8" fill="none" strokeDasharray="2 2" />
+                </svg>
+
+                {/* System */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="flex items-center gap-2 font-label text-[9px] sm:text-[10px] uppercase tracking-widest text-brand-primary">
+                    <span className="h-1.2 w-1.2 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
+                    <span className="font-bold">System</span>
+                  </div>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-sub">Automate workflows</span>
+                </div>
+
+                {/* Path 2 */}
+                <svg className="hidden md:block w-10 h-2.5 text-white/10" viewBox="0 0 40 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M 0 5 C 10 10, 30 10, 40 5" stroke="currentColor" strokeWidth="0.8" fill="none" strokeDasharray="2 2" />
+                </svg>
+
+                {/* Operation */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="flex items-center gap-2 font-label text-[9px] sm:text-[10px] uppercase tracking-widest text-text-sub">
+                    <span className="h-1.2 w-1.2 rounded-full bg-emerald-500/60" aria-hidden="true" />
+                    <span>Operation</span>
+                  </div>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Run operations</span>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="mt-6 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+                {/* Primary CTA */}
+                <a
+                  href={saasSystemFinalCTA.primaryCTA.href}
+                  className="inline-flex items-center justify-center rounded-radius-default bg-brand-primary px-6 py-2.5 font-label text-[10px] sm:text-xs font-bold text-white shadow-[0_4px_16px_rgba(249,126,26,0.15)] transition-all duration-300 hover:bg-brand-secondary hover:shadow-[0_6px_24px_rgba(249,126,26,0.25)] hover:-translate-y-[2px] focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                >
+                  {saasSystemFinalCTA.primaryCTA.label}
+                </a>
+
+                {/* Secondary CTA */}
+                <a
+                  href={saasSystemFinalCTA.secondaryCTA.href}
+                  className="inline-flex items-center justify-center rounded-radius-default border border-white/[0.1] bg-white/[0.02] px-6 py-2.5 font-label text-[10px] sm:text-xs font-bold text-text-main backdrop-blur-sm transition-all duration-300 hover:border-white/[0.2] hover:bg-white/[0.05] hover:-translate-y-[1px] focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                >
+                  {saasSystemFinalCTA.secondaryCTA.label}
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   );

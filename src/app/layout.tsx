@@ -57,6 +57,7 @@ export default function RootLayout({
     <html
       lang="en"
       className="h-full antialiased"
+      suppressHydrationWarning
     >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
@@ -100,6 +101,18 @@ export default function RootLayout({
                 personalization_storage: preferencesGranted ? 'granted' : 'denied',
                 security_storage: 'granted'
               });
+
+              var consentKey = [
+                marketingGranted,
+                statisticsGranted,
+                preferencesGranted
+              ].join('|');
+
+              if (window.__lastCookiebotConsentKey === consentKey) {
+                return;
+              }
+
+              window.__lastCookiebotConsentKey = consentKey;
 
               window.dataLayer.push({
                 event: 'cookiebot_consent_update',

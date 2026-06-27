@@ -9,7 +9,6 @@ import type { SaasSystemId } from "@/content/home/saas-systems";
 import { SaasSystemPanel } from "./SaasSystemPanel";
 import { SaasSystemVisual } from "./SaasSystemVisual";
 import { SaasSystemFeatures } from "./SaasSystemFeatures";
-import { SaasSystemFinalCTA } from "./SaasSystemFinalCTA";
 import { useSaasSystemsMotion } from "./useSaasSystemsMotion";
 
 export function SaasSystemsSection() {
@@ -96,11 +95,6 @@ export function SaasSystemsSection() {
         <SaasSystemFeatures />
 
       </Container>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Final Highlight CTA Block — closing conversion moment             */}
-      {/* ------------------------------------------------------------------ */}
-      <SaasSystemFinalCTA />
     </HomeSection>
   );
 }

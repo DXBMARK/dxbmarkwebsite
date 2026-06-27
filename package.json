@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "latest",
+    "@lobehub/fluent-emoji": "^4.1.0",
     "@lobehub/icons": "^5.10.0",
+    "@lobehub/ui": "^5.18.0",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-dialog": "latest",
     "@radix-ui/react-dropdown-menu": "latest",
@@ -27,6 +29,7 @@
     "@radix-ui/react-tabs": "latest",
     "@radix-ui/react-tooltip": "latest",
     "@tanstack/react-query": "latest",
+    "antd": "^6.5.0",
     "class-variance-authority": "latest",
     "clsx": "latest",
     "d3": "^7.9.0",
