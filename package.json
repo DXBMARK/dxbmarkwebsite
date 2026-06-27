@@ -29,6 +29,7 @@
     "@radix-ui/react-tabs": "latest",
     "@radix-ui/react-tooltip": "latest",
     "@tanstack/react-query": "latest",
+    "@vercel/analytics": "^2.0.1",
     "antd": "^6.5.0",
     "class-variance-authority": "latest",
     "clsx": "latest",

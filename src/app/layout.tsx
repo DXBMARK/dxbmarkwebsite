@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { ROOT_DESCRIPTION, ROOT_TITLE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 
 export const metadata: Metadata = {
@@ -153,6 +154,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
