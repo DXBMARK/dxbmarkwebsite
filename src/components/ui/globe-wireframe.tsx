@@ -237,7 +237,7 @@ export default function GlobeWireframe({
     const loadWorldData = async () => {
       try {
         const response = await fetch(
-          'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
+          '/assets/data/countries-110m.json',
         );
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const world = (await response.json()) as any;

@@ -648,7 +648,10 @@ export default function ContactSection() {
                   <p>30 N Gould St, Ste R</p>
                   <p>Sheridan, Wyoming 82801</p>
                   <p>United States</p>
-                  <div className="mt-3 pt-2 border-t border-border-soft-val">
+                  <div className="mt-3 pt-2 border-t border-border-soft-val space-y-1.5">
+                    <p className="text-[11px] text-text-muted-gray leading-relaxed">
+                      DXBMARK LLC is a remote-first digital services company. We provide support online by email and phone. We do not operate a public customer-facing office.
+                    </p>
                     <p className="text-xs text-text-dark-gray italic">Wyoming LLC · Operating globally from UAE</p>
                   </div>
                 </div>
