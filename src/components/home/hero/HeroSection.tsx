@@ -44,7 +44,7 @@ export function HeroSection() {
           <div className="hero-cta-elem flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 sm:mt-10 w-full sm:w-auto">
             <a
               href={HOME_HERO_CONTENT.primaryCta.href}
-              className="group w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-radius-default bg-brand-primary text-white font-label font-bold text-sm transition-all duration-300 hover:bg-brand-secondary hover:shadow-shadow-glow hover:-translate-y-[2px] focus-visible:ring-2 focus-visible:ring-brand-primary"
+              className="group w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-radius-default bg-brand-primary text-[#0a101d] font-label font-bold text-sm transition-all duration-300 hover:bg-brand-secondary hover:shadow-shadow-glow hover:-translate-y-[2px] focus-visible:ring-2 focus-visible:ring-brand-primary"
             >
               <span>{HOME_HERO_CONTENT.primaryCta.label}</span>
               <svg className="w-4 h-4 ml-1.5 transform group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

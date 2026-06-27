@@ -61,7 +61,32 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://consent.cookiebot.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://consentcdn.cookiebot.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          href="https://use.typekit.net/dir8qmj.css"
+          as="style"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://use.typekit.net/dir8qmj.css';
+                link.media = 'print';
+                link.onload = function() { this.media = 'all'; };
+                document.head.appendChild(link);
+              })();
+            `,
+          }}
+        />
+        <noscript>
+          <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
+        </noscript>
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"

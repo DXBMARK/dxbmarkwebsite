@@ -331,7 +331,7 @@ body {
   font-family: var(--font-stack-body);
   font-size: 0.66rem;
   line-height: 1.45;
-  color: rgba(226, 232, 240, 0.48);
+  color: rgba(226, 232, 240, 0.76);
 }
 
 /* ── Payment method pills row ──────────────── */
@@ -361,7 +361,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.32);
+  color: rgba(226, 232, 240, 0.70);
 }
 
 /* No border, no shadow — just a very faint bg tint */

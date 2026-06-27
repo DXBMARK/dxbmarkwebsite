@@ -144,9 +144,9 @@ export function Footer() {
 
         {/* Navigate Column */}
         <div className="flex flex-col gap-4 text-left">
-          <h4 className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
+          <p className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
             Navigate
-          </h4>
+          </p>
           <nav className="flex flex-col gap-2.5 font-label text-sm text-text-sub">
             {NAV_LINKS.map((link) => (
               <a 
@@ -162,9 +162,9 @@ export function Footer() {
 
         {/* Services Column */}
         <div className="flex flex-col gap-4 text-left">
-          <h4 className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
+          <p className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
             Services
-          </h4>
+          </p>
           <nav className="flex flex-col gap-2.5 font-body text-sm text-text-sub">
             {SERVICES_FOOTER_LINKS.map((link) => (
               <a 
@@ -180,9 +180,9 @@ export function Footer() {
 
         {/* Legal Column */}
         <div className="flex flex-col gap-4 text-left">
-          <h4 className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
+          <p className="font-sans text-sm font-bold text-text-main uppercase tracking-wider">
             Legal
-          </h4>
+          </p>
           <nav className="flex flex-col gap-2.5 font-body text-xs text-text-sub grid grid-cols-1 gap-y-2">
             {footerLegalLinks.map((link) => (
               <a 

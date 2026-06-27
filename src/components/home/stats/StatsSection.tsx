@@ -380,9 +380,9 @@ export function StatsSection() {
                   <CountUp value={managedServers.value} decimals={0} />
                   <span className="text-brand-primary">{managedServers.suffix}</span>
                 </p>
-                <h4 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-text-main">
+                <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-text-main">
                   {managedServers.label}
-                </h4>
+                </h3>
                 <p className="mt-1 font-body text-[10px] sm:text-xs leading-relaxed text-text-sub">
                   {managedServers.description}
                 </p>
@@ -407,9 +407,9 @@ export function StatsSection() {
                   <CountUp value={openProjects.value} decimals={0} />
                   <span className="text-brand-primary">{openProjects.suffix}</span>
                 </p>
-                <h4 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-text-main">
+                <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-text-main">
                   {openProjects.label}
-                </h4>
+                </h3>
                 <p className="mt-1 font-body text-[10px] sm:text-xs leading-relaxed text-text-sub">
                   {openProjects.description}
                 </p>
@@ -443,9 +443,9 @@ export function StatsSection() {
                     <CountUp value={supportCoverage.value} decimals={0} />
                     <span className="text-white/80">{supportCoverage.suffix}</span>
                   </p>
-                  <h4 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-white">
+                  <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-white">
                     {supportCoverage.label}
-                  </h4>
+                  </h3>
                   <p className="mt-1 font-body text-[10px] sm:text-xs leading-relaxed text-white/80">
                     {supportCoverage.description}
                   </p>
@@ -457,9 +457,9 @@ export function StatsSection() {
                     <CountUp value={systemUptime.value} decimals={1} />
                     <span className="text-white/80">{systemUptime.suffix}</span>
                   </p>
-                  <h4 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-white">
+                  <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-white">
                     {systemUptime.label}
-                  </h4>
+                  </h3>
                   <p className="mt-1 font-body text-[10px] sm:text-xs leading-relaxed text-white/80">
                     {systemUptime.description}
                   </p>
