@@ -18,7 +18,7 @@ Website: https://www.dxbmark.com
 
 DXBMARK LLC is a software, technology, and digital systems company providing software systems, SaaS platforms, custom software development, web applications, CRM, booking and workflow tools, cloud infrastructure setup, managed hosting coordination, deployment and DevOps support, backup, monitoring and performance optimisation, customer portals, dashboards, IT consultancy, system architecture, data processing, automation, and systems integration.
 
-DXBMARK LLC is a remote-first digital services company. We provide support online by email and phone. We do not operate a public customer-facing office.
+DXBMARK LLC is a remote-first digital services company. We deliver our services online and provide customer support by remote desktop application, email, and phone. Our registered business address is used for official company correspondence and is not a public customer service office.
 
 DXBMARK LLC is not a law firm, accounting firm, tax advisory firm, financial advisory firm, investment advisory firm, marketing agency, advertising agency, or design agency.
 
