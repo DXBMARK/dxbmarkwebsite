@@ -228,3 +228,93 @@ export const buildLegalDocumentJsonLd = (doc: LegalDocument) => {
     ],
   };
 };
+
+export const buildServicesJsonLd = () => {
+  const url = absoluteUrl("/services");
+  
+  const servicesList = [
+    {
+      "@type": "Service",
+      "name": "Web & SaaS Applications",
+      "description": "Custom web applications, SaaS platforms, dashboards, portals, and eCommerce systems built around real business workflows.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Business Websites",
+      "description": "Company websites, WordPress builds, landing pages, and content systems designed to communicate clearly and convert better.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Business Systems & Portals",
+      "description": "Internal tools, client portals, admin dashboards, booking flows, and business systems that organize daily operations.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Cloud & Managed Hosting",
+      "description": "Deployment, hosting, monitoring, backups, server setup, and infrastructure support for reliable digital operations.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Automation & Workflows",
+      "description": "Process automation, notifications, handoffs, integrations, and internal workflows that reduce manual work and improve speed.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Integrations & APIs",
+      "description": "Connect CRMs, payments, analytics, messaging, cloud tools, and internal systems through clean API and webhook workflows.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Technical Consulting",
+      "description": "System reviews, product planning, architecture guidance, and practical next-step recommendations before you build.",
+      "provider": { "@id": ORGANIZATION_ID }
+    },
+    {
+      "@type": "Service",
+      "name": "Dashboards & Admin Systems",
+      "description": "Operational dashboards, reporting panels, admin interfaces, and management systems designed for visibility and control.",
+      "provider": { "@id": ORGANIZATION_ID }
+    }
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationNode,
+      websiteNode,
+      {
+        ...buildWebPageNode({
+          path: "/services",
+          name: `Software Development, SaaS, Cloud & Automation Services | ${SITE_NAME}`,
+          description: "Explore DXBMARK LLC services for custom software development, SaaS platforms, business websites, cloud infrastructure, managed hosting, automation workflows, integrations, dashboards, portals, and technical consulting.",
+        }),
+        "breadcrumb": {
+          "@id": `${url}#breadcrumb`
+        },
+        "hasPart": servicesList.map((service, index) => ({
+          "@id": `${url}#service-${index}`,
+          ...service
+        }))
+      },
+      buildBreadcrumbNode(
+        [
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" }
+        ],
+        `${url}#breadcrumb`
+      ),
+      ...servicesList.map((service, index) => ({
+        "@context": "https://schema.org",
+        "@id": `${url}#service-${index}`,
+        ...service
+      }))
+    ]
+  };
+};
+

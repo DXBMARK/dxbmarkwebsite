@@ -2,23 +2,19 @@ import * as React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  AppWindow,
   ArrowRight,
-  Cable,
-  Compass,
-  Globe2,
-  LayoutDashboard,
   PanelsTopLeft,
-  Server,
-  Workflow,
 } from "lucide-react";
 
 import { HeroBadge } from "@/components/home/hero/HeroBadge";
 import { Glow } from "@/components/visual";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Container, Section } from "@/components/ui/layout";
 import { createPageMetadata } from "@/lib/seo/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildServicesJsonLd } from "@/lib/seo/structured-data";
+import { ServiceCard } from "./ServiceCard";
+import { ServicesAnimate } from "./ServicesAnimate";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Software Development, SaaS, Cloud & Automation Services",
@@ -38,7 +34,7 @@ const services = [
     description:
       "Custom web applications, SaaS platforms, dashboards, portals, and eCommerce systems built around real business workflows.",
     tags: ["SaaS", "Web Apps", "Dashboards"],
-    Icon: AppWindow,
+    icon: "AppWindow",
   },
   {
     id: "business-websites",
@@ -46,7 +42,7 @@ const services = [
     description:
       "Company websites, WordPress builds, landing pages, and content systems designed to communicate clearly and convert better.",
     tags: ["Websites", "WordPress", "CMS"],
-    Icon: Globe2,
+    icon: "Globe2",
   },
   {
     id: "business-systems-portals",
@@ -54,7 +50,7 @@ const services = [
     description:
       "Internal tools, client portals, admin dashboards, booking flows, and business systems that organize daily operations.",
     tags: ["Portals", "Admin Tools", "Systems"],
-    Icon: PanelsTopLeft,
+    icon: "PanelsTopLeft",
   },
   {
     id: "cloud-managed-hosting",
@@ -62,7 +58,7 @@ const services = [
     description:
       "Deployment, hosting, monitoring, backups, server setup, and infrastructure support for reliable digital operations.",
     tags: ["Cloud", "Hosting", "Monitoring"],
-    Icon: Server,
+    icon: "Server",
   },
   {
     id: "automation-workflows",
@@ -70,7 +66,7 @@ const services = [
     description:
       "Process automation, notifications, handoffs, integrations, and internal workflows that reduce manual work and improve speed.",
     tags: ["Automation", "Workflows", "Operations"],
-    Icon: Workflow,
+    icon: "Workflow",
   },
   {
     id: "integrations-apis",
@@ -78,7 +74,7 @@ const services = [
     description:
       "Connect CRMs, payments, analytics, messaging, cloud tools, and internal systems through clean API and webhook workflows.",
     tags: ["APIs", "Webhooks", "Systems"],
-    Icon: Cable,
+    icon: "Cable",
   },
   {
     id: "technical-consulting",
@@ -86,7 +82,7 @@ const services = [
     description:
       "System reviews, product planning, architecture guidance, and practical next-step recommendations before you build.",
     tags: ["Planning", "Architecture", "Reviews"],
-    Icon: Compass,
+    icon: "Compass",
   },
   {
     id: "dashboards-admin-systems",
@@ -94,46 +90,9 @@ const services = [
     description:
       "Operational dashboards, reporting panels, admin interfaces, and management systems designed for visibility and control.",
     tags: ["Dashboards", "Reporting", "Admin"],
-    Icon: LayoutDashboard,
+    icon: "LayoutDashboard",
   },
-];
-
-const ServiceCard = ({ service }: { service: (typeof services)[number] }) => {
-  const { Icon } = service;
-
-  return (
-    <Card
-      id={service.id}
-      className="group relative isolate flex min-h-[220px] scroll-mt-28 flex-col overflow-hidden rounded-radius-xl border-border-soft-val bg-white/[0.035] p-5 shadow-shadow-card backdrop-blur-2xl transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-primary/45 hover:bg-white/[0.055] hover:shadow-[0_0_30px_rgba(249,126,26,0.12)] motion-reduce:transform-none sm:p-6"
-    >
-      <span
-        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/[0.06] via-transparent to-white/[0.02] opacity-60"
-        aria-hidden="true"
-      />
-      <div className="relative z-10 mb-1 flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-primary/20 bg-brand-primary/10 text-brand-primary shadow-[0_0_15px_rgba(249,126,26,0.1)] transition duration-300 group-hover:bg-brand-primary group-hover:text-white">
-        <Icon className="h-6 w-6" aria-hidden="true" />
-      </div>
-      <div className="relative z-10 flex flex-1 flex-col gap-3">
-        <h2 className="font-sans text-base font-extrabold leading-tight tracking-tight text-text-main sm:text-lg">
-          {service.title}
-        </h2>
-        <p className="font-body text-sm leading-relaxed text-text-sub">
-          {service.description}
-        </p>
-      </div>
-      <div className="relative z-10 mt-1 flex flex-wrap gap-2">
-        {service.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-border-soft-val bg-white/[0.04] px-2.5 py-0.5 font-label text-[10px] font-semibold uppercase tracking-[0.1em] text-text-muted-gray"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </Card>
-  );
-};
+] as const;
 
 const ServicesCallout = () => (
   <div className="relative overflow-hidden rounded-radius-xl border border-border-soft-val bg-white/[0.04] p-6 shadow-shadow-card backdrop-blur-2xl sm:p-8">
@@ -229,34 +188,42 @@ const ServicesCallout = () => (
 
 export default function ServicesPage() {
   return (
-    <Section className="relative min-h-screen overflow-hidden bg-background-slate pb-16 pt-24 text-text-sub sm:py-20 lg:py-24">
-      <Glow className="absolute inset-0 z-0" aria-hidden="true" />
-      <Container className="relative z-10 flex flex-col gap-12">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <div className="mb-5 inline-flex">
-            <HeroBadge label="SERVICES" />
-          </div>
-          <h1 className="font-sans text-3xl font-black leading-[1.05] tracking-tight text-text-main sm:text-4xl md:text-5xl lg:text-[4.25rem]">
-            Our{" "}
-            <span className="bg-gradient-to-r from-text-main via-brand-primary to-brand-secondary bg-clip-text text-transparent">
-              Services
-            </span>
-          </h1>
-          <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-sub sm:text-base lg:text-lg">
-            Practical digital systems for businesses that need reliable
-            software, websites, automation, cloud infrastructure, and technical
-            execution.
-          </p>
-        </div>
+    <>
+      <JsonLd data={buildServicesJsonLd()} />
+      <ServicesAnimate>
+        <Section className="relative min-h-screen overflow-hidden bg-background-slate pb-16 pt-24 text-text-sub sm:py-20 lg:py-24">
+          <Glow className="absolute inset-0 z-0" aria-hidden="true" />
+          <Container className="relative z-10 flex flex-col gap-12">
+            <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+              <div className="mb-5 inline-flex" data-services-reveal>
+                <HeroBadge label="SERVICES" />
+              </div>
+              <h1 className="font-sans text-3xl font-black leading-[1.05] tracking-tight text-text-main sm:text-4xl md:text-5xl lg:text-[4.25rem]" data-services-reveal>
+                Our{" "}
+                <span className="bg-gradient-to-r from-text-main via-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                  Services
+                </span>
+              </h1>
+              <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-text-sub sm:text-base lg:text-lg" data-services-reveal>
+                Practical digital systems for businesses that need reliable
+                software, websites, automation, cloud infrastructure, and technical
+                execution.
+              </p>
+            </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
-        </div>
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map((service) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
 
-        <ServicesCallout />
-      </Container>
-    </Section>
+            <div data-services-reveal>
+              <ServicesCallout />
+            </div>
+          </Container>
+        </Section>
+      </ServicesAnimate>
+    </>
   );
 }
+

@@ -37,7 +37,7 @@ export function SaasSystemsSection() {
         aria-hidden="true"
       />
 
-      <Container className="relative z-10 flex min-h-[100svh] w-full flex-col justify-center py-16 sm:py-20 lg:py-16">
+      <Container className="relative z-10 flex min-h-[100svh] w-full flex-col justify-start pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-32 lg:pb-20">
 
         {/* ------------------------------------------------------------------ */}
         {/* Section header — centered badge + headline + description            */}

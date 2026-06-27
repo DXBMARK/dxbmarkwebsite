@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { SaasSystemId } from "@/content/home/saas-systems";
+import { FileText, Database, Send, CheckCircle2, Brain, CheckSquare } from "lucide-react";
 
 // ============================================================================
 // DESIGN TOKENS (aligned with globals.css — no raw hex except approved orange)
@@ -705,222 +706,252 @@ function DashPortal() {
 
 // ============================================================================
 // DASHBOARD 4 — Workflow Automation
-// PREMIUM n8n-inspired automation canvas with cinematic composition
 // ============================================================================
-
 function DashWorkflow() {
-  // Dramatically staged flow with asymmetric branching
+  const shouldReduceMotion = useReducedMotion();
+
+  const iconMap = {
+    trigger: FileText,
+    database: Database,
+    brain: Brain,
+    send: Send,
+    task: CheckSquare,
+    check: CheckCircle2,
+  };
+
   const nodes = [
-    { label: "Lead Form", sub: "Trigger", x: 10, y: 48, color: "green", size: "large" },
-    { label: "CRM Sync", sub: "Action", x: 30, y: 48, color: "blue", size: "medium" },
-    { label: "Payment Check", sub: "Condition", x: 52, y: 48, color: "orange", size: "hero" },
-    { label: "Create Task", sub: "Action", x: 75, y: 28, color: "blue", size: "medium" },
-    { label: "Notify Team", sub: "Slack", x: 75, y: 68, color: "blue", size: "medium" },
-    { label: "Success", sub: "Complete", x: 92, y: 48, color: "green", size: "large" },
+    { label: "Lead Form", sub: "TRIGGER", x: 15, y: 50, color: "green", icon: "trigger" },
+    { label: "CRM Update", sub: "CUSTOMER DATA", x: 32, y: 35, color: "blue", icon: "database" },
+    { label: "AI Review", sub: "OPTIONAL LOGIC", x: 50, y: 55, color: "orange", icon: "brain", isActive: true },
+    { label: "Notify Team", sub: "EMAIL / SLACK", x: 68, y: 35, color: "blue", icon: "send" },
+    { label: "Create Task", sub: "OPERATIONS", x: 68, y: 75, color: "blue", icon: "task" },
+    { label: "Complete", sub: "LOGGED", x: 85, y: 55, color: "green", icon: "check" },
   ];
-  
-  // Premium curved Bezier paths with intentional dramatic branching
+
   const edges = [
-    { path: "M 10 48 C 18 48, 22 48, 30 48", from: "green", to: "blue" },
-    { path: "M 30 48 C 38 48, 44 48, 52 48", from: "blue", to: "orange" },
-    { path: "M 52 48 C 60 38, 68 30, 75 28", from: "orange", to: "blue" },
-    { path: "M 52 48 C 60 58, 68 66, 75 68", from: "orange", to: "blue" },
-    { path: "M 75 28 C 81 32, 87 42, 92 48", from: "blue", to: "green" },
-    { path: "M 75 68 C 81 64, 87 54, 92 48", from: "blue", to: "green" },
+    { path: "M 15 50 C 23.5 50, 23.5 35, 32 35", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: true, duration: 6.4, delay: 0 },
+    { path: "M 32 35 C 41 35, 41 55, 50 55", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: true, duration: 6.4, delay: 0.12 },
+    { path: "M 50 55 C 59 55, 59 35, 68 35", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: true, duration: 6.4, delay: 0.24 },
+    { path: "M 50 55 C 59 55, 59 75, 68 75", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: false, duration: 6.4, delay: 0.36 },
+    { path: "M 68 35 C 76.5 35, 76.5 55, 85 55", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: true, duration: 6.4, delay: 0.48 },
+    { path: "M 68 75 C 76.5 75, 76.5 55, 85 55", color: "rgba(255, 255, 255, 0.06)", pulseColor: "var(--color-accent-primary)", isMain: false, duration: 6.4, delay: 0.6 },
   ];
-  
+
   return (
     <PremiumShell
-      title="workflow.engine — Automation Builder"
+      title="workflow.setup — Client Automation Flow"
       right={
-        <div className="flex items-center gap-2">
-          <LiveDot color="orange" />
-          <span className="font-label text-[9px] uppercase tracking-widest text-brand-primary">Live Orchestration</span>
+        <div className="flex items-center gap-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-label text-[9px] uppercase tracking-widest text-emerald-400">Live Workflow</span>
         </div>
       }
     >
-      <div className="relative h-full overflow-hidden">
-        {/* Dramatic ambient glows behind key nodes */}
-        <div className="pointer-events-none absolute left-[52%] top-[48%] h-48 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-glow opacity-25 blur-[90px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[10%] top-[48%] h-32 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/20 opacity-20 blur-[70px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[92%] top-[48%] h-32 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/20 opacity-20 blur-[70px]" aria-hidden="true" />
-        
-        <div className="flex h-full flex-col gap-3 p-3">
-          {/* Canvas dominates — 85% of vertical space */}
-          <div className="relative flex-1 min-h-0">
-            <ScreenCard glow className="relative h-full overflow-hidden">
-              {/* Subtle grid background for product feel */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(rgba(249,126,26,0.15) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(249,126,26,0.15) 1px, transparent 1px)
-                  `,
-                  backgroundSize: "24px 24px",
-                }}
-                aria-hidden="true"
-              />
-              
-              {/* Central radial glow */}
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_52%_48%,rgba(249,126,26,0.12),transparent_45%)]" aria-hidden="true" />
-              
-              {/* Canvas SVG — all connectors and particles */}
-              <svg
-                viewBox="0 0 100 100"
-                preserveAspectRatio="xMidYMid meet"
-                className="absolute inset-0 h-full w-full"
-                aria-hidden="true"
-              >
-                <defs>
-                  <filter id="workflowGlow2" x="-80%" y="-80%" width="260%" height="260%">
-                    <feGaussianBlur stdDeviation="1.8" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                
-                {edges.map((edge, index) => (
-                  <g key={index}>
-                    {/* Base connector line */}
-                    <path
-                      d={edge.path}
-                      fill="none"
-                      stroke="rgba(255,255,255,0.08)"
-                      strokeWidth="1"
-                      strokeLinecap="round"
-                    />
-                    {/* Animated dashed line */}
-                    <path
-                      d={edge.path}
-                      fill="none"
-                      stroke={ORANGE}
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeDasharray="6 10"
-                      filter="url(#workflowGlow2)"
-                      opacity="0.75"
-                    >
-                      <animate
-                        attributeName="stroke-dashoffset"
-                        from="24"
-                        to="0"
-                        dur={`${1.5 + index * 0.15}s`}
-                        repeatCount="indefinite"
+      <div className="relative flex h-full flex-col overflow-hidden bg-[#060814]">
+        {/* Flat Canvas container */}
+        <div className="relative flex-1 min-h-0 flex items-center justify-center p-4 sm:p-5 lg:p-6">
+          {/* Flat Floating Canvas */}
+          <motion.div
+            className="relative w-full h-[98%] sm:h-[96%] rounded-2xl border border-white/[0.08] bg-[#070914]/90 shadow-[0_20px_50px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]"
+            animate={shouldReduceMotion ? {} : {
+              translateY: [0, -4, 0]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {/* Canvas background grid - subtle dots */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage: `radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px)`,
+                backgroundSize: "14px 14px",
+              }}
+              aria-hidden="true"
+            />
+            
+            {/* Central subtle radial glow */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,126,26,0.02),transparent_60%)]" aria-hidden="true" />
+
+            {/* SVG Connectors */}
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="absolute inset-0 h-full w-full pointer-events-none overflow-visible"
+              aria-hidden="true"
+            >
+              <defs>
+                {/* Subtle glow filter adjusted for 100x100 viewBox */}
+                <filter id="workflowGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="0.45" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                {/* Pulse moving gradient */}
+                <linearGradient id="workflowPulseGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="var(--color-accent-primary)" stopOpacity="0" />
+                  <stop offset="50%" stopColor="var(--color-accent-primary)" stopOpacity="1" />
+                  <stop offset="100%" stopColor="var(--color-accent-secondary)" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+
+              {edges.map((edge, index) => (
+                <g key={index}>
+                  {/* Layer 1: Very thin base guide path */}
+                  <path
+                    d={edge.path}
+                    fill="none"
+                    stroke="var(--color-border-soft)"
+                    strokeWidth="0.12"
+                    strokeOpacity="0.14"
+                  />
+                  
+                  {edge.isMain && (
+                    <>
+                      {/* Layer 2: Colored active path */}
+                      <motion.path
+                        d={edge.path}
+                        fill="none"
+                        stroke="var(--color-accent-primary)"
+                        strokeWidth="0.12"
+                        strokeLinecap="round"
+                        style={{ opacity: 0.32 }}
                       />
-                    </path>
-                    {/* Traveling particle */}
-                    <circle r="2" fill={ORANGE} filter="url(#workflowGlow2)" opacity="0.9">
-                      <animateMotion
-                        path={edge.path}
-                        dur={`${1.8 + index * 0.12}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  </g>
-                ))}
-              </svg>
+
+                      {/* Layer 3: Animated glowing stroke */}
+                      {!shouldReduceMotion && (
+                        <motion.path
+                          d={edge.path}
+                          fill="none"
+                          stroke="url(#workflowPulseGradient)"
+                          strokeWidth="0.16"
+                          strokeLinecap="round"
+                          strokeDasharray="2.16 13.3"
+                          animate={{ strokeDashoffset: [0, -17.3] }}
+                          transition={{
+                            duration: edge.duration,
+                            delay: edge.delay,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          filter="url(#workflowGlow)"
+                          strokeOpacity={0.75}
+                        />
+                      )}
+
+                      {/* Layer 4: Moving particle dot */}
+                      {!shouldReduceMotion && (
+                        <motion.circle
+                          r="0.3"
+                          fill="var(--color-accent-primary)"
+                          filter="url(#workflowGlow)"
+                          className="opacity-80"
+                        >
+                          <animateMotion
+                            dur={`${edge.duration}s`}
+                            repeatCount="indefinite"
+                            path={edge.path}
+                            begin={`${edge.delay}s`}
+                          />
+                        </motion.circle>
+                      )}
+                    </>
+                  )}
+                </g>
+              ))}
+            </svg>
+
+            {/* Clean, spacious nodes */}
+            {nodes.map((node) => {
+              const Icon = iconMap[node.icon as keyof typeof iconMap];
+              const colorThemes = {
+                green: {
+                  border: "border-emerald-500/15 hover:border-emerald-500/30",
+                  iconBg: "bg-emerald-500/[0.04]",
+                  iconText: "text-emerald-400",
+                },
+                blue: {
+                  border: "border-sky-500/15 hover:border-sky-500/30",
+                  iconBg: "bg-sky-500/[0.04]",
+                  iconText: "text-sky-400",
+                },
+                orange: {
+                  border: "border-brand-primary/30 shadow-[0_0_15px_rgba(249,126,26,0.06)]",
+                  iconBg: "bg-brand-primary/[0.06]",
+                  iconText: "text-brand-primary",
+                },
+                purple: {
+                  border: "border-purple-500/15 hover:border-purple-500/30",
+                  iconBg: "bg-purple-500/[0.04]",
+                  iconText: "text-purple-400",
+                },
+              };
+
+              const theme = colorThemes[node.color as keyof typeof colorThemes];
+              const isAIReview = node.label === "AI Review";
               
-              {/* Premium nodes with z-depth */}
-              {nodes.map((node) => {
-                const sizeClasses = {
-                  large: "min-w-[110px] px-4 py-3",
-                  medium: "min-w-[96px] px-3 py-2.5",
-                  hero: "min-w-[130px] px-5 py-4",
-                };
-                
-                const colorClasses = {
-                  green: "border-emerald-500/50 bg-emerald-500/[0.15] text-emerald-400 shadow-[0_0_32px_rgba(52,211,153,0.2)]",
-                  blue: "border-sky-500/50 bg-sky-500/[0.14] text-sky-400 shadow-[0_0_28px_rgba(56,189,248,0.18)]",
-                  orange: "border-brand-primary/60 bg-brand-primary/[0.16] text-brand-primary shadow-[0_0_42px_rgba(249,126,26,0.3)]",
-                };
-                
-                return (
-                  <div
-                    key={node.label}
-                    className={cn(
-                      "absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border-2 backdrop-blur-xl transition-all duration-300",
-                      sizeClasses[node.size as keyof typeof sizeClasses],
-                      colorClasses[node.color as keyof typeof colorClasses]
-                    )}
-                    style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                  >
-                    <div className={cn(
-                      "font-label font-black uppercase tracking-wide",
-                      node.size === "hero" ? "text-[11px]" : "text-[10px]"
+              return (
+                <div
+                  key={node.label}
+                  className={cn(
+                    "absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-[#060814]/95 backdrop-blur-md transition-all duration-300 flex items-center shadow-[0_8px_24px_rgba(0,0,0,0.6)] hover:scale-[1.015]",
+                    "w-[110px] sm:w-[136px] lg:w-[145px]",
+                    "h-[44px] sm:h-[56px]",
+                    "px-2 sm:px-3",
+                    "gap-2 sm:gap-2.5",
+                    theme.border
+                  )}
+                  style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                >
+                  {/* Soft pulse glow around active node */}
+                  {isAIReview && !shouldReduceMotion && (
+                    <span className="absolute -inset-0.5 rounded-xl border border-brand-primary/20 bg-brand-primary/[0.02] opacity-30 animate-pulse pointer-events-none" />
+                  )}
+
+                  <div className={cn(
+                    "shrink-0 flex items-center justify-center rounded-lg border border-white/[0.06] transition-colors duration-300",
+                    "h-6 w-6 sm:h-7 sm:w-7",
+                    theme.iconBg,
+                    theme.iconText
+                  )}>
+                    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                  </div>
+
+                  <div className="flex flex-col text-left min-w-0">
+                    <span className={cn(
+                      "font-sans font-bold text-text-main tracking-tight leading-tight truncate",
+                      "text-[9px] sm:text-[11px] lg:text-[11.5px]"
                     )}>
                       {node.label}
-                    </div>
-                    <div className={cn(
-                      "mt-1 font-code text-text-muted-gray",
-                      node.size === "hero" ? "text-[9px]" : "text-[8px]"
+                    </span>
+                    <span className={cn(
+                      "font-code text-text-muted-gray uppercase tracking-wider",
+                      "text-[6px] sm:text-[8px]"
                     )}>
                       {node.sub}
-                    </div>
-                  </div>
-                );
-              })}
-              
-              {/* Floating inspector card — product-style detail */}
-              <div className="absolute bottom-3 left-3 w-48 rounded-lg border border-white/[0.12] bg-[rgba(10,16,32,0.92)] px-3 py-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-                <div className="mb-1.5 flex items-center justify-between">
-                  <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray">Node Inspector</span>
-                  <Pill label="Active" color="orange" />
-                </div>
-                <div className="font-body text-[10px] text-text-sub">
-                  <div className="mb-1">Payment Check</div>
-                  <div className="flex items-center gap-1.5 text-[9px] text-text-muted-gray">
-                    <Dot color="orange" />
-                    <span>Processing 2 branches</span>
+                    </span>
                   </div>
                 </div>
-              </div>
-            </ScreenCard>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* Tiny Status Bar */}
+        <div className="flex shrink-0 items-center justify-between border-t border-white/[0.04] bg-white/[0.005] px-4 py-2.5 z-20">
+          <div className="flex items-center gap-1.5">
+            <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-code text-[8px] text-text-muted-gray uppercase tracking-wider">Configured workflow</span>
           </div>
-          
-          {/* Compact execution log — 15% of vertical space */}
-          <div className="shrink-0">
-            <ScreenCard className="px-3 py-2">
-              <div className="mb-1.5 flex items-center justify-between">
-                <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray">Execution Log</span>
-                <div className="flex items-center gap-1">
-                  <LiveDot />
-                  <span className="font-code text-[8px] text-emerald-400">Live</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
-                <div className="flex items-start gap-1.5 py-[2px]">
-                  <span className="mt-[4px] h-1 w-1 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <span className="font-code text-[9px] text-text-sub">Trigger fired</span>
-                  <span className="ml-auto font-code text-[8px] text-text-muted-gray">0s</span>
-                </div>
-                <div className="flex items-start gap-1.5 py-[2px]">
-                  <span className="mt-[4px] h-1 w-1 shrink-0 rounded-full bg-sky-400" aria-hidden="true" />
-                  <span className="font-code text-[9px] text-text-sub">CRM synced</span>
-                  <span className="ml-auto font-code text-[8px] text-text-muted-gray">1.2s</span>
-                </div>
-                <div className="flex items-start gap-1.5 py-[2px]">
-                  <span className="mt-[4px] h-1 w-1 shrink-0 rounded-full bg-brand-primary" aria-hidden="true" />
-                  <span className="font-code text-[9px] text-text-sub">Payment OK</span>
-                  <span className="ml-auto font-code text-[8px] text-text-muted-gray">2.1s</span>
-                </div>
-                <div className="flex items-start gap-1.5 py-[2px]">
-                  <span className="mt-[4px] h-1 w-1 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <span className="font-code text-[9px] text-text-sub">Complete</span>
-                  <span className="ml-auto font-code text-[8px] text-text-muted-gray">3.4s</span>
-                </div>
-              </div>
-            </ScreenCard>
-          </div>
+          <p className="hidden md:block font-body text-[8.5px] text-text-muted-gray/70">
+            Built with suitable automation tools, APIs, and business systems.
+          </p>
+          <span className="font-code text-[8px] text-text-muted-gray uppercase tracking-wider">Tools connected</span>
         </div>
       </div>
     </PremiumShell>

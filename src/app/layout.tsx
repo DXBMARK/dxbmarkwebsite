@@ -46,6 +46,8 @@ export const metadata: Metadata = {
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,8 +67,76 @@ export default function RootLayout({
           data-blockingmode="auto"
           strategy="beforeInteractive"
         />
+        <Script id="cookiebot-consent-bridge" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag(){dataLayer.push(arguments);}
+
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              functionality_storage: 'denied',
+              personalization_storage: 'denied',
+              security_storage: 'granted',
+              wait_for_update: 500
+            });
+
+            function updateConsentFromCookiebot() {
+              var consent = window.Cookiebot && window.Cookiebot.consent ? window.Cookiebot.consent : {};
+
+              var marketingGranted = consent.marketing === true;
+              var statisticsGranted = consent.statistics === true;
+              var preferencesGranted = consent.preferences === true;
+
+              gtag('consent', 'update', {
+                ad_storage: marketingGranted ? 'granted' : 'denied',
+                ad_user_data: marketingGranted ? 'granted' : 'denied',
+                ad_personalization: marketingGranted ? 'granted' : 'denied',
+                analytics_storage: statisticsGranted ? 'granted' : 'denied',
+                functionality_storage: preferencesGranted ? 'granted' : 'denied',
+                personalization_storage: preferencesGranted ? 'granted' : 'denied',
+                security_storage: 'granted'
+              });
+
+              window.dataLayer.push({
+                event: 'cookiebot_consent_update',
+                cookiebot_marketing: marketingGranted,
+                cookiebot_statistics: statisticsGranted,
+                cookiebot_preferences: preferencesGranted
+              });
+            }
+
+            window.addEventListener('CookiebotOnConsentReady', updateConsentFromCookiebot);
+            window.addEventListener('CookiebotOnAccept', updateConsentFromCookiebot);
+            window.addEventListener('CookiebotOnDecline', updateConsentFromCookiebot);
+          `}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col bg-background-slate text-text-main pt-20" suppressHydrationWarning>
+        {GTM_ID && (
+          <>
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+              />
+            </noscript>
+            <Script id="gtm" strategy="afterInteractive">
+              {`
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${GTM_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <Header />
         {children}
         <Footer />
