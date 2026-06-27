@@ -71,6 +71,7 @@ export default function RootLayout({
           as="style"
         />
         <script
+          data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
