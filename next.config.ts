@@ -57,19 +57,35 @@ const ContentSecurityPolicy = `
     https://consentcdn.cookiebot.com
     https://static.cloudflareinsights.com
     https://js.stripe.com
-    https://www.googletagmanager.com;
+    https://www.googletagmanager.com
+    https://connect.facebook.net
+    https://snap.licdn.com;
   style-src 'self' 'unsafe-inline'
     https://use.typekit.net
     https://p.typekit.net;
   font-src 'self' data:
     https://use.typekit.net
     https://p.typekit.net;
-  img-src 'self' data: blob: https:;
-  connect-src 'self' https:;
-  frame-src
+  img-src 'self' data: blob:
+    https://www.facebook.com
+    https://px.ads.linkedin.com
+    https://www.googletagmanager.com
+    https://www.google-analytics.com;
+  connect-src 'self'
+    https://consent.cookiebot.com
+    https://consentcdn.cookiebot.com
+    https://www.googletagmanager.com
+    https://www.google-analytics.com
+    https://analytics.google.com
+    https://connect.facebook.net
+    https://www.facebook.com
+    https://px.ads.linkedin.com
+    https://snap.licdn.com;
+  frame-src 'self'
     https://js.stripe.com
     https://hooks.stripe.com
     https://consent.cookiebot.com
+    https://consentcdn.cookiebot.com
     https://www.googletagmanager.com;
   frame-ancestors 'none';
   base-uri 'self';

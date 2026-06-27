@@ -333,7 +333,7 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
 
         {/* Integrated closing conversion band for system-capabilities */}
         {feature.id === "system-capabilities" && (
-          <div className="mt-16 sm:mt-20 md:mt-24 border-t border-white/[0.06] pt-16 sm:pt-20 text-center relative">
+          <div className="mt-12 sm:mt-16 md:mt-20 text-center relative">
             {/* Subtle radial orange glow behind headline */}
             <div
               className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-glow opacity-[0.06] blur-[90px]"
@@ -353,18 +353,18 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
 
               {/* Supporting Copy */}
               <p className="mx-auto mt-4 max-w-xl font-body text-[11px] sm:text-xs md:text-sm leading-relaxed text-text-sub">
-                DXBMARK builds the software layer that connects workflows, data, tools, and daily operations into reliable systems your business can actually run.
+                We connect workflows, data, tools, and daily operations into systems your business can run with confidence.
               </p>
 
               {/* Mini Flow Visual - Staggered elegant curves */}
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 my-8 max-w-md mx-auto">
-                {/* Problem */}
+                {/* Input */}
                 <div className="flex flex-col items-center text-center">
                   <div className="flex items-center gap-2 font-label text-[9px] sm:text-[10px] uppercase tracking-widest text-text-sub">
                     <span className="h-1.2 w-1.2 rounded-full bg-rose-500/60" aria-hidden="true" />
-                    <span>Problem</span>
+                    <span>Input</span>
                   </div>
-                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Connect tools</span>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Tools, data, requests</span>
                 </div>
 
                 {/* Path 1 */}
@@ -378,7 +378,7 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
                     <span className="h-1.2 w-1.2 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
                     <span className="font-bold">System</span>
                   </div>
-                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-sub">Automate workflows</span>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-sub">Workflow + software layer</span>
                 </div>
 
                 {/* Path 2 */}
@@ -392,7 +392,7 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
                     <span className="h-1.2 w-1.2 rounded-full bg-emerald-500/60" aria-hidden="true" />
                     <span>Operation</span>
                   </div>
-                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Run operations</span>
+                  <span className="mt-0.5 font-body text-[8px] sm:text-[9px] text-text-muted-gray">Dashboards, automation, reports</span>
                 </div>
               </div>
 
