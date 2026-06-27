@@ -80,6 +80,8 @@ const ContentSecurityPolicy = `
 
 // ─── Next.js Config ──────────────────────────────────────────────────────────
 const nextConfig: NextConfig = {
+  transpilePackages: ["antd", "antd-style", "@lobehub/ui", "@lobehub/icons"],
+
   async redirects() {
     return [
       {
