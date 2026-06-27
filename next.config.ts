@@ -70,7 +70,7 @@ const ContentSecurityPolicy = `
     https://webfonts.zohostatic.com;
   img-src 'self' data: blob:
     https://www.facebook.com
-    https://px.ads.linkedin.com
+    https://*.ads.linkedin.com
     https://www.googletagmanager.com
     https://www.google-analytics.com
     https://www.linkedin.com
@@ -83,7 +83,7 @@ const ContentSecurityPolicy = `
     https://analytics.google.com
     https://connect.facebook.net
     https://www.facebook.com
-    https://px.ads.linkedin.com
+    https://*.ads.linkedin.com
     https://snap.licdn.com
     https://vercel.live
     wss://vercel.live;
