@@ -56,7 +56,8 @@ const ContentSecurityPolicy = `
     https://consent.cookiebot.com
     https://consentcdn.cookiebot.com
     https://static.cloudflareinsights.com
-    https://js.stripe.com;
+    https://js.stripe.com
+    https://www.googletagmanager.com;
   style-src 'self' 'unsafe-inline'
     https://use.typekit.net
     https://p.typekit.net;
@@ -68,7 +69,8 @@ const ContentSecurityPolicy = `
   frame-src
     https://js.stripe.com
     https://hooks.stripe.com
-    https://consent.cookiebot.com;
+    https://consent.cookiebot.com
+    https://www.googletagmanager.com;
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self' https://consent.cookiebot.com;
