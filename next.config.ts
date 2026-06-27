@@ -63,7 +63,9 @@ const ContentSecurityPolicy = `
     https://vercel.live;
   style-src 'self' 'unsafe-inline'
     https://use.typekit.net
-    https://p.typekit.net;
+    https://p.typekit.net
+    https://consent.cookiebot.com
+    https://consentcdn.cookiebot.com;
   font-src 'self' data:
     https://use.typekit.net
     https://p.typekit.net
@@ -74,6 +76,8 @@ const ContentSecurityPolicy = `
     https://www.googletagmanager.com
     https://www.google-analytics.com
     https://www.linkedin.com
+    https://consent.cookiebot.com
+    https://consentcdn.cookiebot.com
     https://vercel.live;
   connect-src 'self'
     https://consent.cookiebot.com
