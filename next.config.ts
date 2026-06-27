@@ -59,18 +59,22 @@ const ContentSecurityPolicy = `
     https://js.stripe.com
     https://www.googletagmanager.com
     https://connect.facebook.net
-    https://snap.licdn.com;
+    https://snap.licdn.com
+    https://vercel.live;
   style-src 'self' 'unsafe-inline'
     https://use.typekit.net
     https://p.typekit.net;
   font-src 'self' data:
     https://use.typekit.net
-    https://p.typekit.net;
+    https://p.typekit.net
+    https://webfonts.zohostatic.com;
   img-src 'self' data: blob:
     https://www.facebook.com
     https://px.ads.linkedin.com
     https://www.googletagmanager.com
-    https://www.google-analytics.com;
+    https://www.google-analytics.com
+    https://www.linkedin.com
+    https://vercel.live;
   connect-src 'self'
     https://consent.cookiebot.com
     https://consentcdn.cookiebot.com
@@ -80,13 +84,16 @@ const ContentSecurityPolicy = `
     https://connect.facebook.net
     https://www.facebook.com
     https://px.ads.linkedin.com
-    https://snap.licdn.com;
+    https://snap.licdn.com
+    https://vercel.live
+    wss://vercel.live;
   frame-src 'self'
     https://js.stripe.com
     https://hooks.stripe.com
     https://consent.cookiebot.com
     https://consentcdn.cookiebot.com
-    https://www.googletagmanager.com;
+    https://www.googletagmanager.com
+    https://vercel.live;
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self' https://consent.cookiebot.com;
