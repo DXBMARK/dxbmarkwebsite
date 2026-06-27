@@ -4,7 +4,7 @@ export const SITE_URL = "https://www.dxbmark.com";
 export const SITE_NAME = "DXBMARK LLC";
 
 export const ROOT_TITLE =
-  "DXBMARK LLC | Software, SaaS, Cloud & Automation Systems";
+  "DXBMARK LLC | Custom Software, SaaS & Web Applications";
 
 export const ROOT_DESCRIPTION =
   "DXBMARK LLC builds custom software, SaaS platforms, web applications, automation systems, cloud infrastructure, integrations, dashboards, portals, managed hosting, DevOps support, and technical consulting for global businesses.";

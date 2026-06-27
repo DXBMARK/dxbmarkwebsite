@@ -13,7 +13,7 @@ import { HOME_DESCRIPTION, createPageMetadata } from "@/lib/seo/site";
 import { buildHomeJsonLd } from "@/lib/seo/structured-data";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Software, SaaS, Cloud & Automation Systems",
+  title: { absolute: "DXBMARK LLC | Custom Software, SaaS & Web Applications" },
   description: HOME_DESCRIPTION,
   path: "/",
 });
