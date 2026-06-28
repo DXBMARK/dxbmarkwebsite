@@ -93,9 +93,9 @@ export default function RootLayout({
           src="https://consent.cookiebot.com/uc.js"
           data-cbid="99d6ba11-8ea1-490c-aec8-c4fbd0848d5c"
           data-blockingmode="auto"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
-        <Script id="cookiebot-consent-bridge" strategy="beforeInteractive">
+        <Script id="cookiebot-consent-bridge" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
 
