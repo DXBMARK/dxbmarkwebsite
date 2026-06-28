@@ -177,7 +177,7 @@ export function StatsSection() {
 
           <h2
             id="home-stats-title"
-            className="mt-5 text-balance font-sans text-3xl font-black tracking-tight text-text-main sm:text-4xl lg:text-5xl"
+            className="mt-5 text-balance font-display text-3xl font-black tracking-tight text-text-main sm:text-4xl lg:text-5xl"
           >
             Numbers behind{" "}
             <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent">

@@ -37,7 +37,7 @@ export function TechStackSection() {
 
           <h2
             id="home-technology-stack-title"
-            className="mt-6 text-balance font-sans text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-6xl"
+            className="mt-6 text-balance font-display text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-6xl"
           >
             Trusted technology{" "}
             <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent">

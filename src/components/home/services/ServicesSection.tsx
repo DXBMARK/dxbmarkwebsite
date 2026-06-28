@@ -41,7 +41,7 @@ export function ServicesSection() {
           <h2
             id="home-services-title"
             data-services-reveal
-            className="font-sans text-3xl font-black tracking-tight text-text-main sm:text-4xl md:text-5xl lg:text-[3.75rem] leading-[1.1]"
+            className="font-display text-3xl font-black tracking-tight text-text-main sm:text-4xl md:text-5xl lg:text-[3.75rem] leading-[1.1]"
           >
             Our{" "}
             <span className="bg-gradient-to-r from-text-main via-brand-primary to-brand-secondary bg-clip-text text-transparent pb-1">

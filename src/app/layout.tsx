@@ -4,12 +4,12 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { ROOT_DESCRIPTION, ROOT_TITLE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 import localFont from "next/font/local";
-import { Inter } from "next/font/google";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../assets/fonts/InterVariable.woff2",
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 });
 
 const utopia = localFont({

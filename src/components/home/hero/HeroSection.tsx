@@ -26,7 +26,7 @@ export function HeroSection() {
           <HeroBadge />
 
           {/* Centered Large Headline */}
-          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-[4.25rem] font-black tracking-tight leading-[1.05] mt-6 sm:mt-8 max-w-4xl mx-auto">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[4.25rem] font-black tracking-tight leading-[1.05] mt-6 sm:mt-8 max-w-4xl mx-auto">
             <span className="hero-title-line block text-text-main">
               {HOME_HERO_CONTENT.headlineLine1}
             </span>

@@ -93,6 +93,10 @@ export function Footer() {
         className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
       >
         <div ref={glowRef} className="footer-glow-layer" />
+        {/*
+          Custom footer signature font intentionally disabled.
+          Use standard local Inter typography until DXBMARK approves a dedicated licensed signature font.
+        */}
         <div ref={brandRef} className="footer-brand-word">DXBMARK</div>
       </div>
       

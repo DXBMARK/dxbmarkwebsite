@@ -49,7 +49,7 @@ export function SaasSystemsSection() {
           <h2
             id="home-saas-systems-title"
             data-saas-reveal
-            className="mx-auto mt-3 max-w-4xl font-sans text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-[3.4rem] xl:text-[3.6rem] leading-[1.06]"
+            className="mx-auto mt-3 max-w-4xl font-display text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-[3.4rem] xl:text-[3.6rem] leading-[1.06]"
           >
             {/* Split to apply gradient on last word */}
             Build Your{" "}

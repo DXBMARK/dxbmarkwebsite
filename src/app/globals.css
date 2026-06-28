@@ -80,9 +80,11 @@
   --font-display: var(--font-utopia);
 }
 
-/* Display Typography: Utopia font for headings, excluding body and specific items */
-h1, h2, .font-display {
-  font-family: var(--font-utopia), Georgia, serif !important;
+/* Display Typography: Utopia font for headings via opt-in system */
+.font-display,
+.hero-heading,
+.marketing-heading {
+  font-family: var(--font-utopia), Georgia, serif;
 }
 
 /* Explicitly keep legal pages and other elements on Inter variable */
@@ -257,7 +259,7 @@ body {
   left: 50%;
   bottom: clamp(-1.5rem, -2vw, -0.5rem);
   transform: translateX(-50%);
-  font-family: utopian, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-weight: 500;
   font-style: normal;
   line-height: 1.10;
