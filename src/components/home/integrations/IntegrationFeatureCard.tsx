@@ -17,9 +17,9 @@ export function IntegrationFeatureCard({ item }: IntegrationFeatureCardProps) {
       </div>
 
       {/* Title */}
-      <h4 className="font-sans text-xs sm:text-sm font-extrabold text-text-main">
+      <h3 className="font-sans text-xs sm:text-sm font-extrabold text-text-main">
         {item.title}
-      </h4>
+      </h3>
 
       {/* Description */}
       <p className="mt-1 font-body text-[11px] leading-snug text-text-muted-gray sm:text-xs">

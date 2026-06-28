@@ -308,19 +308,19 @@ function FeatureItem({ feature, index }: FeatureItemProps) {
             data-saas-feature-content
           >
             <div className="lg:max-w-lg">
-              <h3 className="mb-4 font-label text-base font-medium text-brand-primary md:mb-5 md:text-lg">
+              <p className="mb-4 font-label text-base font-medium text-brand-primary md:mb-5 md:text-lg">
                 {feature.badge}
-              </h3>
-              <h4 className="font-sans text-2xl font-semibold tracking-tight text-text-main sm:text-3xl xl:text-4xl">
+              </p>
+              <h3 className="font-sans text-2xl font-semibold tracking-tight text-text-main sm:text-3xl xl:text-4xl">
                 {feature.headline}
-              </h4>
+              </h3>
 
               <div className="mt-8 space-y-6">
                 {feature.features.map((item, idx) => (
                   <div key={idx}>
-                    <h5 className="mb-2 font-sans text-xl font-semibold text-text-main">
+                    <h4 className="mb-2 font-sans text-xl font-semibold text-text-main">
                       {item.title}
-                    </h5>
+                    </h4>
                     <p className="font-body text-base leading-relaxed text-text-sub">
                       {item.description}
                     </p>
