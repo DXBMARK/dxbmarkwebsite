@@ -3,13 +3,10 @@ import type { Metadata } from "next";
 import { Glow } from "@/components/visual";
 import { HeroSection } from "@/components/home/hero/HeroSection";
 import { ServicesSection } from "@/components/home/services/ServicesSection";
-import { IntegrationsSection } from "@/components/home/integrations/IntegrationsSection";
-import { SaasSystemsSection } from "@/components/home/saas-systems/SaasSystemsSection";
-import { StatsSection } from "@/components/home/stats/StatsSection";
-import { TechStackSection } from "@/components/home/tech-stack/TechStackSection";
+import { HomeClientContent } from "@/components/home/HomeClientContent";
 import { HomeScrollController } from "@/components/home/scroll/HomeScrollController";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { HOME_DESCRIPTION, createPageMetadata } from "@/lib/seo/site";
+import { createPageMetadata } from "@/lib/seo/site";
 import { buildHomeJsonLd } from "@/lib/seo/structured-data";
 
 export const metadata: Metadata = createPageMetadata({
@@ -34,10 +31,7 @@ export default function Home() {
         <main className="relative z-10">
           <HeroSection />
           <ServicesSection />
-          <IntegrationsSection />
-          <SaasSystemsSection />
-          <StatsSection />
-          <TechStackSection />
+          <HomeClientContent />
         </main>
       </div>
     </>

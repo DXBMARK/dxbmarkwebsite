@@ -15,7 +15,15 @@ export function useServicesMotion(rootRef: React.RefObject<HTMLDivElement | null
     if (!root) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReducedMotion || isMobile) {
+      const allElements = root.querySelectorAll("[data-services-reveal], [data-service-card]");
+      allElements.forEach((el) => {
+        (el as HTMLElement).style.opacity = "1";
+        (el as HTMLElement).style.visibility = "visible";
+      });
+      return;
+    }
 
     const ctx = gsap.context(() => {
       // Reveal the badge, h2, and description

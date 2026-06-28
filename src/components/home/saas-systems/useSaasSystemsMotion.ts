@@ -26,8 +26,9 @@ export function useSaasSystemsMotion(
     if (!root) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      // Make all animated elements immediately visible for reduced motion
+    const isMobile = window.innerWidth < 768;
+    if (reduce || isMobile) {
+      // Make all animated elements immediately visible for reduced motion or mobile
       const allAnimatedElements = root.querySelectorAll(
         "[data-saas-reveal], [data-saas-visual], [data-saas-feature-visual], [data-saas-feature-content], [data-saas-final-panel]"
       );

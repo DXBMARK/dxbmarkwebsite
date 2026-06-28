@@ -14,7 +14,15 @@ export function useIntegrationsMotion(rootRef: RefObject<HTMLElement | null>) {
     if (!root) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+    const isMobile = window.innerWidth < 768;
+    if (reduce || isMobile) {
+      const allElements = root.querySelectorAll("[data-integrations-reveal], [data-integrations-visual]");
+      allElements.forEach((el) => {
+        (el as HTMLElement).style.opacity = "1";
+        (el as HTMLElement).style.visibility = "visible";
+      });
+      return;
+    }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
