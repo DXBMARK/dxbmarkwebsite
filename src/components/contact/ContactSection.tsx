@@ -641,16 +641,15 @@ export default function ContactSection() {
               <div>
                 <div className="flex items-center gap-2.5 mb-4">
                   <MapPin className="h-5 w-5 text-brand-primary" aria-hidden="true" />
-                  <h3 className="font-sans text-lg font-bold text-text-main">Registered Address</h3>
+                  <h3 className="font-sans text-lg font-bold text-text-main whitespace-nowrap">Registered Business Address</h3>
                 </div>
                 <div className="font-body text-sm text-text-sub leading-relaxed">
-                  <p className="font-bold text-text-main">DXBMARK LLC</p>
                   <p>30 N Gould St, Ste R</p>
                   <p>Sheridan, Wyoming 82801</p>
                   <p>United States</p>
                   <div className="mt-3 pt-2 border-t border-border-soft-val space-y-1.5">
                     <p className="text-[11px] text-text-muted-gray leading-relaxed">
-                      DXBMARK LLC is a remote-first digital services company. We deliver our services online and provide customer support by remote desktop application, email, and phone. Our registered business address is used for official company correspondence and is not a public customer service office.
+                      DXBMARK LLC is a remote-first company providing all services and support online. Our registered business address is for official correspondence only and is not a public customer office.
                     </p>
                     <p className="text-xs text-text-dark-gray italic">Wyoming LLC · Operating globally from UAE</p>
                   </div>
