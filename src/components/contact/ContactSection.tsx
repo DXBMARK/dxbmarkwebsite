@@ -657,8 +657,8 @@ export default function ContactSection() {
             <div className={cardClassName}>
               <div>
                 <div className="flex items-center gap-2.5 mb-4">
-                  <MapPin className="h-5 w-5 text-brand-primary flex-shrink-0" aria-hidden="true" />
-                  <h3 className="font-sans text-lg font-bold text-text-main sm:whitespace-nowrap">Registered Business Address</h3>
+                  <MapPin className="h-5 w-5 text-brand-primary shrink-0" aria-hidden="true" />
+                  <h3 className="font-sans text-lg font-bold text-text-main whitespace-nowrap">Registered Business Address</h3>
                 </div>
                 <div className="font-body text-sm text-text-sub leading-relaxed">
                   <p>30 N Gould St, Ste R</p>
