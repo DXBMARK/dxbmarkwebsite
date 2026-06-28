@@ -7,7 +7,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getCountries, getCountryCallingCode, parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js/max";
 
-import GlobeWireframe from "@/components/ui/globe-wireframe";
+import dynamic from "next/dynamic";
+const GlobeWireframe = dynamic(() => import("@/components/ui/globe-wireframe"), {
+  ssr: false
+});
 import { SeparatorPro } from "@/components/ui/separator-pro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/layout";
@@ -92,6 +95,8 @@ export default function ContactSection() {
 
   const [isDesktop, setIsDesktop] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isGlobeVisible, setIsGlobeVisible] = useState(false);
+  const globeContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Validation & notices state
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -315,6 +320,18 @@ export default function ContactSection() {
       window.removeEventListener("resize", checkViewport);
       cancelAnimationFrame(raf);
     };
+  }, []);
+
+  useEffect(() => {
+    if (!globeContainerRef.current) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsGlobeVisible(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: "100px" });
+    observer.observe(globeContainerRef.current);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -712,18 +729,20 @@ export default function ContactSection() {
           {/* Right: Globe Operations Map (5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between rounded-radius-xl border border-border-soft-val bg-white/[0.03] p-6 shadow-shadow-card backdrop-blur-xl transition-all duration-300 hover:border-border-strong-val relative overflow-hidden min-h-[280px]">
             {/* Globe container: pointer-events-auto for desktop interaction */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-auto" aria-hidden="true">
-              <GlobeWireframe
-                className="absolute left-1/2 top-1/2 aspect-square w-[115%] max-w-none -translate-x-1/2 -translate-y-1/2 text-brand-primary/60"
-                variant="wireframesolid"
-                autoRotate
-                autoRotateSpeed={0.35}
-                strokeWidth={0.55}
-                graticuleOpacity={0.08}
-                sphereOutlineWidth={1}
-                rotateToLocation="dubai"
-                enableInteraction={isDesktop}
-              />
+            <div ref={globeContainerRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-auto" aria-hidden="true">
+              {isGlobeVisible && (
+                <GlobeWireframe
+                  className="absolute left-1/2 top-1/2 aspect-square w-[115%] max-w-none -translate-x-1/2 -translate-y-1/2 text-brand-primary/60"
+                  variant="wireframesolid"
+                  autoRotate
+                  autoRotateSpeed={0.35}
+                  strokeWidth={0.55}
+                  graticuleOpacity={0.08}
+                  sphereOutlineWidth={1}
+                  rotateToLocation="dubai"
+                  enableInteraction={isDesktop}
+                />
+              )}
               {/* Decorative overlays must retain pointer-events-none to prevent blocking interaction */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background-slate via-background-slate/50 to-transparent" />
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--color-accent-glow),transparent_50%)]" />

@@ -11,7 +11,14 @@ export function useHeroMotion() {
     if (typeof window === "undefined") return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    const isMobile = window.innerWidth < 768;
+    if (prefersReduced || isMobile) {
+      gsap.set(".hero-badge-elem, .hero-title-line, .hero-sub-elem, .hero-cta-elem, .hero-trust-logos-elem, .hero-scroll-cue", {
+        opacity: 1,
+        y: 0
+      });
+      return;
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
