@@ -20,10 +20,10 @@ const utopia = localFont({
 
 const siteUrl = "https://www.dxbmark.com";
 
-const title = "DXBMARK LLC — Custom Software, SaaS, Cloud & Integrations";
+const title = "DXBMARK LLC — Custom Software, SaaS & Cloud Systems";
 
 const description =
-  "DXBMARK LLC builds custom software, SaaS platforms, web applications, cloud infrastructure, domains, and integrations for modern businesses.";
+  "DXBMARK LLC builds custom software, SaaS, cloud infrastructure, and digital integrations for modern businesses.";
 
 const ogImage = "https://www.dxbmark.com/og/dxbmark-og-main.jpg";
 
