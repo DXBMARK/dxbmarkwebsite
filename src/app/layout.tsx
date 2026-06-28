@@ -25,7 +25,7 @@ const title = "DXBMARK LLC — Custom Software, SaaS, Cloud & Integrations";
 const description =
   "DXBMARK LLC builds custom software, SaaS platforms, web applications, cloud infrastructure, domains, and integrations for modern businesses.";
 
-const ogImage = "/og/dxbmark-og-main.jpg";
+const ogImage = "https://www.dxbmark.com/og/dxbmark-og-main.jpg";
 
 const ogImageAlt =
   "DXBMARK LLC open graph image showing the brand slogan Build. Scale. Run. with service panels for Custom Software, SaaS, Web Applications, Cloud Infrastructure, Domains, and Integrations.";
