@@ -64,6 +64,10 @@ export const createPageMetadata = ({
   const url = absoluteUrl(path);
   const titleText = getMetadataTitleText(title, openGraphTitle);
 
+  const ogImage = "https://www.dxbmark.com/og/dxbmark-og-main.jpg";
+  const ogImageAlt =
+    "DXBMARK LLC open graph image showing the brand slogan Build. Scale. Run. with service panels for Custom Software, SaaS, Web Applications, Cloud Infrastructure, Domains, and Integrations.";
+
   return {
     title,
     description,
@@ -78,11 +82,28 @@ export const createPageMetadata = ({
       siteName: SITE_NAME,
       type: openGraphType,
       locale: "en_US",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: ogImageAlt,
+          type: "image/jpeg",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: titleText,
       description,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: ogImageAlt,
+        },
+      ],
     },
   };
 };
