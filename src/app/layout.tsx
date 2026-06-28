@@ -3,6 +3,21 @@ import "./globals.css";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { ROOT_DESCRIPTION, ROOT_TITLE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
+import localFont from "next/font/local";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const utopia = localFont({
+  src: "../assets/fonts/Utopia.woff2",
+  variable: "--font-utopia",
+  display: "swap",
+  preload: true,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -57,37 +72,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full antialiased"
+      className={`h-full antialiased ${inter.variable} ${utopia.variable}`}
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://consent.cookiebot.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://consentcdn.cookiebot.com" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          href="https://use.typekit.net/dir8qmj.css"
-          as="style"
-        />
-        <script
-          data-cookieconsent="ignore"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = 'https://use.typekit.net/dir8qmj.css';
-                link.media = 'print';
-                link.onload = function() { this.media = 'all'; };
-                document.head.appendChild(link);
-              })();
-            `,
-          }}
-        />
-        <noscript>
-          <link rel="stylesheet" href="https://use.typekit.net/dir8qmj.css" />
-        </noscript>
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"

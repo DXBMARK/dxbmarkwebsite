@@ -70,7 +70,7 @@ export default function LegalIndexPage() {
   ];
 
   return (
-    <Section className="relative bg-background-slate min-h-[75vh] overflow-hidden">
+    <Section className="legal-page relative bg-background-slate min-h-[75vh] overflow-hidden">
       <Glow className="absolute inset-0 z-0" />
       <Container className="relative z-10 flex flex-col gap-12 text-left">
         {/* Breadcrumbs */}

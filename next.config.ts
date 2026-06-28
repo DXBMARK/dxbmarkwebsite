@@ -52,7 +52,6 @@ const isDev = process.env.NODE_ENV === "development";
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""}
-    https://use.typekit.net
     https://consent.cookiebot.com
     https://consentcdn.cookiebot.com
     https://static.cloudflareinsights.com
@@ -62,14 +61,9 @@ const ContentSecurityPolicy = `
     https://snap.licdn.com
     https://vercel.live;
   style-src 'self' 'unsafe-inline'
-    https://use.typekit.net
-    https://p.typekit.net
     https://consent.cookiebot.com
     https://consentcdn.cookiebot.com;
-  font-src 'self' data:
-    https://use.typekit.net
-    https://p.typekit.net
-    https://webfonts.zohostatic.com;
+  font-src 'self' data:;
   img-src 'self' data: blob:
     https://www.facebook.com
     https://*.ads.linkedin.com

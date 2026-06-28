@@ -88,7 +88,7 @@ export default async function LegalPlaceholderPage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={buildLegalDocumentJsonLd(doc)} />
-      <Section className="relative bg-background-slate min-h-[75vh] py-12 overflow-hidden">
+      <Section className="legal-page relative bg-background-slate min-h-[75vh] py-12 overflow-hidden">
         <Glow className="absolute inset-0 z-0" />
         <Container className="relative z-10 flex flex-col gap-8 text-left">
           {/* Breadcrumbs */}
