@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { ROOT_DESCRIPTION, ROOT_TITLE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 import localFont from "next/font/local";
 
 const inter = localFont({
@@ -19,17 +18,65 @@ const utopia = localFont({
   preload: true,
 });
 
+const siteUrl = "https://www.dxbmark.com";
+
+const title = "DXBMARK LLC — Custom Software, SaaS, Cloud & Integrations";
+
+const description =
+  "DXBMARK LLC builds custom software, SaaS platforms, web applications, cloud infrastructure, domains, and integrations for modern businesses.";
+
+const ogImage = "/og/dxbmark-og-main.jpg";
+
+const ogImageAlt =
+  "DXBMARK LLC open graph image showing the brand slogan Build. Scale. Run. with service panels for Custom Software, SaaS, Web Applications, Cloud Infrastructure, Domains, and Integrations.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: ROOT_TITLE,
-    template: `%s | ${SITE_NAME}`,
+  metadataBase: new URL(siteUrl),
+
+  title,
+  description,
+
+  applicationName: "DXBMARK LLC",
+  authors: [{ name: "DXBMARK LLC", url: siteUrl }],
+  creator: "DXBMARK LLC",
+  publisher: "DXBMARK LLC",
+
+  alternates: {
+    canonical: "/",
   },
-  description: ROOT_DESCRIPTION,
-  applicationName: SITE_NAME,
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
-  creator: SITE_NAME,
-  publisher: SITE_NAME,
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "DXBMARK LLC",
+    title,
+    description,
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: ogImageAlt,
+        type: "image/jpeg",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: ogImageAlt,
+      },
+    ],
+  },
+
   robots: {
     index: true,
     follow: true,
@@ -40,22 +87,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
-  openGraph: {
-    siteName: SITE_NAME,
-    type: "website",
-    locale: "en_US",
-    url: SITE_URL,
-    title: ROOT_TITLE,
-    description: ROOT_DESCRIPTION,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: ROOT_TITLE,
-    description: ROOT_DESCRIPTION,
   },
 };
 
