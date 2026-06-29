@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { SaasSystemId } from "@/content/home/saas-systems";
-import { FileText, Database, Send, CheckCircle2, Brain, CheckSquare } from "lucide-react";
+import { FileText, Database, Send, CheckCircle2, Brain, CheckSquare, LayoutDashboard, Users, Code, Settings, Activity, ArrowUpRight } from "lucide-react";
 
 // ============================================================================
 // DESIGN TOKENS (aligned with globals.css — no raw hex except approved orange)
@@ -1169,47 +1169,75 @@ function DashCustom() {
           {/* RIGHT ZONE — Organized outputs + build pipeline */}
           <div className="flex w-[28%] flex-col gap-2.5">
             {/* Organized outputs */}
-            <ScreenCard className="p-3 border-emerald-500/20" glow>
-              <div className="flex items-center gap-1.5 mb-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                <span className="font-label text-[8px] uppercase tracking-widest text-emerald-400">Output</span>
+            <ScreenCard className="p-3 border-brand-primary/20" glow>
+              <div className="flex items-center gap-1.5 mb-2.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
+                <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary">Outputs</span>
               </div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {["Dashboard", "Portal", "API", "Reports"].map((item) => (
+              <div className="flex flex-col gap-1.5">
+                {[
+                  { label: "Dashboard", icon: LayoutDashboard, desc: "Operational view" },
+                  { label: "User Portal", icon: Users, desc: "Customer interface" },
+                  { label: "REST APIs", icon: Code, desc: "Integrations ready" },
+                  { label: "BI Reports", icon: FileText, desc: "Real-time metrics" },
+                ].map((item) => (
                   <div
-                    key={item}
-                    className="rounded-lg border border-emerald-500/20 bg-emerald-500/[0.08] px-2 py-2 text-center font-label text-[8px] uppercase tracking-wider text-emerald-400"
+                    key={item.label}
+                    className="group/item flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] p-1.5 transition-all hover:border-brand-primary/20 hover:bg-brand-primary/[0.03]"
                   >
-                    {item}
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-text-muted-gray group-hover/item:border-brand-primary/30 group-hover/item:text-brand-primary">
+                      <item.icon className="h-3 w-3" aria-hidden="true" />
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-sans text-[9px] font-bold text-text-main group-hover/item:text-brand-primary transition-colors leading-tight">
+                        {item.label}
+                      </div>
+                      <div className="font-body text-[7px] text-text-muted-gray leading-none truncate">
+                        {item.desc}
+                      </div>
+                    </div>
+                    <ArrowUpRight className="h-2.5 w-2.5 text-text-muted-gray opacity-0 group-hover/item:opacity-100 group-hover/item:text-brand-primary transition-all mr-0.5" />
                   </div>
                 ))}
               </div>
             </ScreenCard>
             
             {/* Build pipeline — compact supporting evidence */}
-            <ScreenCard className="p-2.5">
-              <div className="mb-1.5 flex items-center justify-between">
-                <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray">Pipeline</span>
-                <Pill label="Deploying" color="green" />
+            <ScreenCard className="p-2.5 border-emerald-500/20">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+                  <span className="font-label text-[8px] uppercase tracking-widest text-emerald-400">Deployments</span>
+                </div>
+                <Pill label="Active" color="green" />
               </div>
               
-              <div className="space-y-1 font-code text-[9px]">
+              <div className="space-y-1.5">
                 {[
-                  ["Schema", "done"],
-                  ["API", "done"],
-                  ["UI", "active"],
-                  ["Jobs", "queue"],
-                ].map(([label, status]) => (
-                  <div key={label} className="flex items-center justify-between">
-                    <span className="text-text-sub">→ {label}</span>
+                  { label: "Data Schema", status: "completed" },
+                  { label: "Core API", status: "completed" },
+                  { label: "Frontend UI", status: "running" },
+                  { label: "Workers/Jobs", status: "queued" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-[8px]">
+                    <span className="font-body text-text-sub flex items-center gap-1">
+                      <span className={cn(
+                        "h-1 w-1 rounded-full",
+                        item.status === "completed" && "bg-emerald-400",
+                        item.status === "running" && "bg-brand-primary animate-pulse",
+                        item.status === "queued" && "bg-white/20"
+                      )} />
+                      {item.label}
+                    </span>
                     <span
                       className={cn(
-                        status === "done" && "text-emerald-400",
-                        status === "active" && "text-brand-primary",
-                        status === "queue" && "text-text-muted-gray",
+                        "font-code uppercase tracking-wider text-[7px] px-1 rounded-sm border",
+                        item.status === "completed" && "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+                        item.status === "running" && "border-brand-primary/20 bg-brand-primary/10 text-brand-primary",
+                        item.status === "queued" && "border-white/10 bg-white/5 text-text-muted-gray"
                       )}
                     >
-                      {status}
+                      {item.status}
                     </span>
                   </div>
                 ))}
@@ -1217,14 +1245,33 @@ function DashCustom() {
             </ScreenCard>
             
             {/* System stats */}
-            <div className="rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-2">
-              <div className="flex items-center justify-between">
-                <span className="font-code text-[9px] text-text-muted-gray">Modules</span>
-                <span className="font-code text-[9px] font-bold text-text-main">12</span>
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-2.5 flex items-center justify-between gap-4">
+              <div className="flex-1 flex items-center gap-2">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand-primary">
+                  <Settings className="h-3.5 w-3.5 animate-[spin_8s_linear_infinite]" aria-hidden="true" />
+                </span>
+                <div>
+                  <div className="font-sans text-[9px] font-bold text-text-main">
+                    12 Modules
+                  </div>
+                  <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">
+                    Engineered & tested
+                  </div>
+                </div>
               </div>
-              <div className="mt-1 flex items-center justify-between">
-                <span className="font-code text-[9px] text-text-muted-gray">Integrations</span>
-                <span className="font-code text-[9px] font-bold text-text-main">8</span>
+              <div className="h-6 w-px bg-white/10" aria-hidden="true" />
+              <div className="flex-1 flex items-center gap-2">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-emerald-400">
+                  <Activity className="h-3.5 w-3.5" aria-hidden="true" />
+                </span>
+                <div>
+                  <div className="font-sans text-[9px] font-bold text-text-main">
+                    8 Integrations
+                  </div>
+                  <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">
+                    Active & verified
+                  </div>
+                </div>
               </div>
             </div>
           </div>
