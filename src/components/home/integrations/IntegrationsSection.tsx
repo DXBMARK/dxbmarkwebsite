@@ -39,7 +39,7 @@ export function IntegrationsSection() {
             <h2
               id="home-integrations-title"
               data-integrations-reveal
-              className="mx-auto mt-2.5 max-w-5xl text-center text-4xl font-extrabold leading-[0.98] text-text-main sm:text-5xl lg:text-[3.2rem] xl:text-[3.45rem]"
+              className="mx-auto mt-2.5 max-w-5xl text-center font-display text-4xl font-extrabold leading-[0.98] text-text-main sm:text-5xl lg:text-[3.2rem] xl:text-[3.45rem]"
             >
               Connect your{" "}
               <span className="bg-gradient-to-r from-[#FFE1C2] via-[#F97E1A] to-[#FF8A1F] bg-clip-text pb-1 text-transparent">

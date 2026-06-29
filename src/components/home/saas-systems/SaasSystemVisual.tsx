@@ -4,8 +4,8 @@ import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { SaasSystemId } from "@/content/home/saas-systems";
-import { FileText, Database, Send, CheckCircle2, Brain, CheckSquare, LayoutDashboard, Users, Code, Settings, Activity, ArrowUpRight } from "lucide-react";
-
+import { FileText, Database, Send, CheckCircle2, Brain, CheckSquare } from "lucide-react";
+import Image from "next/image";
 // ============================================================================
 // DESIGN TOKENS (aligned with globals.css — no raw hex except approved orange)
 // ============================================================================
@@ -965,319 +965,52 @@ function DashWorkflow() {
 
 function DashCustom() {
   return (
-    <PremiumShell
-      title="system.builder — Custom Business OS"
-      right={
-        <div className="flex items-center gap-2">
-          <Pill label="Live Build" color="orange" />
-          <span className="font-code text-[9px] text-sky-400">v2.4.1</span>
+    <div className="flex h-full w-full flex-col justify-between p-4 bg-[rgba(8,14,28,0.85)] rounded-2xl border border-white/[0.08] shadow-[0_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+      {/* Top Title Bar */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+        <div>
+          <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary font-bold">System Blueprint</span>
+          <h3 className="font-sans text-sm font-extrabold text-text-main mt-0.5">
+            Operational Integration Hub
+          </h3>
         </div>
-      }
-    >
-      <div className="relative h-full overflow-hidden p-3">
-        {/* Dramatic hero glow behind core */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-glow opacity-30 blur-[110px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-48 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-primary/20 opacity-40 blur-[80px]" aria-hidden="true" />
-        
-        {/* Left scatter glows */}
-        <div className="pointer-events-none absolute left-[15%] top-[30%] h-24 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-500/15 opacity-20 blur-[60px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[18%] top-[70%] h-24 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-500/15 opacity-20 blur-[60px]" aria-hidden="true" />
-        
-        {/* Right organized glows */}
-        <div className="pointer-events-none absolute left-[85%] top-[50%] h-32 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/15 opacity-25 blur-[70px]" aria-hidden="true" />
-        
-        <div className="relative z-10 flex h-full items-center gap-2">
-          {/* LEFT ZONE — Fragmented inputs (scattered but elegant) */}
-          <div className="flex w-[28%] flex-col gap-2.5">
-            {/* Problem statement */}
-            <ScreenCard className="p-3 border-rose-500/20" glow>
-              <div className="flex items-center gap-1.5 mb-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-rose-400" aria-hidden="true" />
-                <span className="font-label text-[8px] uppercase tracking-widest text-rose-400">Problem</span>
-              </div>
-              <div className="font-body text-xs font-semibold text-text-main leading-snug">
-                Operations scattered across tools
-              </div>
-              <p className="mt-1.5 font-body text-[9px] leading-relaxed text-text-sub">
-                Data disconnected, reports manual, teams siloed.
-              </p>
-            </ScreenCard>
-            
-            {/* Fragmented inputs — asymmetric for visual drama */}
-            <div className="grid grid-cols-2 gap-1.5">
-              {[
-                { label: "Forms", offset: "mt-0" },
-                { label: "CRM", offset: "mt-2" },
-                { label: "Billing", offset: "mt-1" },
-                { label: "Files", offset: "mt-3" },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className={cn(
-                    "rounded-lg border border-white/[0.08] bg-white/[0.04] px-2 py-2 text-center font-label text-[8px] uppercase tracking-wider text-text-muted-gray transition-all",
-                    item.offset
-                  )}
-                >
-                  {item.label}
-                </div>
-              ))}
-            </div>
-            
-            {/* Additional scattered input */}
-            <div className="ml-3 rounded-lg border border-white/[0.08] bg-white/[0.04] px-2 py-1.5 text-center font-label text-[8px] uppercase tracking-wider text-text-muted-gray">
-              Reports
-            </div>
-            <div className="mr-3 rounded-lg border border-white/[0.08] bg-white/[0.04] px-2 py-1.5 text-center font-label text-[8px] uppercase tracking-wider text-text-muted-gray">
-              Support
-            </div>
-          </div>
-          
-          {/* CENTER — DRAMATIC HERO CORE with orbital rings */}
-          <div className="relative flex w-[44%] items-center justify-center">
-            {/* Animated connectors from inputs */}
-            <svg className="absolute inset-0 h-full w-full" viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              {/* Left inputs converging to core */}
-              <path
-                d="M 20 100 Q 120 100 180 180"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.7"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="2s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.8">
-                <animateMotion path="M 20 100 Q 120 100 180 180" dur="2.2s" repeatCount="indefinite" />
-              </circle>
-              
-              <path
-                d="M 20 200 Q 100 200 180 210"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.7"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="2.1s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.8">
-                <animateMotion path="M 20 200 Q 100 200 180 210" dur="2.3s" repeatCount="indefinite" />
-              </circle>
-              
-              <path
-                d="M 20 320 Q 120 320 180 240"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.7"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="2.2s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.8">
-                <animateMotion path="M 20 320 Q 120 320 180 240" dur="2.4s" repeatCount="indefinite" />
-              </circle>
-              
-              {/* Core radiating to outputs */}
-              <path
-                d="M 220 180 Q 300 180 380 100"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.75"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="1.9s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.85">
-                <animateMotion path="M 220 180 Q 300 180 380 100" dur="2.1s" repeatCount="indefinite" />
-              </circle>
-              
-              <path
-                d="M 220 210 Q 300 210 380 210"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.75"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="1.8s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.85">
-                <animateMotion path="M 220 210 Q 300 210 380 210" dur="2s" repeatCount="indefinite" />
-              </circle>
-              
-              <path
-                d="M 220 240 Q 300 240 380 320"
-                fill="none"
-                stroke={ORANGE}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 12"
-                opacity="0.75"
-              >
-                <animate attributeName="stroke-dashoffset" from="22" to="0" dur="2s" repeatCount="indefinite" />
-              </path>
-              <circle r="2.5" fill={ORANGE} opacity="0.85">
-                <animateMotion path="M 220 240 Q 300 240 380 320" dur="2.2s" repeatCount="indefinite" />
-              </circle>
-            </svg>
-            
-            {/* Orbital rings for depth */}
-            <div className="absolute h-56 w-56 rounded-full border border-brand-primary/15 animate-[spin_20s_linear_infinite]" aria-hidden="true" />
-            <div className="absolute h-48 w-48 rounded-full border border-brand-primary/20 animate-[spin_15s_linear_infinite_reverse]" aria-hidden="true" />
-            
-            {/* HERO CORE with layered depth */}
-            <div className="relative z-20 flex h-52 w-52 flex-col items-center justify-center rounded-[2.5rem] border-2 border-brand-primary/50 bg-gradient-to-b from-[rgba(10,16,32,0.95)] to-[rgba(10,16,32,0.88)] text-center shadow-[0_0_70px_rgba(249,126,26,0.25),inset_0_0_40px_rgba(249,126,26,0.08)] backdrop-blur-xl">
-              {/* Inner glow ring */}
-              <div className="pointer-events-none absolute inset-2 rounded-[2rem] border border-brand-primary/25 shadow-[inset_0_0_24px_rgba(249,126,26,0.12)]" aria-hidden="true" />
-              
-              {/* Content */}
-              <div className="relative z-10 px-5">
-                <div className="font-label text-[11px] uppercase tracking-[0.24em] text-brand-primary drop-shadow-[0_0_8px_rgba(249,126,26,0.6)]">
-                  DXBMARK
-                </div>
-                <div className="mt-2 font-sans text-xl font-black leading-tight text-text-main drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                  System Core
-                </div>
-                <div className="mt-2 max-w-[160px] font-body text-[10px] leading-relaxed text-text-sub">
-                  Unified backend, workflows, data layer, and UI.
-                </div>
-                
-                {/* Status indicators */}
-                <div className="mt-3 flex items-center justify-center gap-1.5">
-                  <LiveDot color="orange" />
-                  <span className="font-code text-[8px] text-brand-primary">Building</span>
-                </div>
-              </div>
-              
-              {/* Floating badge */}
-              <div className="absolute -right-4 -top-4">
-                <div className="rounded-full border border-brand-primary/40 bg-brand-primary/[0.14] px-2.5 py-1 backdrop-blur-sm shadow-[0_4px_16px_rgba(249,126,26,0.2)]">
-                  <span className="font-label text-[8px] font-bold uppercase tracking-wider text-brand-primary">v2.4</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* RIGHT ZONE — Organized outputs + build pipeline */}
-          <div className="flex w-[28%] flex-col gap-2.5">
-            {/* Organized outputs */}
-            <ScreenCard className="p-3 border-brand-primary/20" glow>
-              <div className="flex items-center gap-1.5 mb-2.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
-                <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary">Outputs</span>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                {[
-                  { label: "Dashboard", icon: LayoutDashboard, desc: "Operational view" },
-                  { label: "User Portal", icon: Users, desc: "Customer interface" },
-                  { label: "REST APIs", icon: Code, desc: "Integrations ready" },
-                  { label: "BI Reports", icon: FileText, desc: "Real-time metrics" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="group/item flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] p-1.5 transition-all hover:border-brand-primary/20 hover:bg-brand-primary/[0.03]"
-                  >
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-text-muted-gray group-hover/item:border-brand-primary/30 group-hover/item:text-brand-primary">
-                      <item.icon className="h-3 w-3" aria-hidden="true" />
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-sans text-[9px] font-bold text-text-main group-hover/item:text-brand-primary transition-colors leading-tight">
-                        {item.label}
-                      </div>
-                      <div className="font-body text-[7px] text-text-muted-gray leading-none truncate">
-                        {item.desc}
-                      </div>
-                    </div>
-                    <ArrowUpRight className="h-2.5 w-2.5 text-text-muted-gray opacity-0 group-hover/item:opacity-100 group-hover/item:text-brand-primary transition-all mr-0.5" />
-                  </div>
-                ))}
-              </div>
-            </ScreenCard>
-            
-            {/* Build pipeline — compact supporting evidence */}
-            <ScreenCard className="p-2.5 border-emerald-500/20">
-              <div className="mb-2 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-                  <span className="font-label text-[8px] uppercase tracking-widest text-emerald-400">Deployments</span>
-                </div>
-                <Pill label="Active" color="green" />
-              </div>
-              
-              <div className="space-y-1.5">
-                {[
-                  { label: "Data Schema", status: "completed" },
-                  { label: "Core API", status: "completed" },
-                  { label: "Frontend UI", status: "running" },
-                  { label: "Workers/Jobs", status: "queued" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between text-[8px]">
-                    <span className="font-body text-text-sub flex items-center gap-1">
-                      <span className={cn(
-                        "h-1 w-1 rounded-full",
-                        item.status === "completed" && "bg-emerald-400",
-                        item.status === "running" && "bg-brand-primary animate-pulse",
-                        item.status === "queued" && "bg-white/20"
-                      )} />
-                      {item.label}
-                    </span>
-                    <span
-                      className={cn(
-                        "font-code uppercase tracking-wider text-[7px] px-1 rounded-sm border",
-                        item.status === "completed" && "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
-                        item.status === "running" && "border-brand-primary/20 bg-brand-primary/10 text-brand-primary",
-                        item.status === "queued" && "border-white/10 bg-white/5 text-text-muted-gray"
-                      )}
-                    >
-                      {item.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </ScreenCard>
-            
-            {/* System stats */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-2.5 flex items-center justify-between gap-4">
-              <div className="flex-1 flex items-center gap-2">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand-primary">
-                  <Settings className="h-3.5 w-3.5 animate-[spin_8s_linear_infinite]" aria-hidden="true" />
-                </span>
-                <div>
-                  <div className="font-sans text-[9px] font-bold text-text-main">
-                    12 Modules
-                  </div>
-                  <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">
-                    Engineered & tested
-                  </div>
-                </div>
-              </div>
-              <div className="h-6 w-px bg-white/10" aria-hidden="true" />
-              <div className="flex-1 flex items-center gap-2">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-emerald-400">
-                  <Activity className="h-3.5 w-3.5" aria-hidden="true" />
-                </span>
-                <div>
-                  <div className="font-sans text-[9px] font-bold text-text-main">
-                    8 Integrations
-                  </div>
-                  <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">
-                    Active & verified
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
+          <span className="font-label text-[8px] uppercase tracking-wider text-emerald-400 font-bold">Solved</span>
         </div>
       </div>
-    </PremiumShell>
+
+      {/* Main Illustration Panel */}
+      <div className="relative flex-1 w-full overflow-hidden flex items-center justify-center p-2 my-2 bg-[#050911]/50 rounded-xl border border-white/[0.04]">
+        <div className="relative w-full h-full max-w-[340px] aspect-square mx-auto pointer-events-none select-none">
+          <Image
+            src="/assets/images/saas-systems/custom-business.jpg"
+            alt="Isometric custom business system integration diagram showing users, cloud, analytics, integrations, automations, and modules connected to a central core"
+            fill
+            priority
+            className="object-contain rounded-lg"
+          />
+        </div>
+      </div>
+
+      {/* Bottom Architectural Legend */}
+      <div className="border-t border-white/[0.06] pt-3">
+        <div className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray mb-2">
+          Connected Components
+        </div>
+        <div className="grid grid-cols-3 gap-1.5 text-center">
+          {[
+            { label: "Users & Clients", desc: "CRM & Portals" },
+            { label: "Cloud & APIs", desc: "Databases & Sync" },
+            { label: "Automations", desc: "Workflows & Logic" }
+          ].map((item) => (
+            <div key={item.label} className="rounded-lg border border-white/[0.04] bg-white/[0.01] p-1.5">
+              <div className="font-sans text-[9px] font-bold text-text-main leading-tight">{item.label}</div>
+              <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
