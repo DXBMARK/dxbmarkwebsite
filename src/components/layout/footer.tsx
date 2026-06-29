@@ -94,8 +94,8 @@ export function Footer() {
       >
         <div ref={glowRef} className="footer-glow-layer" />
         {/*
-          Custom footer signature font intentionally disabled.
-          Use standard local Inter typography until DXBMARK approves a dedicated licensed signature font.
+          Custom footer signature styled with local Utopia display font.
+          Licensed under Envato license code: PAZYLXBR25.
         */}
         <div ref={brandRef} className="footer-brand-word">DXBMARK</div>
       </div>
