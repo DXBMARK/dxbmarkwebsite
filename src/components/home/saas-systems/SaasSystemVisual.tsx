@@ -577,130 +577,52 @@ function DashAdmin() {
 // ============================================================================
 function DashPortal() {
   return (
-    <Shell
-      title="portal.secure — Client Workspace"
-      badge={
-        <div className="flex items-center gap-1.5">
-          <Dot color="green" />
-          <span className="font-label text-[9px] uppercase tracking-widest text-text-muted-gray">Secure</span>
+    <div className="flex h-full w-full flex-col justify-between p-4 bg-[rgba(8,14,28,0.85)] rounded-2xl border border-white/[0.08] shadow-[0_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+      {/* Top Title Bar */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+        <div>
+          <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary font-bold">Portal Blueprint</span>
+          <h3 className="font-sans text-sm font-extrabold text-text-main mt-0.5">
+            Client Portal Architecture
+          </h3>
         </div>
-      }
-    >
-      <div className="relative flex flex-1 overflow-hidden">
-        {/* Glow behind timeline */}
-        <div
-          className="pointer-events-none absolute top-1/3 left-1/2 h-72 w-96 rounded-full bg-brand-glow opacity-20 blur-[100px]"
-          aria-hidden="true"
-        />
-
-        <div className="relative flex flex-1 flex-col gap-3 p-4">
-          {/* Top summary */}
-          <div className="grid grid-cols-3 gap-2">
-            <KpiCard label="Open Requests" value="4" sub="2 in progress" accent />
-            <KpiCard label="Files Shared" value="38" sub="4 new today" trend="up" />
-            <KpiCard label="Due Amount" value="$3.2k" sub="2 pending" />
-          </div>
-
-          {/* Main: Timeline + Requests */}
-          <div className="flex-1 min-h-0 grid grid-cols-[1.5fr_1fr] gap-3">
-            {/* Timeline */}
-            <GlassCard className="flex flex-col p-4 relative overflow-hidden">
-              <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-brand-primary/10 to-transparent pointer-events-none" />
-              
-              <div className="relative z-10 mb-3">
-                <span className="font-label text-[9px] uppercase tracking-widest text-text-muted-gray block">Project Timeline</span>
-                <span className="font-body text-[9px] text-text-sub mt-0.5">Current Stage: Client Review</span>
-              </div>
-
-              <div className="relative flex flex-1 flex-col justify-center gap-0">
-                {/* Connector line */}
-                <div className="absolute left-2 top-8 bottom-0 w-px bg-gradient-to-b from-brand-primary/40 to-white/[0.05]" aria-hidden="true" />
-
-                {[
-                  { step: "Kickoff", done: true, icon: "✓" },
-                  { step: "Requirements Review", done: true, icon: "✓" },
-                  { step: "Design Phase", done: true, icon: "✓" },
-                  { step: "Client Review", active: true, icon: "▶" },
-                  { step: "Final Delivery", done: false, icon: "◯" },
-                ].map((s, i) => (
-                  <div key={i} className="relative flex items-center gap-3 py-2">
-                    <span
-                      className={cn(
-                        "relative z-10 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold",
-                        (s as { active?: boolean }).active
-                          ? "border-2 border-brand-primary bg-brand-primary/20 text-brand-primary shadow-[0_0_12px_rgba(249,126,26,0.4)]"
-                          : s.done
-                          ? "border-2 border-emerald-500 bg-emerald-500/20 text-emerald-400"
-                          : "border-2 border-white/20 bg-white/[0.02] text-white/40"
-                      )}
-                      aria-hidden="true"
-                    >
-                      {(s as { active?: boolean }).active ? "▸" : s.done ? "✓" : "○"}
-                    </span>
-                    <span
-                      className={cn(
-                        "font-body text-[10px] font-medium",
-                        (s as { active?: boolean }).active
-                          ? "text-brand-primary font-semibold"
-                          : s.done
-                          ? "text-text-sub"
-                          : "text-text-muted-gray"
-                      )}
-                    >
-                      {s.step}
-                    </span>
-                    {(s as { active?: boolean }).active && (
-                      <span className="ml-auto shrink-0">
-                        <Pill label="Now" color="orange" />
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </GlassCard>
-
-            {/* Requests + Files */}
-            <div className="flex flex-col gap-3">
-              {/* Active requests */}
-              <GlassCard className="shrink-0 p-3">
-                <span className="font-label text-[9px] uppercase tracking-widest text-text-muted-gray mb-2 block">Active Requests</span>
-                <div className="flex flex-col gap-1.5">
-                  <DataRow label="Homepage redesign" right={<Pill label="In Review" color="orange" />} dot="orange" />
-                  <DataRow label="Export feature" right={<Pill label="In Prog" color="blue" />} dot="blue" />
-                  <DataRow label="Login fix" right={<Pill label="Resolved" color="green" />} dot="green" />
-                </div>
-              </GlassCard>
-
-              {/* Secure session */}
-              <GlassCard className="flex-1 min-h-0 p-3 relative">
-                <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-emerald-500/10 to-transparent pointer-events-none" />
-                
-                <div className="relative z-10 flex flex-col gap-2.5">
-                  <div>
-                    <span className="font-label text-[9px] uppercase tracking-widest text-text-muted-gray block mb-1">Session Info</span>
-                    <div className="flex items-center gap-1.5">
-                      <LiveDot />
-                      <span className="font-body text-[9px] text-text-sub">Active session</span>
-                    </div>
-                  </div>
-                  <div className="border-t border-white/[0.05] pt-2">
-                    <span className="font-label text-[9px] uppercase tracking-widest text-text-muted-gray block mb-1">Security</span>
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      <span className="font-code text-[9px] text-text-muted-gray">256-bit encrypted</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      <span className="font-code text-[9px] text-text-muted-gray">Last login: 3h ago</span>
-                    </div>
-                  </div>
-                </div>
-              </GlassCard>
-            </div>
-          </div>
+        <div className="rounded-full border border-brand-primary/20 bg-brand-primary/10 px-2 py-0.5">
+          <span className="font-label text-[8px] uppercase tracking-wider text-brand-primary font-bold">Secure</span>
         </div>
       </div>
-    </Shell>
+
+      {/* Main Illustration Panel */}
+      <div className="relative flex-1 w-full overflow-hidden flex items-center justify-center p-2 my-2 bg-[#050911]/50 rounded-xl border border-white/[0.04]">
+        <div className="relative w-full h-full max-w-[340px] aspect-square mx-auto pointer-events-none select-none">
+          <Image
+            src="/assets/images/saas-systems/client-portals.jpg"
+            alt="Isometric client portal system architecture showing dashboard layers, automation, data, and user permissions"
+            fill
+            priority
+            className="object-contain rounded-lg"
+          />
+        </div>
+      </div>
+
+      {/* Bottom Architectural Legend */}
+      <div className="border-t border-white/[0.06] pt-3">
+        <div className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray mb-2">
+          Encrypted Portal Layers
+        </div>
+        <div className="grid grid-cols-3 gap-1.5 text-center">
+          {[
+            { label: "User Access", desc: "Granular Permissions" },
+            { label: "Data & Reports", desc: "Secure Sync & Sharing" },
+            { label: "Dashboard & Logic", desc: "Automated Workflows" }
+          ].map((item) => (
+            <div key={item.label} className="rounded-lg border border-white/[0.04] bg-white/[0.01] p-1.5">
+              <div className="font-sans text-[9px] font-bold text-text-main leading-tight">{item.label}</div>
+              <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
