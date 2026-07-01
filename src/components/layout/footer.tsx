@@ -37,8 +37,7 @@ export function Footer() {
       gsap.set(brandRef.current, {
         opacity: 0.50,
         xPercent: -50,
-        // yPercent kept low so the word stays in the footer's lower area
-        yPercent: 4,
+        yPercent: 0,
       });
       return;
     }
@@ -63,12 +62,12 @@ export function Footer() {
       })
       .fromTo(brandRef.current, {
         opacity: 0,
-        yPercent: 20,
+        xPercent: -50,
+        yPercent: 12,
       }, {
-        // Final yPercent is ≤ 6 so the watermark stays intentionally
-        // visible as a background brand element — not clipped below the footer.
         opacity: 0.50,
-        yPercent: 6,
+        xPercent: -50,
+        yPercent: 0,
         duration: 1.25,
         ease: "power2.out"
       }, "<0.1");

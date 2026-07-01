@@ -577,52 +577,106 @@ function DashAdmin() {
 // ============================================================================
 function DashPortal() {
   return (
-    <div className="flex h-full w-full flex-col justify-between p-4 bg-[rgba(8,14,28,0.85)] rounded-2xl border border-white/[0.08] shadow-[0_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-      {/* Top Title Bar */}
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
-        <div>
-          <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary font-bold">Portal Blueprint</span>
-          <h3 className="font-sans text-sm font-extrabold text-text-main mt-0.5">
-            Client Portal Architecture
-          </h3>
+    <PremiumShell
+      title="portal.dxbmark.com — Client Workspace"
+      right={
+        <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-code text-[8px] uppercase tracking-wider text-emerald-400 font-bold">Encrypted SSL</span>
         </div>
-        <div className="rounded-full border border-brand-primary/20 bg-brand-primary/10 px-2 py-0.5">
-          <span className="font-label text-[8px] uppercase tracking-wider text-brand-primary font-bold">Secure</span>
-        </div>
-      </div>
-
-      {/* Main Illustration Panel */}
-      <div className="relative flex-1 w-full overflow-hidden flex items-center justify-center p-2 my-2 bg-[#050911]/50 rounded-xl border border-white/[0.04]">
-        <div className="relative w-full h-full max-w-[340px] aspect-square mx-auto pointer-events-none select-none">
-          <Image
-            src="/assets/images/saas-systems/client-portals.jpg"
-            alt="Isometric client portal system architecture showing dashboard layers, automation, data, and user permissions"
-            fill
-            priority
-            className="object-contain rounded-lg"
-          />
-        </div>
-      </div>
-
-      {/* Bottom Architectural Legend */}
-      <div className="border-t border-white/[0.06] pt-3">
-        <div className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray mb-2">
-          Encrypted Portal Layers
-        </div>
-        <div className="grid grid-cols-3 gap-1.5 text-center">
-          {[
-            { label: "User Access", desc: "Granular Permissions" },
-            { label: "Data & Reports", desc: "Secure Sync & Sharing" },
-            { label: "Dashboard & Logic", desc: "Automated Workflows" }
-          ].map((item) => (
-            <div key={item.label} className="rounded-lg border border-white/[0.04] bg-white/[0.01] p-1.5">
-              <div className="font-sans text-[9px] font-bold text-text-main leading-tight">{item.label}</div>
-              <div className="font-body text-[7px] text-text-muted-gray leading-none mt-0.5">{item.desc}</div>
+      }
+      sidebar={
+        <AppSidebar
+          active={0}
+          items={["Dashboard", "Milestones", "Files Shared", "Billing", "Support"]}
+        />
+      }
+    >
+      <div className="flex h-full flex-col gap-2.5 p-3 min-h-0">
+        {/* Welcome Banner */}
+        <GlassCard className="flex items-center justify-between px-3 py-2 shrink-0">
+          <div>
+            <h4 className="font-sans text-xs font-black text-text-main leading-tight">
+              Welcome back, Client Workspace
+            </h4>
+            <p className="font-body text-[9px] text-text-muted-gray leading-none mt-0.5">
+              Manage your systems, milestones, and shared files in one secure hub.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray block">Progress</span>
+              <span className="font-code text-[10px] font-bold text-brand-primary">92% Complete</span>
             </div>
-          ))}
+            <div className="h-7 w-px bg-white/10" />
+            <div className="text-right">
+              <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray block">Next Milestone</span>
+              <span className="font-code text-[10px] font-bold text-emerald-400">UAT & Handover</span>
+            </div>
+          </div>
+        </GlassCard>
+
+        {/* Content Grid */}
+        <div className="grid min-h-0 flex-1 grid-cols-[1.3fr_0.7fr] gap-2.5">
+          {/* Main Visual: Systems Map Card */}
+          <ScreenCard glow className="relative flex flex-col p-3 bg-[#050911]/90 min-h-0">
+            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 mb-2 shrink-0">
+              <div>
+                <span className="font-label text-[8px] uppercase tracking-widest text-brand-primary font-bold">System Status</span>
+                <h5 className="font-sans text-[11px] font-bold text-text-main mt-0.5">Live System Architecture</h5>
+              </div>
+              <Pill label="Operational" color="green" />
+            </div>
+            
+            {/* The Image inside the dashboard */}
+            <div className="relative flex-1 w-full overflow-hidden flex items-center justify-center p-1 bg-[#050911]/50 rounded-lg border border-white/[0.04]">
+              <div className="relative w-full h-full max-w-[260px] aspect-square mx-auto pointer-events-none select-none">
+                <Image
+                  src="/assets/images/saas-systems/client-portals.jpg"
+                  alt="Isometric client portal system architecture layers"
+                  fill
+                  priority
+                  className="object-contain rounded-lg"
+                />
+              </div>
+            </div>
+          </ScreenCard>
+
+          {/* Right Column: Activity + Billing */}
+          <div className="flex flex-col gap-2.5 min-h-0">
+            {/* Activity Log Card */}
+            <GlassCard className="flex-1 p-3 flex flex-col min-h-0 justify-between">
+              <div className="shrink-0 mb-1.5 flex items-center justify-between">
+                <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray">Activity Feed</span>
+                <LiveDot color="orange" />
+              </div>
+              <div className="flex flex-col gap-1.5 overflow-y-auto pr-1">
+                <ActivityRow time="10m ago" text="Developer: Configured portal domain" color="orange" />
+                <ActivityRow time="1h ago" text="System: Sync backup finished" color="green" />
+                <ActivityRow time="2h ago" text="Client: Uploaded feedback file" color="blue" />
+              </div>
+            </GlassCard>
+
+            {/* Billing Card */}
+            <GlassCard className="h-[120px] p-3 flex flex-col justify-between shrink-0">
+              <span className="font-label text-[8px] uppercase tracking-widest text-text-muted-gray mb-1">Billing & Milestones</span>
+              <div className="space-y-1.5">
+                {[
+                  { name: "Milestone 1: Design Signoff", status: "Paid", color: "green" as const },
+                  { name: "Milestone 2: Beta Launch", status: "Paid", color: "green" as const },
+                  { name: "Milestone 3: UAT Delivery", status: "Pending", color: "orange" as const }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-[9px] border-b border-white/[0.03] pb-1 last:border-0 last:pb-0">
+                    <span className="font-body text-text-sub truncate max-w-[110px]">{item.name}</span>
+                    <Pill label={item.status} color={item.color} />
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+          </div>
         </div>
       </div>
-    </div>
+    </PremiumShell>
   );
 }
 

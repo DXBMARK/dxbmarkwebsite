@@ -40,11 +40,6 @@ const paymentMethods = [
     src: "/assets/payment/link-stripe.svg",
     className: "payment-method-logo--link",
   },
-  {
-    name: "PayPal",
-    src: "/assets/payment/paypal.svg",
-    className: "payment-method-logo--paypal",
-  },
 ];
 
 export function PaymentTrustStrip() {
@@ -71,8 +66,7 @@ export function PaymentTrustStrip() {
 
         {/* Extended security note */}
         <p className="footer-payment-note">
-          We do not store any credit card information in server, payments are
-          processed by gateways and site is secured by 128 bit SSL encryption.
+          DXBMARK does not store full card numbers or CVV details. Payments are processed securely through trusted providers including Stripe.
         </p>
 
         {/* Accepted Payment Methods label */}
