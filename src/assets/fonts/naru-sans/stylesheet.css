@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'Naru Sans';
+    src: url('NaruSans-Light.woff2') format('woff2'),
+        url('NaruSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Thin Ita';
+    src: url('NaruSans-ThinItalic.woff2') format('woff2'),
+        url('NaruSans-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Med';
+    src: url('NaruSans-Medium.woff2') format('woff2'),
+        url('NaruSans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Ita';
+    src: url('NaruSans-Italic.woff2') format('woff2'),
+        url('NaruSans-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans ExtLt Ita';
+    src: url('NaruSans-ExtraLightItalic.woff2') format('woff2'),
+        url('NaruSans-ExtraLightItalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans';
+    src: url('NaruSans-Regular.woff2') format('woff2'),
+        url('NaruSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Light Ita';
+    src: url('NaruSans-LightItalic.woff2') format('woff2'),
+        url('NaruSans-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans ExtLt';
+    src: url('NaruSans-ExtraLight.woff2') format('woff2'),
+        url('NaruSans-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans ExtBd';
+    src: url('NaruSans-ExtraBold.woff2') format('woff2'),
+        url('NaruSans-ExtraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Ita';
+    src: url('NaruSans-BoldItalic.woff2') format('woff2'),
+        url('NaruSans-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Black Ita';
+    src: url('NaruSans-BlackItalic.woff2') format('woff2'),
+        url('NaruSans-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans SemBd Ita';
+    src: url('NaruSans-SemiBoldItalic.woff2') format('woff2'),
+        url('NaruSans-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans';
+    src: url('NaruSans-Black.woff2') format('woff2'),
+        url('NaruSans-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans';
+    src: url('NaruSans-Bold.woff2') format('woff2'),
+        url('NaruSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans';
+    src: url('NaruSans-Thin.woff2') format('woff2'),
+        url('NaruSans-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans Med Ita';
+    src: url('NaruSans-MediumItalic.woff2') format('woff2'),
+        url('NaruSans-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans ExtBd Ita';
+    src: url('NaruSans-ExtraBoldItalic.woff2') format('woff2'),
+        url('NaruSans-ExtraBoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Naru Sans SemBd';
+    src: url('NaruSans-SemiBold.woff2') format('woff2'),
+        url('NaruSans-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

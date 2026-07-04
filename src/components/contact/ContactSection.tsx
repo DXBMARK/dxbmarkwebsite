@@ -12,7 +12,6 @@ const GlobeWireframe = dynamic(() => import("@/components/ui/globe-wireframe"), 
   ssr: false
 });
 import { SeparatorPro } from "@/components/ui/separator-pro";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/layout";
 import { Glow } from "@/components/visual";
 import { ContactFAQStack } from "@/components/contact/ContactFAQStack";
@@ -101,7 +100,9 @@ export default function ContactSection() {
   // Validation & notices state
   const [validationError, setValidationError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [routingNoticeVisible, setRoutingNoticeVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState<boolean | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Form base states
   const [messageType, setMessageType] = useState<string>("");
@@ -448,11 +449,12 @@ export default function ContactSection() {
     setNewProjectStep((prev) => prev + 1);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidationError(null);
     setFormErrors({});
-    setRoutingNoticeVisible(false);
+    setSubmitSuccess(null);
+    setSubmitError(null);
 
     const errors: Record<string, string> = {};
 
@@ -532,7 +534,35 @@ export default function ContactSection() {
     const payload = buildContactPayload();
     console.debug("Form is backend-ready. Local payload built:", payload);
 
-    setRoutingNoticeVisible(true);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to submit request.");
+      }
+
+      setSubmitSuccess(true);
+      // Reset form states
+      setFullName("");
+      setCompany("");
+      setEmail("");
+      setPhone("");
+      setMessageType("");
+      setProjectMessage("");
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setSubmitError(errMsg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Local token-based UI styling classes
@@ -1795,25 +1825,28 @@ export default function ContactSection() {
               </div>
             )}
 
-            {canShowSecurityAndSubmit && routingNoticeVisible && (
-              <div className="rounded-radius-md border border-brand-primary/15 bg-brand-primary/[0.03] px-4 py-3 text-xs text-text-sub leading-relaxed text-left">
-                Form routing is currently being finalized. For urgent project inquiries, please email{" "}
-                <a href="mailto:sales@dxbmark.com" className="text-brand-primary font-bold hover:underline">
-                  sales@dxbmark.com
-                </a>{" "}
-                directly.
+            {submitSuccess && (
+              <div className="rounded-radius-md border border-green-500/20 bg-green-500/[0.03] px-4 py-3 text-xs text-text-sub leading-relaxed text-left">
+                Thank you! Your request has been submitted successfully. We will review your inquiry and get in touch with you shortly.
               </div>
             )}
 
-            {canShowSecurityAndSubmit && (
+            {submitError && (
+              <div className="rounded-radius-md border border-red-500/20 bg-red-500/[0.03] px-4 py-3 text-xs text-red-400 leading-relaxed text-left">
+                {submitError}
+              </div>
+            )}
+
+            {canShowSecurityAndSubmit && !submitSuccess && (
               <div className="flex flex-col gap-4 mt-2">
-                <Button
+                <button
                   type="submit"
-                  className="group w-fit gap-2 hover:shadow-shadow-glow hover:-translate-y-[2px] transition-all duration-300"
+                  disabled={isSubmitting}
+                  className="group w-fit gap-2 hover:shadow-shadow-glow hover:-translate-y-[2px] transition-all duration-300 disabled:opacity-50 inline-flex items-center justify-center rounded-radius-md border border-transparent bg-brand-primary px-5 py-3 text-sm font-bold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 cursor-pointer"
                 >
-                  <span>Submit request</span>
+                  <span>{isSubmitting ? "Submitting..." : "Submit request"}</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-                </Button>
+                </button>
               </div>
             )}
           </form>

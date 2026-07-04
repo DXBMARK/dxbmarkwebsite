@@ -1,0 +1,3 @@
+apply-migrations.js
+run-migration.js
+verify-db.js

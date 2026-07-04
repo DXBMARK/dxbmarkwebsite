@@ -4,15 +4,106 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import localFont from "next/font/local";
 
-const inter = localFont({
-  src: "../assets/fonts/InterVariable.woff2",
+const naruSans = localFont({
+  src: [
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-ThinItalic.woff2",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-ExtraLight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-ExtraLightItalic.woff2",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-LightItalic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-SemiBoldItalic.woff2",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-ExtraBoldItalic.woff2",
+      weight: "800",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/naru-sans/NaruSans-BlackItalic.woff2",
+      weight: "900",
+      style: "italic",
+    },
+  ],
   variable: "--font-inter",
   display: "swap",
   preload: true,
 });
 
 const utopia = localFont({
-  src: "../assets/fonts/Utopia.woff2",
+  src: "../assets/fonts/utopia/Utopia.woff2",
   variable: "--font-utopia",
   display: "swap",
   preload: true,
@@ -103,7 +194,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${inter.variable} ${utopia.variable}`}
+      className={`h-full antialiased ${naruSans.variable} ${utopia.variable}`}
       suppressHydrationWarning
     >
       <head>
