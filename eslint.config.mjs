@@ -34,6 +34,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "apply-migrations.js",
+    "run-migration.js",
+    "verify-db.js",
   ]),
 ]);
 
