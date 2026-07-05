@@ -5,23 +5,9 @@ import { updateWebhookTracking } from "@/server/stripe/v1/state-machine";
 import { publishToQueue } from "@/server/queue/qstash";
 import { checkDatabaseConnection } from "@/db/client";
 import { env } from "@/server/env";
+import { isActiveStripeEvent } from "@/server/stripe/v1/events";
 
 export const runtime = "nodejs";
-
-/**
- * Stripe event types this system processes.
- * All other types are acknowledged and safely skipped (200, no DB write).
- */
-const SUPPORTED_EVENTS = new Set([
-  "payment_intent.succeeded",
-  "payment_intent.payment_failed",
-  "payment_intent.created",
-  "invoice.paid",
-  "invoice.payment_failed",
-  "charge.succeeded",
-  "charge.failed",
-  "refund.created",
-]);
 
 /**
  * Resolves the correct HTTP response when the database is unavailable.
@@ -109,7 +95,7 @@ export async function POST(request: NextRequest) {
   // -----------------------------------------------------------------------
   // Step 5 — Unsupported event filter (acknowledge without DB write)
   // -----------------------------------------------------------------------
-  if (!SUPPORTED_EVENTS.has(eventType)) {
+  if (!isActiveStripeEvent(eventType)) {
     console.warn("[STRIPE WEBHOOK SKIPPED - UNSUPPORTED EVENT]", { eventType, eventId, receivedAt });
     return NextResponse.json({ received: true, ignored: true }, { status: 200 });
   }

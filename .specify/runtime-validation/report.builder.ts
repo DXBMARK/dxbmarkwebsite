@@ -8,7 +8,7 @@ import type {
   SystemScore,
   SystemName,
 } from "./types.ts";
-import { CORE_DEPENDENCIES, OPTIONAL_DEPENDENCIES } from "./types.ts";
+import { CORE_DEPENDENCIES } from "./types.ts";
 
 function computeWeights(
   results: ValidationResult[],

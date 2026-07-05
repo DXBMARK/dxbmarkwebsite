@@ -11,7 +11,12 @@ import {
 import { incrementRetry } from "@/server/stripe/v1/failure-store";
 import { publishToQueue } from "@/server/queue/qstash";
 
+import { handleCheckoutSessionCompleted } from "@/server/stripe/v1/handlers/checkout";
+
 export const runtime = "nodejs";
+
+// Add validation schema block and handler dispatch logic
+
 
 /**
  * Internal QStash payload schema.
@@ -92,8 +97,30 @@ export async function POST(request: NextRequest) {
       console.log(`[PROCESS EVENT] Untracked Stripe event type: ${type}`);
     }
 
-    // Execute logic hooks (stub only — no side effects in Phase 1)
-    await executeLogicHooksStub(eventId, type, objectId);
+    // T027: Handle checkout.session.completed
+    if (type === "checkout.session.completed") {
+      // We need the data.object payload. Since QStash payload does not contain the raw Stripe event,
+      // and we did not store the raw payload in DB (we only stored metadata and SHA-256 hash),
+      // we retrieve the checkout session object via Stripe API.
+      const { getStripeClient } = await import("@/server/stripe/v1/client");
+      const stripe = getStripeClient();
+      
+      if (!objectId) {
+        throw new Error("[PROCESS EVENT] Missing objectId (session ID) for checkout.session.completed");
+      }
+      
+      console.log(`[PROCESS EVENT] Fetching checkout session details from Stripe: ${objectId}`);
+      const session = await stripe.checkout.sessions.retrieve(objectId);
+      
+      await handleCheckoutSessionCompleted({
+        id: eventId,
+        type,
+        data: { object: session },
+      });
+    } else {
+      // Execute logic hooks (stub only — no side effects in Phase 1)
+      await executeLogicHooksStub(eventId, type, objectId);
+    }
 
     // Logging requirement: [BUSINESS LOGIC EXECUTED]
     console.log(`[BUSINESS LOGIC EXECUTED] logic hook completed for event: ${eventId}`);
