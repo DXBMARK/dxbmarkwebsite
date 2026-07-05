@@ -49,15 +49,15 @@ import { buildReport, printReport } from "./report.builder.ts";
 // ❌ Reject: inflated results — treated as FAIL regardless of HTTP status
 //
 // SCORING RULES:
-// PASS    = full weight  (Stripe:40 | Neon:30 | QStash:20 | Sentry:10)
-// SKIP    = 50% weight   (observability gap — penalized, not zero)
+// PASS    = full weight  (Stripe:40 | Neon:30 | QStash:30 | Sentry:optional in SAFE/CI and required in STRICT)
+// SKIP    = 50% weight in STRICT mode penalty; neutral in SAFE/CI mode
 // FAIL    = 0 pts
 // ERROR   = 0 pts
 // inflated = 0 pts       (kill-switch activated)
 //
-// STRICT MODE: SKIP = 0 pts (no tolerance for missing systems)
-// CI MODE: threshold 80/100
-// SAFE MODE: threshold 70/100 (default)
+// STRICT MODE: SKIP = 0 pts (no tolerance for missing systems, threshold = 100)
+// CI MODE: threshold 100/100 (Core systems must pass, Sentry is neutral)
+// SAFE MODE: threshold 100/100 (Core systems must pass, Sentry is neutral, default)
 //
 // CRITICAL SYSTEMS (weight ≥ 30): Stripe, Neon
 // → Critical FAIL blocks "ready" even if score ≥ threshold
