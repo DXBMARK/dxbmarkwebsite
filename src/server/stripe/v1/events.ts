@@ -58,3 +58,12 @@ export const futureSubscriptionEvents = new Set<string>(
 export function isFutureSubscriptionEvent(eventType: string): boolean {
   return futureSubscriptionEvents.has(eventType);
 }
+
+export const invoiceEvents = new Set<string>([
+  "invoice.paid",
+  "invoice.payment_failed",
+]);
+
+export function isInvoiceEvent(eventType: string): boolean {
+  return invoiceEvents.has(eventType);
+}

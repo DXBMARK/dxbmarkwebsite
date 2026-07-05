@@ -13,7 +13,8 @@ import { publishToQueue } from "@/server/queue/qstash";
 
 import { handleCheckoutSessionCompleted } from "@/server/stripe/v1/handlers/checkout";
 import { handleSubscriptionEvent } from "@/server/stripe/v1/handlers/subscription";
-import { isFutureSubscriptionEvent } from "@/server/stripe/v1/events";
+import { handleInvoiceEvent } from "@/server/stripe/v1/handlers/invoices";
+import { isFutureSubscriptionEvent, isInvoiceEvent } from "@/server/stripe/v1/events";
 
 export const runtime = "nodejs";
 
@@ -133,6 +134,22 @@ export async function POST(request: NextRequest) {
         id: eventId,
         type,
         data: { object: subscriptionObj },
+      });
+    } else if (isInvoiceEvent(type)) {
+      const { getStripeClient } = await import("@/server/stripe/v1/client");
+      const stripe = getStripeClient();
+      
+      if (!objectId) {
+        throw new Error(`[PROCESS EVENT] Missing objectId (invoice ID) for ${type}`);
+      }
+      
+      console.log(`[PROCESS EVENT] Fetching invoice details from Stripe: ${objectId}`);
+      const invoiceObj = await stripe.invoices.retrieve(objectId);
+      
+      await handleInvoiceEvent({
+        id: eventId,
+        type,
+        data: { object: invoiceObj },
       });
     } else {
       // Execute logic hooks (stub only — no side effects in Phase 1)
