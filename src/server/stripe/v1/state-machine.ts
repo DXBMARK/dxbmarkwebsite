@@ -1,6 +1,6 @@
 import { getDb } from "@/db/client";
 import { stripeWebhookEvents } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and, or, sql } from "drizzle-orm";
 
 type WebhookStatus = "received" | "failed" | "invalid_signature";
 type DbStatus = "pending" | "committed" | "failed";
@@ -38,6 +38,46 @@ export async function updateWebhookTracking(
     .set(patch)
     .where(eq(stripeWebhookEvents.stripeEventId, eventId));
 }
+
+/**
+ * Attempts to acquire an atomic processing lock on a Stripe event.
+ * Transition is allowed if:
+ *  - processingStatus = 'received'
+ *  - processingStatus = 'failed'
+ *  - processingStatus = 'processing' and processingStartedAt was more than 60 seconds ago (stale timeout safety)
+ *
+ * @param eventId Stripe Event ID.
+ * @returns Promise<boolean> true if lock is acquired successfully, false if already processed or locked.
+ */
+export async function acquireProcessingLock(eventId: string): Promise<boolean> {
+  const db = getDb();
+  const sixtySecondsAgo = new Date(Date.now() - 60 * 1000);
+
+  const results = await db
+    .update(stripeWebhookEvents)
+    .set({
+      processingStatus: "processing",
+      processingStartedAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(stripeWebhookEvents.stripeEventId, eventId),
+        or(
+          eq(stripeWebhookEvents.processingStatus, "received"),
+          eq(stripeWebhookEvents.processingStatus, "failed"),
+          and(
+            eq(stripeWebhookEvents.processingStatus, "processing"),
+            sql`${stripeWebhookEvents.processingStartedAt} < ${sixtySecondsAgo}`
+          )
+        )
+      )
+    )
+    .returning({ id: stripeWebhookEvents.id });
+
+  return results.length > 0;
+}
+
 
 
 

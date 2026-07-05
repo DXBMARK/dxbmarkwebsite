@@ -1,1 +1,7 @@
-{}
+{
+  "_init": {
+    "features": [
+      "database"
+    ]
+  }
+}

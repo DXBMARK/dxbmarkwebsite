@@ -19,6 +19,7 @@ export const stripeWebhookEvents = pgTable("stripe_webhook_events", {
   dbStatus: varchar("db_status", { length: 50 }).notNull().default("pending"),
   queueStatus: varchar("queue_status", { length: 50 }).notNull().default("pending"),
 
+  processingStartedAt: timestamp("processing_started_at", { withTimezone: true }),
   stripeCreatedAt: timestamp("stripe_created_at", { withTimezone: true }),
   receivedAt: timestamp("received_at", { withTimezone: true }).notNull().defaultNow(),
   processedAt: timestamp("processed_at", { withTimezone: true }),
