@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 // ─── Security Headers ────────────────────────────────────────────────────────
 // Applied to all routes. Designed for dxbmark.com on Cloudflare.
@@ -135,4 +136,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-javascript/blob/master/packages/nextjs/src/config/types.ts
+
+  // Suppresses source map uploading logs during builds
+  silent: true,
+  org: "dxbmark",
+  project: "dxbmark-website",
+});

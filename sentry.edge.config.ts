@@ -1,3 +1,6 @@
+// SpecKit Sentry Edge Configuration
+// sentry.edge.config.ts
+
 import * as Sentry from "@sentry/nextjs";
 
 const parsedTraceRate = Number.parseFloat(process.env.SENTRY_TRACES_SAMPLE_RATE ?? "0");
