@@ -110,6 +110,36 @@
 
 ---
 
+## Phase 5B: Runtime Validation Layer v3 (Live Production Behavior)
+
+**Purpose**: Prove real end-to-end behavior — not connectivity, but actual write/read/process verification.
+
+- [X] T038A [P] Create `.specify/runtime-validation/types.ts` — ValidationResult type
+- [X] T038B [P] Create `.specify/runtime-validation/validators/neon.validator.ts` — real DB write + read + cleanup
+- [X] T038C [P] Create `.specify/runtime-validation/validators/qstash.validator.ts` — real publish to QStash
+- [X] T038D [P] Create `.specify/runtime-validation/validators/stripe.validator.ts` — real Stripe API call
+- [X] T038E [P] Create `.specify/runtime-validation/validators/sentry.validator.ts` — real Sentry error capture
+- [X] T038F Create `.specify/runtime-validation/gates/db-transaction.gate.ts` — idempotency + cleanup verification
+- [X] T038G Create `.specify/runtime-validation/gates/queue-flow.gate.ts` — QStash publish + latency gate
+- [X] T038H Create `.specify/runtime-validation/gates/stripe-flow.gate.ts` — Stripe API auth + format gate
+- [X] T038I Create `.specify/runtime-validation/report.builder.ts` — structured report formatter
+- [X] T038J Create `.specify/runtime-validation/runner.ts` — orchestrator with score engine + kill switch
+- [X] T038K Add `validate:runtime` script to `package.json`
+
+**Checkpoint v1**: `npm run validate:runtime` runs, all gates pass, score = 100 (equal weights).
+
+### Phase 5B Hardening (RV3 v3.1 — Correctness Model)
+
+- [X] T039A Fix weighted scoring system — Stripe=40, Neon=30, QStash=20, Sentry=10
+- [X] T039B SKIP = penalty (50% of weight in SAFE/CI, 0% in STRICT)
+- [X] T039C Add RunMode (STRICT/CI/SAFE) with threshold enforcement via CLI flags
+- [X] T039D Neon try/finally cleanup guarantee — no orphan rows even on crash
+- [X] T039E Neon test namespace isolation — prefix rv3_neon_test_ + orphan sweep
+
+**Checkpoint v2**: SAFE mode = 90/100 ✅ READY | STRICT mode = 90/100 ❌ NOT READY (Sentry placeholder blocks).
+
+---
+
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 **Purpose**: Release verification, build gates, and production deployments
