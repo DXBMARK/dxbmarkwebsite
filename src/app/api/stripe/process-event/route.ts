@@ -12,10 +12,10 @@ import { incrementRetry } from "@/server/stripe/v1/failure-store";
 import { publishToQueue } from "@/server/queue/qstash";
 
 import { handleCheckoutSessionCompleted } from "@/server/stripe/v1/handlers/checkout";
+import { handleSubscriptionEvent } from "@/server/stripe/v1/handlers/subscription";
+import { isFutureSubscriptionEvent } from "@/server/stripe/v1/events";
 
 export const runtime = "nodejs";
-
-// Add validation schema block and handler dispatch logic
 
 
 /**
@@ -116,6 +116,23 @@ export async function POST(request: NextRequest) {
         id: eventId,
         type,
         data: { object: session },
+      });
+    } else if (isFutureSubscriptionEvent(type)) {
+      // Future subscription handler mapping. These events are not active in Stripe webhook allowlist until subscription products are launched.
+      const { getStripeClient } = await import("@/server/stripe/v1/client");
+      const stripe = getStripeClient();
+      
+      if (!objectId) {
+        throw new Error(`[PROCESS EVENT] Missing objectId (subscription ID) for ${type}`);
+      }
+      
+      console.log(`[PROCESS EVENT] Fetching subscription details from Stripe: ${objectId}`);
+      const subscriptionObj = await stripe.subscriptions.retrieve(objectId);
+      
+      await handleSubscriptionEvent({
+        id: eventId,
+        type,
+        data: { object: subscriptionObj },
       });
     } else {
       // Execute logic hooks (stub only — no side effects in Phase 1)

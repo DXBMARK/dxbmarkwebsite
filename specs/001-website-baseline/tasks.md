@@ -101,7 +101,7 @@
 - [X] T025 [P] [US3] Implement QStash async event queue and process-event route
 - [X] T026 [US3] Implement Stripe webhook failure store, retry orchestration, and dead-letter classification
 - [X] T027 [US3] Write log-only checkout event handler in `src/server/stripe/v1/handlers/checkout.ts`
-- [ ] T028 [US3] Write log-only subscription event handler in `src/server/stripe/v1/handlers/subscriptions.ts`
+- [X] T028 [US3] Write log-only subscription event handler in `src/server/stripe/v1/handlers/subscription.ts`
 - [ ] T029 [US3] Write log-only invoice event handler in `src/server/stripe/v1/handlers/invoices.ts`
 - [ ] T030 [US3] Scaffold inactive QStash job queue table schema `src/db/migrations/0003_integration_jobs.sql`
 - [ ] T031 [US3] Add Sentry error capture calls to webhook route processing in `src/app/api/stripe/webhook/route.ts`

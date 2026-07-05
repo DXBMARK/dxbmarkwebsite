@@ -50,3 +50,11 @@ export const activeStripeEvents = new Set<string>(ACTIVE_STRIPE_EVENTS);
 export function isActiveStripeEvent(eventType: string): boolean {
   return activeStripeEvents.has(eventType);
 }
+
+export const futureSubscriptionEvents = new Set<string>(
+  FUTURE_SUBSCRIPTION_EVENTS
+);
+
+export function isFutureSubscriptionEvent(eventType: string): boolean {
+  return futureSubscriptionEvents.has(eventType);
+}
