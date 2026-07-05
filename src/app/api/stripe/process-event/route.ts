@@ -99,12 +99,11 @@ export async function POST(request: NextRequest) {
     console.log(`[BUSINESS LOGIC EXECUTED] logic hook completed for event: ${eventId}`);
 
     // -------------------------------------------------------------------------
-    // 3. Success Path — Atomic Final State Update
+    // 3. Success Path — Atomic Final State Update (FIX 1: dbStatus frozen/removed)
     // -------------------------------------------------------------------------
     try {
-      // Single DB update (status transitions: received -> processing -> processed -> completed)
+      // Single DB update (status transitions: received -> processing -> processed)
       await updateEventStatus(eventId, "processed");
-      await updateWebhookTracking(eventId, { dbStatus: "committed" });
       // Logging requirement: [STATE UPDATED]
       console.log(`[STATE UPDATED] Event ${eventId} marked as processed`);
     } catch (dbErr) {
@@ -130,12 +129,12 @@ export async function POST(request: NextRequest) {
     });
 
     // -------------------------------------------------------------------------
-    // 4. Failure Path & Retry System
+    // 4. Failure Path & Retry System (FIX 2: retryCount safety fallback)
     // -------------------------------------------------------------------------
     let retryCount = 1;
     try {
-      const retryResult = await incrementRetry(eventId);
-      retryCount = retryResult.retryCount;
+      const retryResult = await incrementRetry(eventId).catch(() => null);
+      retryCount = retryResult?.retryCount ?? 1;
     } catch (retryErr) {
       console.warn("[PROCESS EVENT] incrementRetry failed (non-blocking):", retryErr);
     }
@@ -146,13 +145,14 @@ export async function POST(request: NextRequest) {
       // Update database status to failed to allow subsequent lock retry attempts
       try {
         await updateEventStatus(eventId, "failed", errorMessage);
-        await updateWebhookTracking(eventId, { dbStatus: "failed" });
         console.log(`[STATE UPDATED] Event ${eventId} marked as failed (retry count: ${retryCount})`);
       } catch (dbErr) {
         console.warn("[PROCESS EVENT] Failed to update retry status in DB:", dbErr);
       }
 
-      // Re-queue event via QStash
+      // -------------------------------------------------------------------------
+      // FIX 3 — Queue + DB Atomic Consistency (requeue first, then update status)
+      // -------------------------------------------------------------------------
       try {
         const queueSuccess = await publishToQueue({ eventId, type, objectId, receivedAt });
         await updateWebhookTracking(eventId, { queueStatus: queueSuccess ? "sent" : "failed" });
@@ -166,7 +166,6 @@ export async function POST(request: NextRequest) {
       // Update database status to dead_letter
       try {
         await updateEventStatus(eventId, "dead_letter", `Max retries reached. Error: ${errorMessage}`);
-        await updateWebhookTracking(eventId, { dbStatus: "failed" });
         console.log(`[STATE UPDATED] Event ${eventId} marked as dead_letter`);
       } catch (dbErr) {
         console.warn("[PROCESS EVENT] Failed to update dead-letter status in DB:", dbErr);

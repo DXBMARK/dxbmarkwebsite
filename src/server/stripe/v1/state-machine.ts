@@ -65,7 +65,6 @@ export async function acquireProcessingLock(eventId: string): Promise<boolean> {
         eq(stripeWebhookEvents.stripeEventId, eventId),
         or(
           eq(stripeWebhookEvents.processingStatus, "received"),
-          eq(stripeWebhookEvents.processingStatus, "failed"),
           and(
             eq(stripeWebhookEvents.processingStatus, "processing"),
             sql`${stripeWebhookEvents.processingStartedAt} < ${sixtySecondsAgo}`
