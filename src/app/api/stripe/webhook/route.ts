@@ -6,6 +6,7 @@ import { publishToQueue } from "@/server/queue/qstash";
 import { checkDatabaseConnection } from "@/db/client";
 import { env } from "@/server/env";
 import { isActiveStripeEvent } from "@/server/stripe/v1/events";
+import { captureWebhookException, captureWebhookMessage } from "@/server/observability/sentry";
 
 export const runtime = "nodejs";
 
@@ -40,6 +41,10 @@ export async function POST(request: NextRequest) {
   // -----------------------------------------------------------------------
   const signature = request.headers.get("stripe-signature");
   if (!signature) {
+    captureWebhookMessage("Missing stripe-signature header", {
+      route: "/api/stripe/webhook",
+      stage: "signature_check",
+    }, "warning");
     return NextResponse.json({ error: "Invalid webhook signature" }, { status: 400 });
   }
 
@@ -52,6 +57,10 @@ export async function POST(request: NextRequest) {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Unknown error";
     console.error("[STRIPE WEBHOOK] Failed to read request body:", msg);
+    captureWebhookException(err, {
+      route: "/api/stripe/webhook",
+      stage: "body_read",
+    });
     return NextResponse.json({ received: true, processed: false, reason: "body_read_failure" }, { status: 200 });
   }
 
@@ -64,6 +73,10 @@ export async function POST(request: NextRequest) {
   } catch (error: unknown) {
     const errorType = error instanceof WebhookVerificationError ? "WebhookVerificationError" : "UnknownError";
     console.warn("[STRIPE WEBHOOK] Signature verification failed:", { receivedAt, errorType });
+    captureWebhookException(error, {
+      route: "/api/stripe/webhook",
+      stage: "signature_verification",
+    });
     return NextResponse.json({ error: "Invalid webhook signature" }, { status: 400 });
   }
 
@@ -89,6 +102,12 @@ export async function POST(request: NextRequest) {
   const isDbHealthy = await checkDatabaseConnection();
   if (!isDbHealthy) {
     console.error("[STRIPE WEBHOOK SKIPPED - DB UNAVAILABLE]", { eventId, eventType, receivedAt });
+    captureWebhookMessage("Database health gate check failed", {
+      route: "/api/stripe/webhook",
+      stage: "db_health_check",
+      stripeEventId: eventId,
+      stripeEventType: eventType,
+    }, "error");
     return dbUnavailableResponse();
   }
 
@@ -113,12 +132,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Mark db_status as committed in the truth layer (non-critical — fire-and-forget)
-    updateWebhookTracking(eventId, { dbStatus: "committed" }).catch((e) => {
-      console.warn("[STRIPE WEBHOOK] Truth layer dbStatus=committed update failed (non-critical):", e);
+    updateWebhookTracking(eventId, { dbStatus: "committed" }).catch((e: unknown) => {
+      const msg = e instanceof Error ? e.message : "Unknown error";
+      console.warn("[STRIPE WEBHOOK] Truth layer dbStatus=committed update failed (non-critical):", msg);
     });
   } catch (dbError: unknown) {
     const msg = dbError instanceof Error ? dbError.message : "Unknown DB error";
     console.error("[STRIPE WEBHOOK SKIPPED - DB UNAVAILABLE]", { eventId, eventType, error: msg });
+    captureWebhookException(dbError, {
+      route: "/api/stripe/webhook",
+      stage: "persistence",
+      stripeEventId: eventId,
+      stripeEventType: eventType,
+      objectId,
+    });
     // FIX 2: Never pretend success — surface the real state
     return NextResponse.json(
       { received: true, processed: false, reason: "db_failure" },
@@ -139,12 +166,26 @@ export async function POST(request: NextRequest) {
       updateWebhookTracking(eventId, { queueStatus: success ? "sent" : "failed" }).catch(() => {});
       if (!success) {
         console.warn("[STRIPE WEBHOOK] Queue publish returned false for event:", eventId);
+        captureWebhookMessage("Queue publish returned false", {
+          route: "/api/stripe/webhook",
+          stage: "queue_publish",
+          stripeEventId: eventId,
+          stripeEventType: eventType,
+          objectId,
+        }, "warning");
       }
     })
     .catch((queueError: unknown) => {
       const msg = queueError instanceof Error ? queueError.message : "Unknown queue error";
       console.error("[STRIPE WEBHOOK] Queue publish exception:", msg);
       updateWebhookTracking(eventId, { queueStatus: "failed" }).catch(() => {});
+      captureWebhookException(queueError, {
+        route: "/api/stripe/webhook",
+        stage: "queue_publish",
+        stripeEventId: eventId,
+        stripeEventType: eventType,
+        objectId,
+      });
     });
 
   // -----------------------------------------------------------------------

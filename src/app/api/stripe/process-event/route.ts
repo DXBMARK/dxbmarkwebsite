@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import * as Sentry from "@sentry/nextjs";
 import {
   mapStripeSubscriptionStatus,
   mapStripePaymentStatus,
@@ -15,6 +14,7 @@ import { handleCheckoutSessionCompleted } from "@/server/stripe/v1/handlers/chec
 import { handleSubscriptionEvent } from "@/server/stripe/v1/handlers/subscription";
 import { handleInvoiceEvent } from "@/server/stripe/v1/handlers/invoices";
 import { isFutureSubscriptionEvent, isInvoiceEvent } from "@/server/stripe/v1/events";
+import { captureWebhookException, captureWebhookMessage } from "@/server/observability/sentry";
 
 export const runtime = "nodejs";
 
@@ -41,6 +41,10 @@ export async function POST(request: NextRequest) {
   } catch (parseError: unknown) {
     const msg = parseError instanceof Error ? parseError.message : "Parse error";
     console.error(`[PROCESS EVENT] Failed to parse request body: ${msg}`);
+    captureWebhookException(parseError, {
+      route: "/api/stripe/process-event",
+      stage: "body_parse",
+    });
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
@@ -51,6 +55,10 @@ export async function POST(request: NextRequest) {
       issues: parsed.error.issues,
       receivedAt: new Date().toISOString(),
     });
+    captureWebhookMessage("Invalid payload structure received", {
+      route: "/api/stripe/process-event",
+      stage: "payload_validation",
+    }, "warning");
     return NextResponse.json({ error: "Invalid payload structure" }, { status: 400 });
   }
 
@@ -185,8 +193,12 @@ export async function POST(request: NextRequest) {
     const errorMessage = error instanceof Error ? error.message : "Unknown processing error";
 
     // Capture in Sentry safely (no PII, no raw payload, no secrets)
-    Sentry.captureException(error, {
-      tags: { eventId, type },
+    captureWebhookException(error, {
+      route: "/api/stripe/process-event",
+      stage: "event_processing",
+      stripeEventId: eventId,
+      stripeEventType: type,
+      objectId,
     });
 
     // -------------------------------------------------------------------------
@@ -220,6 +232,14 @@ export async function POST(request: NextRequest) {
       } catch (queueError) {
         console.error("[PROCESS EVENT] Re-queue publishing exception:", queueError);
         await updateWebhookTracking(eventId, { queueStatus: "failed" }).catch(() => {});
+        captureWebhookException(queueError, {
+          route: "/api/stripe/process-event",
+          stage: "requeue_publish",
+          stripeEventId: eventId,
+          stripeEventType: type,
+          objectId,
+          retryCount,
+        });
       }
     } else {
       console.error(`[PROCESS EVENT] Event ${eventId} reached maximum retry threshold (${retryCount}). Dead-lettering.`);
