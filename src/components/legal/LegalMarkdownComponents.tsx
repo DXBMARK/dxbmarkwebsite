@@ -37,11 +37,16 @@ export function createMarkdownComponents({ slug }: CustomRendererProps) {
         .join("");
 
       const trimmed = rawText.trim();
-      const contactMatch = trimmed.match(/^(\d+\.\s*)?Contact(\s+Information)?$/i);
-      const displayedText = contactMatch 
-        ? `${contactMatch[1] || ""}Contact Information` 
+      const normalized = trimmed.toLowerCase();
+      const isContact = normalized === "contact" || normalized === "contact information" ||
+        /^\d+\.\s+contact$/i.test(trimmed) || /^\d+\.\s+contact information$/i.test(trimmed);
+      const numberMatch = trimmed.match(/^(\d+\.\s+)/);
+      const prefix = numberMatch ? numberMatch[1] : "";
+      
+      const displayedText = isContact 
+        ? `${prefix}Contact Information` 
         : rawText;
-      const id = contactMatch ? "contact-information" : deterministicSlugify(displayedText);
+      const id = isContact ? "contact-information" : deterministicSlugify(displayedText);
 
       return (
         <h2
@@ -70,11 +75,16 @@ export function createMarkdownComponents({ slug }: CustomRendererProps) {
         .join("");
 
       const trimmed = rawText.trim();
-      const contactMatch = trimmed.match(/^(\d+\.\s*)?Contact(\s+Information)?$/i);
-      const displayedText = contactMatch 
-        ? `${contactMatch[1] || ""}Contact Information` 
+      const normalized = trimmed.toLowerCase();
+      const isContact = normalized === "contact" || normalized === "contact information" ||
+        /^\d+\.\s+contact$/i.test(trimmed) || /^\d+\.\s+contact information$/i.test(trimmed);
+      const numberMatch = trimmed.match(/^(\d+\.\s+)/);
+      const prefix = numberMatch ? numberMatch[1] : "";
+      
+      const displayedText = isContact 
+        ? `${prefix}Contact Information` 
         : rawText;
-      const id = contactMatch ? "contact-information" : deterministicSlugify(displayedText);
+      const id = isContact ? "contact-information" : deterministicSlugify(displayedText);
 
       return (
         <h3
@@ -143,7 +153,7 @@ export function createMarkdownComponents({ slug }: CustomRendererProps) {
         return (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-6">
             {regLabels.map((lbl) => {
-              const val = extracted[lbl];
+              const val = extracted.get(lbl);
               if (!val) return null; // No empty cards
 
               const isAddress = lbl === "Registered Address";
@@ -222,7 +232,7 @@ export function createMarkdownComponents({ slug }: CustomRendererProps) {
         return (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
             {contactLabels.map((lbl) => {
-              const val = extracted[lbl];
+              const val = extracted.get(lbl);
               if (!val) return null; // No empty cards
 
               const cleanVal = val.replace(/[\[\]()]/g, "").trim();

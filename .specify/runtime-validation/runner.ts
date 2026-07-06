@@ -64,7 +64,11 @@ import { buildReport, printReport } from "./report.builder.ts";
 // ═══════════════════════════════════════════════════════════════════════════
 
 async function run(): Promise<void> {
-  const threshold = MODE_THRESHOLDS[MODE];
+  const threshold = MODE === "STRICT"
+    ? MODE_THRESHOLDS.STRICT
+    : MODE === "CI"
+      ? MODE_THRESHOLDS.CI
+      : MODE_THRESHOLDS.SAFE;
 
   console.log(`\n⏳  Running SpecKit Runtime Validation v3...`);
   console.log(`    Mode: ${MODE} | Threshold: ${threshold}/100\n`);

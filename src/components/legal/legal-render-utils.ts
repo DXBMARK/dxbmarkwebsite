@@ -20,17 +20,14 @@ export const deterministicSlugify = (text: string): string => {
     .replace(/\s+/g, "-");
 };
 
-export function extractKnownFields(text: string, labels: string[]): Record<string, string> {
-  const result: Record<string, string> = {};
+export function extractKnownFields(text: string, labels: string[]): Map<string, string> {
+  const result = new Map<string, string>();
   const occurrences: { label: string; index: number }[] = [];
   
   labels.forEach((lbl) => {
-    const escaped = lbl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    // Ensure case-insensitive match
-    const regex = new RegExp(escaped, "i");
-    const match = text.match(regex);
-    if (match && match.index !== undefined) {
-      occurrences.push({ label: lbl, index: match.index });
+    const index = text.toLowerCase().indexOf(lbl.toLowerCase());
+    if (index !== -1) {
+      occurrences.push({ label: lbl, index });
     }
   });
   
@@ -49,9 +46,8 @@ export function extractKnownFields(text: string, labels: string[]): Record<strin
   // Sort by index to get order of occurrence
   filteredOccurrences.sort((a, b) => a.index - b.index);
   
-  for (let i = 0; i < filteredOccurrences.length; i++) {
-    const current = filteredOccurrences[i];
-    const next = filteredOccurrences[i + 1];
+  filteredOccurrences.forEach((current, idx) => {
+    const next = filteredOccurrences.at(idx + 1);
     const startVal = current.index + current.label.length;
     
     let segment = next 
@@ -62,9 +58,9 @@ export function extractKnownFields(text: string, labels: string[]): Record<strin
     segment = segment.replace(/^[:\s\-\u2013*]+/, "").trim();
     
     if (segment) {
-      result[current.label] = segment;
+      result.set(current.label, segment);
     }
-  }
+  });
   
   return result;
 }

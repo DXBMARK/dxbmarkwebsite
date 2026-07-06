@@ -400,7 +400,7 @@ function LayerStack({
               renderedWidth={renderedWidth}
               isMobile={isMobile}
               cardRef={(el: HTMLDivElement | null) => {
-                cardRefs.current[i] = el;
+                Reflect.set(cardRefs.current, i, el);
               }}
             >
               {card}

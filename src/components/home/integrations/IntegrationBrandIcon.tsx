@@ -55,25 +55,25 @@ const SlackSvg = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function IntegrationBrandIcon({ name, className }: Props) {
-  const map: Record<string, React.ComponentType<{ className?: string }>> = {
-    hubspot: SiHubspot,
-    zapier: SiZapier,
-    shopify: SiShopify,
-    cloud: LuCloud,
-    stripe: SiStripe,
-    paypal: SiPaypal,
-    analytics: SiGoogleanalytics,
-    slack: SlackSvg,
-    whatsapp: SiWhatsapp,
-    telegram: SiTelegram,
-    connect: LuCable,
-    route: LuRoute,
-    automate: LuWorkflow,
-  };
+const INTEGRATION_MAP = new Map<string, React.ComponentType<{ className?: string }>>([
+  ["hubspot", SiHubspot],
+  ["zapier", SiZapier],
+  ["shopify", SiShopify],
+  ["cloud", LuCloud],
+  ["stripe", SiStripe],
+  ["paypal", SiPaypal],
+  ["analytics", SiGoogleanalytics],
+  ["slack", SlackSvg],
+  ["whatsapp", SiWhatsapp],
+  ["telegram", SiTelegram],
+  ["connect", LuCable],
+  ["route", LuRoute],
+  ["automate", LuWorkflow],
+]);
 
-  const Icon = map[name] || LuGlobe;
-  return <Icon className={className} aria-hidden="true" />;
+export function IntegrationBrandIcon({ name, className }: Props) {
+  const IconComponent = (INTEGRATION_MAP.get(name) || LuGlobe) as React.ComponentType<{ className?: string; "aria-hidden"?: string | boolean }>;
+  return React.createElement(IconComponent, { className, "aria-hidden": "true" });
 }
 
 // Brand color helper mapping (solved contrast issues for dark backgrounds)

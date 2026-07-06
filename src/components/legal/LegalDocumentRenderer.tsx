@@ -19,14 +19,16 @@ export function LegalDocumentRenderer({
   // Split content by line and find the first real numbered section heading (e.g. ## 1. Acceptance of Terms)
   const lines = content.split("\n");
   let firstNumberedIndex = -1;
+  let index = 0;
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
     // Matches heading starting with numbers like "## 1." or "## 1. Acceptance"
     if (line.startsWith("## ") && /^\d+\.?\s+/.test(line.replace("## ", "").trim())) {
-      firstNumberedIndex = i;
+      firstNumberedIndex = index;
       break;
     }
+    index++;
   }
 
   // Filter content starting from the first numbered section (if found)
@@ -40,17 +42,22 @@ export function LegalDocumentRenderer({
       const headingItems: { id: string; text: string }[] = [];
       const filteredLines = filteredContent.split("\n");
       
-      filteredLines.forEach((line) => {
+      for (const line of filteredLines) {
         if (line.trim().startsWith("## ")) {
           const rawText = line.replace("## ", "").trim();
-          const contactMatch = rawText.match(/^(\d+\.\s*)?Contact(\s+Information)?$/i);
-          const text = contactMatch 
-            ? `${contactMatch[1] || ""}Contact Information` 
+          const normalized = rawText.toLowerCase();
+          const isContact = normalized === "contact" || normalized === "contact information" ||
+            /^\d+\.\s+contact$/i.test(rawText) || /^\d+\.\s+contact information$/i.test(rawText);
+          const numberMatch = rawText.match(/^(\d+\.\s+)/);
+          const prefix = numberMatch ? numberMatch[1] : "";
+
+          const text = isContact 
+            ? `${prefix}Contact Information` 
             : rawText;
-          const id = contactMatch ? "contact-information" : deterministicSlugify(text);
+          const id = isContact ? "contact-information" : deterministicSlugify(text);
           headingItems.push({ id, text });
         }
-      });
+      }
       onHeadingsExtracted(headingItems);
     }
   }, [filteredContent, onHeadingsExtracted]);

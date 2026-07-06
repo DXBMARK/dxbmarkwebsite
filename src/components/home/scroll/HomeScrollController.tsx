@@ -60,13 +60,16 @@ export function HomeScrollController() {
                 return value;
               }
 
-              let closest = snapOffsets[0];
+              let closest = snapOffsets.at(0) ?? 0;
               let minDiff = Math.abs(value - closest);
               for (let i = 1; i < snapOffsets.length; i++) {
-                const diff = Math.abs(value - snapOffsets[i]);
-                if (diff < minDiff) {
-                  minDiff = diff;
-                  closest = snapOffsets[i];
+                const currentOffset = snapOffsets.at(i);
+                if (currentOffset !== undefined) {
+                  const diff = Math.abs(value - currentOffset);
+                  if (diff < minDiff) {
+                    minDiff = diff;
+                    closest = currentOffset;
+                  }
                 }
               }
               return closest;

@@ -60,7 +60,7 @@ export function HeroAnimatedWord({ words }: HeroAnimatedWordProps) {
           fade ? "opacity-100" : "opacity-0"
         }`}
       >
-        {words[index]}
+        {words.at(index)}
       </span>
     </span>
   );

@@ -96,13 +96,24 @@ function Pill({
   label: string;
   color: "green" | "orange" | "gray" | "blue" | "red";
 }) {
-  const cls = {
-    green: "border-emerald-500/30 bg-emerald-500/[0.12] text-emerald-400",
-    orange: "border-brand-primary/30 bg-brand-primary/[0.12] text-brand-primary",
-    gray: "border-white/10 bg-white/[0.05] text-text-muted-gray",
-    blue: "border-sky-500/30 bg-sky-500/[0.10] text-sky-400",
-    red: "border-rose-500/30 bg-rose-500/[0.10] text-rose-400",
-  }[color];
+  let cls = "";
+  switch (color) {
+    case "green":
+      cls = "border-emerald-500/30 bg-emerald-500/[0.12] text-emerald-400";
+      break;
+    case "orange":
+      cls = "border-brand-primary/30 bg-brand-primary/[0.12] text-brand-primary";
+      break;
+    case "gray":
+      cls = "border-white/10 bg-white/[0.05] text-text-muted-gray";
+      break;
+    case "blue":
+      cls = "border-sky-500/30 bg-sky-500/[0.10] text-sky-400";
+      break;
+    case "red":
+      cls = "border-rose-500/30 bg-rose-500/[0.10] text-rose-400";
+      break;
+  }
   return (
     <span className={cn("rounded-full border px-2 py-[2px] font-label text-[9px] font-semibold uppercase tracking-wider", cls)}>
       {label}
@@ -112,12 +123,21 @@ function Pill({
 
 /** Status dot */
 function Dot({ color }: { color: "green" | "orange" | "gray" | "blue" }) {
-  const cls = {
-    green: "bg-emerald-400",
-    orange: "bg-brand-primary",
-    gray: "bg-white/25",
-    blue: "bg-sky-400",
-  }[color];
+  let cls = "";
+  switch (color) {
+    case "green":
+      cls = "bg-emerald-400";
+      break;
+    case "orange":
+      cls = "bg-brand-primary";
+      break;
+    case "gray":
+      cls = "bg-white/25";
+      break;
+    case "blue":
+      cls = "bg-sky-400";
+      break;
+  }
   return <span className={cn("inline-block h-1.5 w-1.5 shrink-0 rounded-full", cls)} aria-hidden="true" />;
 }
 
@@ -173,7 +193,18 @@ function DataRow({
 
 /** Activity row */
 function ActivityRow({ time, text, color = "orange" }: { time: string; text: string; color?: "orange" | "green" | "blue" }) {
-  const bg = { orange: "bg-brand-primary/50", green: "bg-emerald-400/50", blue: "bg-sky-400/50" }[color];
+  let bg = "";
+  switch (color) {
+    case "orange":
+      bg = "bg-brand-primary/50";
+      break;
+    case "green":
+      bg = "bg-emerald-400/50";
+      break;
+    case "blue":
+      bg = "bg-sky-400/50";
+      break;
+  }
   return (
     <div className="flex items-start gap-2 py-[3px]">
       <span className={cn("mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full", bg)} aria-hidden="true" />
@@ -990,16 +1021,7 @@ function DashCustom() {
   );
 }
 
-// ============================================================================
-// COMPOSITION MAP
-// ============================================================================
-const DASHBOARD_MAP: Record<SaasSystemId, React.FC> = {
-  "saas-platforms":      DashSaasPlat,
-  "admin-dashboards":    DashAdmin,
-  "client-portals":      DashPortal,
-  "workflow-automation": DashWorkflow,
-  "custom-systems":      DashCustom,
-};
+
 
 // ============================================================================
 // PUBLIC EXPORT — SaasSystemVisual
@@ -1011,7 +1033,24 @@ interface SaasSystemVisualProps {
 
 export function SaasSystemVisual({ activeId, className }: SaasSystemVisualProps) {
   const shouldReduceMotion = useReducedMotion();
-  const Dashboard = DASHBOARD_MAP[activeId];
+  let Dashboard = DashSaasPlat;
+  switch (activeId) {
+    case "saas-platforms":
+      Dashboard = DashSaasPlat;
+      break;
+    case "admin-dashboards":
+      Dashboard = DashAdmin;
+      break;
+    case "client-portals":
+      Dashboard = DashPortal;
+      break;
+    case "workflow-automation":
+      Dashboard = DashWorkflow;
+      break;
+    case "custom-systems":
+      Dashboard = DashCustom;
+      break;
+  }
 
   return (
     <div

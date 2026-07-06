@@ -130,12 +130,12 @@ export default function ContactSection() {
       displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
     } catch {}
 
-    const fallbackNames: Record<string, string> = {
-      AE: "United Arab Emirates",
-      EG: "Egypt",
-      GB: "United Kingdom",
-      US: "United States"
-    };
+    const fallbackNames = new Map<string, string>([
+      ["AE", "United Arab Emirates"],
+      ["EG", "Egypt"],
+      ["GB", "United Kingdom"],
+      ["US", "United States"],
+    ]);
 
     const list = codes.map(code => {
       let name = code as string;
@@ -143,10 +143,10 @@ export default function ContactSection() {
         try {
           name = displayNames.of(code) || code;
         } catch {
-          name = fallbackNames[code] || code;
+          name = fallbackNames.get(code) || code;
         }
       } else {
-        name = fallbackNames[code] || code;
+        name = fallbackNames.get(code) || code;
       }
       
       let callingCodeVal = '';
@@ -270,7 +270,7 @@ export default function ContactSection() {
         preferredContactMethod,
         preferredLanguage,
       },
-      routingTarget: routingTargets[messageType] || "info@dxbmark.com",
+      routingTarget: routingTargets.get(messageType) || "info@dxbmark.com",
       projectDetails: {
         hasWebsite,
         businessAge,
@@ -295,16 +295,16 @@ export default function ContactSection() {
     };
   };
 
-  const routingTargets: Record<string, string> = {
-    "New Project": "sales@dxbmark.com",
-    "General Inquiry": "info@dxbmark.com",
-    "Support Request": "support@dxbmark.com",
-    "Complaint": "support@dxbmark.com",
-    "Billing / Accounts": "accounts@dxbmark.com",
-    "Privacy Request": "privacy@dxbmark.com",
-    "Legal Matter": "legal@dxbmark.com",
-    "Partnership / Collaboration": "sales@dxbmark.com",
-  };
+  const routingTargets = new Map<string, string>([
+    ["New Project", "sales@dxbmark.com"],
+    ["General Inquiry", "info@dxbmark.com"],
+    ["Support Request", "support@dxbmark.com"],
+    ["Complaint", "support@dxbmark.com"],
+    ["Billing / Accounts", "accounts@dxbmark.com"],
+    ["Privacy Request", "privacy@dxbmark.com"],
+    ["Legal Matter", "legal@dxbmark.com"],
+    ["Partnership / Collaboration", "sales@dxbmark.com"],
+  ]);
 
   useEffect(() => {
     const checkViewport = () => {

@@ -144,10 +144,10 @@
 
 **Purpose**: Release verification, build gates, and production deployments
 
-- [ ] T032 [P] Verify type checks by running `npm run typecheck`
-- [ ] T033 [P] Verify linting rules by running `npm run lint`
-- [ ] T034 Run production build checks via `npm run build`
-- [ ] T035 [P] Audit git commits to confirm no secret keys are tracked in commit histories
+- [x] T032 [P] Verify type checks by running `npm run typecheck`
+- [x] T033 [P] Verify linting rules by running `npm run lint`
+- [x] T034 Run production build checks via `npm run build`
+- [x] T035 [P] Audit git commits to confirm no secret keys are tracked in commit histories
 - [ ] T036 Set Stripe environment variables in Vercel project settings dashboard
 - [ ] T036A Validate the deployed webhook endpoint over HTTPS before registering it in the Stripe Dashboard.
 - [ ] T037 Register production HTTPS webhook endpoint inside Stripe account dashboard
