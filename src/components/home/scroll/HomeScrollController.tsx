@@ -16,18 +16,17 @@ export function HomeScrollController() {
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
-      const sections = gsap.utils.toArray<HTMLElement>("[data-home-section]");
-
-      if (sections.length < 2) return;
 
       // Enable snapping and parallax only on desktop viewports (min-width: 1024px)
       mm.add("(min-width: 1024px)", () => {
         const snapOffsets: number[] = [];
+        const animatedSections = new WeakSet<HTMLElement>();
         
         const updateSnapOffsets = () => {
           snapOffsets.length = 0;
+          const currentSections = gsap.utils.toArray<HTMLElement>("[data-home-section]");
           const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-          sections.forEach((section) => {
+          currentSections.forEach((section) => {
             const rect = section.getBoundingClientRect();
             const top = rect.top + window.scrollY;
             const progress = totalHeight > 0 ? top / totalHeight : 0;
@@ -35,7 +34,44 @@ export function HomeScrollController() {
           });
         };
 
+        const setupAnimations = () => {
+          const currentSections = gsap.utils.toArray<HTMLElement>("[data-home-section]");
+          currentSections.forEach((section, index) => {
+            if (index === 0 || animatedSections.has(section)) return;
+
+            const inner = section.querySelector(".section-inner-wrapper");
+            if (!inner) return;
+
+            gsap.fromTo(
+              inner,
+              { y: 30, opacity: 0.7 },
+              {
+                y: 0,
+                opacity: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 80%",
+                  end: "top 20%",
+                  scrub: 0.5,
+                },
+              }
+            );
+
+            animatedSections.add(section);
+          });
+        };
+
         updateSnapOffsets();
+        setupAnimations();
+
+        const resizeObserver = new ResizeObserver(() => {
+          setupAnimations();
+          updateSnapOffsets();
+          ScrollTrigger.refresh();
+        });
+        resizeObserver.observe(document.body);
+
         window.addEventListener("resize", updateSnapOffsets);
 
         // Soft, non-aggressive document snapping
@@ -45,10 +81,10 @@ export function HomeScrollController() {
           end: "bottom bottom",
           snap: {
             snapTo: (value) => {
-              if (snapOffsets.length === 0) return value;
+              if (snapOffsets.length < 2) return value;
               
               const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-              const lastOffset = snapOffsets[snapOffsets.length - 1];
+              const lastOffset = snapOffsets.at(snapOffsets.length - 1) ?? 1;
               
               // 80px scroll threshold converted to progress units
               const thresholdPx = 80;
@@ -83,32 +119,9 @@ export function HomeScrollController() {
         // Refresh ScrollTrigger once after layout initialization
         ScrollTrigger.refresh();
 
-        // Parallax entry motion for all sections except the Hero
-        sections.forEach((section, index) => {
-          const inner = section.querySelector(".section-inner-wrapper");
-          if (!inner) return;
-
-          if (index > 0) {
-            gsap.fromTo(
-              inner,
-              { y: 30, opacity: 0.7 },
-              {
-                y: 0,
-                opacity: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 80%",
-                  end: "top 20%",
-                  scrub: 0.5,
-                },
-              }
-            );
-          }
-        });
-
         return () => {
           window.removeEventListener("resize", updateSnapOffsets);
+          resizeObserver.disconnect();
           mainTrigger.kill();
         };
       });
