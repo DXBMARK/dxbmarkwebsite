@@ -2,7 +2,6 @@
 // src/app/api/health/sentry/route.ts
 
 import { NextResponse } from "next/server";
-import { captureWebhookException } from "@/server/observability/sentry";
 import * as Sentry from "@sentry/nextjs";
 
 export const runtime = "nodejs";
@@ -19,10 +18,7 @@ export async function GET() {
     console.log("[SENTRY CONNECTIVITY TEST] Triggering test exception...");
     
     // Trigger exception with harmless payload
-    captureWebhookException(new Error("DXBMARK Sentry connectivity test"), {
-      route: "/api/health/sentry",
-      stage: "test",
-    });
+    Sentry.captureException(new Error("DXBMARK Sentry connectivity test"));
 
     // Give Sentry up to 2 seconds to flush events to the network
     await Sentry.flush(2000);
