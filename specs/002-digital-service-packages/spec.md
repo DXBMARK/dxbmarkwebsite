@@ -17,16 +17,16 @@ As a visitor browsing the DXBMARK homepage, I want to see clearly structured ser
 
 **Why this priority**: Core user interface. Before checking out, users must be able to explore the offerings, configure their selection, and see an accurate summary of their options.
 
-**Independent Test**: Can be tested on localhost by rendering the homepage, checking mobile responsive layout, opening the modal for each package, clicking checkbox add-ons, and validating that the price summary and exclusions display accurately.
+**Independent Test**: Can be tested on localhost by rendering the homepage, checking mobile responsive layout, opening the modal for each package, clicking checkbox add-ons, and validating that the layout rules, exclusions, and placeholder pricing display accurately.
 
 **Acceptance Scenarios**:
 1. **Given** a visitor is on the DXBMARK homepage, **When** they scroll to the "Digital Service Packages" section, **Then** they see cards for:
-   - Website Launch (From $150, One-time setup)
-   - Business Presence (From $250, One-time setup)
-   - Growth Setup (From $400, One-time setup)
-   - Commerce Starter Setup (From AED 2200, One-time setup)
+    - Website Launch (Pricing will be shown after configuration)
+    - Business Presence (Pricing will be shown after configuration)
+    - Growth Setup (Pricing will be shown after configuration)
+    - Commerce Starter Setup (Pricing will be shown after configuration)
 2. **Given** a visitor is on the packages section, **When** they click "View Package" on a package card, **Then** a detail modal opens showing the scope, exclusions, and a checklist of optional allowed add-ons.
-3. **Given** the detail modal is open, **When** the user toggle-selects add-ons, **Then** the selection summary updates dynamically to show the display labels of the selected options.
+3. **Given** the detail modal is open, **When** the user toggle-selects add-ons, **Then** the selection summary updates dynamically to show the names and states of the selected options.
 4. **Given** the detail modal is open, **When** the user looks at the checkout button, **Then** they see a required legal and payment acknowledgement message:
    *“By continuing, you confirm that you reviewed the package scope, exclusions, third-party fees, and DXBMARK’s Terms and Refund Policy.”*
 5. **Given** the detail modal is open, **When** the user clicks "Close" or presses the `Escape` key, **Then** the modal closes and focus returns to the initiating card button.
@@ -66,20 +66,17 @@ As a system administrator, I want Stripe webhook events for packages (such as `c
 ### Functional Requirements
 
 #### Pricing Authority & Catalog
-- **FR-001**: Client-facing price text is ONLY a display label (e.g., `displayPriceLabel` and `displayBillingLabel`). The client components MUST NOT perform numeric calculations or calculate totals.
-- **FR-002**: The server-side catalog is the absolute source of truth for checkout line items and currencies. Final payable amounts MUST come from Stripe Checkout using Stripe Price IDs resolved from environment variables.
-- **FR-003**: The type model for packages and add-ons MUST define:
-  - `displayPriceLabel: string` (for Packages)
-  - `displayPriceLabelUsd?: string` and `displayPriceLabelAed?: string` (for Add-ons)
-  - `displayBillingLabel?: string`
-  - `currencyGroup: "USD" | "AED" | "BOTH"`
+- **FR-001**: Client-facing price text displays a static configuration placeholder only: `"Pricing will be shown after configuration"`. The client components MUST NOT perform numeric calculations or calculate totals.
+- **FR-002**: The server-side catalog and Stripe Price API are the absolute source of truth for checkout line items and currencies. Final payable amounts MUST come from Stripe Checkout using Stripe Price IDs resolved from environment variables.
+- **FR-003**: The type model for packages and add-ons MUST support:
+  - `pricingDisplayMode: "placeholder" | "stripe_synced" | "hidden"`
   - `stripePriceEnvKey: string` (for Packages)
-  - `stripePriceEnvKeyUsd?: string` and `stripePriceEnvKeyAed?: string` (for Add-ons)
+  - `stripePriceEnvKeyUsd?: string` (for Add-ons, representing the USD environment variable key)
 - **FR-004**: The catalog boundary MUST separate frontend copy and server catalog:
   - Frontend components MUST NOT import from `src/server`, `src/db`, or `src/integrations`.
   - The client payload submitted to the API route MUST only contain `offerId` (string) and `addonIds` (string[]).
-- **FR-005**: USD packages (USD currency group) and AED packages (AED currency group) MUST NOT mix checkout line items. All line items in a checkout session must share the same currency.
-- **FR-006**: Each package MUST define allowed add-ons. The server MUST validate the submitted `addonIds` and reject disallowed or mismatched add-ons with `400 Bad Request`.
+- **FR-005**: All line items in a checkout session share the same base pricing currency (USD). Local or adaptive pricing configurations are resolved server-side via Stripe in a later phase. Website-side currency conversion or AED display logic is strictly forbidden.
+- **FR-006**: Each package defines allowed addonRules. The server MUST validate the submitted `addonIds` against package rules and reject disallowed or mismatched add-ons with `400 Bad Request`.
 - **FR-007**: Before checkout redirection, the modal UI MUST present the concise acknowledgement:
   *“By continuing, you confirm that you reviewed the package scope, exclusions, third-party fees, and DXBMARK’s Terms and Refund Policy.”*
 
@@ -87,7 +84,7 @@ As a system administrator, I want Stripe webhook events for packages (such as `c
 - **FR-008**: The Stripe checkout integration MUST operate in test mode only.
 - **FR-009**: The server-side API route MUST resolve Price IDs dynamically from environment variables. No Stripe Price IDs (live or test) may be hardcoded in executable code or fallback logic.
 - **FR-010**: If a required Stripe Price ID environment variable is missing during checkout session creation, the server MUST fail closed with a controlled server error.
-- **FR-011**: Phase 1 MUST NOT modify `.env`, `.env.local`, or Vercel environment configurations. Required env keys may only be documented in `quickstart.md`.
+- **FR-011**: The implementation MUST NOT modify `.env`, `.env.local`, or Vercel environment configurations. Required env keys may only be documented in `quickstart.md`.
 - **FR-012**: No `eslint-disable` comments are permitted. All dynamic lookups and environment lookups must use safe type guards, Map lookups, or explicit switch statements.
 
 ---
@@ -95,6 +92,6 @@ As a system administrator, I want Stripe webhook events for packages (such as `c
 ## Success Criteria
 
 - **SC-001**: Homepage renders packages cleanly with zero console warnings or dynamic calculation errors.
-- **SC-002**: The detail modal displays exact scope, exclusions, and allowed add-ons matching the package currency group.
-- **SC-003**: Checkout API rejects mixed currency items or disallowed add-ons.
+- **SC-002**: The detail modal displays exact scope, exclusions, and allowed add-ons matching the package structure and addon rules.
+- **SC-003**: Checkout API rejects disallowed add-ons.
 - **SC-004**: Webhook audit logs record events with signature validation and zero fulfillment triggers.

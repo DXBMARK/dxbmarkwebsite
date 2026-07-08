@@ -24,16 +24,41 @@
 
 **Purpose**: Design the frontend digital packages presentation cards and interactive details modal.
 
-- [ ] T004 Create UI copy definitions and details listing under `src/features/pricing/data/package-copy.ts`
-- [ ] T005 Implement the `DigitalServicePackagesSection` component under `src/features/pricing/components/`
-- [ ] T006 [P] Implement the `ServicePackageCard` component
-- [ ] T007 [P] Implement the `PackageDetailModal` component including the legal & payment acknowledgement checklist
-- [ ] T008 [P] Implement the `PackageAddonsSelector` component (shows only allowed add-ons, no client total calculations, displays labels matching selected package currency)
-- [ ] T009 Add the Digital Service Packages section to `src/app/page.tsx`
-- [ ] T010 [P] Validate that UI compiles and has zero console warnings/errors
-- [ ] T011 Verify accessibility compliance (contrast, keyboard navigation, esc to close modal)
+- [x] T004 Create UI copy definitions and details listing under `src/features/pricing/data/package-copy.ts`
+- [x] T005 Implement the `DigitalServicePackagesSection` component under `src/features/pricing/components/`
+- [x] T006 [P] Implement the `ServicePackageCard` component
+- [x] T007 [P] Implement the `PackageDetailModal` component including the legal & payment acknowledgement checklist
+- [x] T008 [P] Implement the `PackageAddonsSelector` component (shows only allowed add-ons, no client total calculations, displays labels matching selected package currency)
+- [x] T009 Add the Digital Service Packages section to `src/app/page.tsx`
+- [x] T010 [P] Validate that UI compiles and has zero console warnings/errors
+- [x] T011 Verify accessibility compliance (contrast, keyboard navigation, esc to close modal)
 
 **Checkpoint**: UI is interactive. Packages render on desktop/mobile and selection updates state correctly.
+
+---
+
+## Phase 2C — Commercial Package Strategy & Stripe Pricing Blueprint
+
+**Purpose**: Define the official commercial parameters and pricing models before any Stripe setup.
+
+- [ ] T011A Define final package list and features
+- [ ] T011B Define final included / required / optional items and mapping rules
+- [ ] T011C Define renewal rules and customer billing lifecycles
+- [ ] T011D Research market pricing targets and propose pricing ladder
+- [ ] T011E Define Stripe Product and Price mappings structure
+- [ ] T011F Obtain explicit owner approval on commercial plan before Stripe setup
+
+---
+
+## Phase 2D — Stripe Dashboard Setup
+
+**Purpose**: Create and configure Stripe Products and Prices in the Stripe dashboard.
+
+- [ ] T011G Create Stripe Products corresponding to approved packages and add-ons
+- [ ] T011H Create Stripe Prices in USD (test mode)
+- [ ] T011I Configure adaptive or local pricing in Stripe dashboard if approved
+- [ ] T011J Map Stripe Price IDs to environment variables in local configuration
+- [ ] T011K Verify Stripe test-mode product/price keys are resolved correctly by server resolver
 
 ---
 

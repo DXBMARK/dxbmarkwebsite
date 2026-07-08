@@ -1,0 +1,105 @@
+import { PackageAddonRule } from "../types";
+
+export const PACKAGE_RULES_MAP: Record<string, PackageAddonRule[]> = {
+  "website-launch": [
+    { addonId: "domain-purchase", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "business-email", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "website-maintenance", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "whatsapp-integration", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "chat-widget", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "analytics-setup", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-section", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-revision-round", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "urgent-delivery", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "logo-intro-video", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "advanced-seo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "geo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "aeo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "search-visibility-bundle", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "content-writing", requirement: "optional", coveragePeriod: "one_time" },
+  ],
+  "business-presence": [
+    { addonId: "domain-purchase", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "business-email", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "website-maintenance", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "whatsapp-integration", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "chat-widget", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "analytics-setup", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-page", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-section", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-revision-round", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "urgent-delivery", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "logo-intro-video", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "advanced-seo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "geo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "aeo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "search-visibility-bundle", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "content-writing", requirement: "optional", coveragePeriod: "one_time" },
+  ],
+  "growth-setup": [
+    { addonId: "domain-purchase", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "business-email", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "website-maintenance", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "whatsapp-integration", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "chat-widget", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "analytics-setup", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-page", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-section", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-revision-round", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "urgent-delivery", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "logo-intro-video", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "advanced-seo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "geo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "aeo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "search-visibility-bundle", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "content-writing", requirement: "optional", coveragePeriod: "one_time" },
+  ],
+  "commerce-starter-setup": [
+    {
+      addonId: "domain-first-year",
+      requirement: "included",
+      coveragePeriod: "first_year",
+      renewalPolicy: "separate_renewal_required",
+      note: "Included for the first year, client responsibility thereafter",
+    },
+    {
+      addonId: "hosting-first-year",
+      requirement: "included",
+      coveragePeriod: "first_year",
+      renewalPolicy: "separate_renewal_required",
+      note: "Included for the first year, client responsibility thereafter",
+    },
+    {
+      addonId: "maintenance-checkups-first-year",
+      requirement: "included",
+      coveragePeriod: "first_year",
+      renewalPolicy: "separate_renewal_required",
+      note: "3 check-ups included in first year",
+    },
+    {
+      addonId: "payment-gateway-setup",
+      requirement: "required",
+      coveragePeriod: "one_time",
+      renewalPolicy: "none",
+      note: "Required setup assistance",
+    },
+    { addonId: "business-email", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "extra-products", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "extra-maintenance", requirement: "optional", coveragePeriod: "ongoing" },
+    { addonId: "advanced-seo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "geo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "aeo", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "content-writing", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "whatsapp-integration", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "chat-widget", requirement: "optional", coveragePeriod: "one_time" },
+    { addonId: "analytics-setup", requirement: "optional", coveragePeriod: "one_time" },
+  ],
+};
+
+const RULES_MAP = new Map<string, PackageAddonRule[]>(
+  Object.entries(PACKAGE_RULES_MAP)
+);
+
+export function getAddonRulesForPackage(packageId: string): PackageAddonRule[] {
+  return RULES_MAP.get(packageId) || [];
+}

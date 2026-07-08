@@ -11,6 +11,7 @@ This plan outlines the architecture, data models, environment variables, securit
 - **Payment Gateway**: Stripe (Test Mode only).
 - **Fulfillment**: Decoupled (log-only webhook logs, no automatic emails, no Zoho sync).
 - **Price Resolution**: Stripe Checkout using server-resolved Price IDs from environment variables.
+- **Pricing Strategy**: No client-side price labels or currency calculations. Pricing is shown via configuration placeholder in UI. Stripe remains the sole official source of truth for payable prices.
 - **Lint Standards**: No `eslint-disable` comments. Safe `Map` collections and static `switch` resolvers are used for lookup operations.
 
 ---
@@ -18,7 +19,7 @@ This plan outlines the architecture, data models, environment variables, securit
 ## 2. Constitution Check
 
 - **Brand Consistency**: All client-facing interfaces MUST use the approved Inter/Utopia typographic stack and color theme from DESIGN.md.
-- **Pricing Authority**: Client-facing price text is only a display label. Stripe/server-side catalog is the source of truth for checkout line items. The client does not calculate totals or submit prices.
+- **Pricing Authority**: Client-facing price text is only a placeholder. Stripe/server-side catalog is the source of truth for checkout line items. The client does not calculate totals or submit prices.
 - **Stripe Price Resolution**: Price IDs are resolved dynamically from environment variables. If a required Price ID environment variable is missing, the server fails closed with a controlled server error.
 - **Stripe Mode & Config**: Use explicit server-side test-mode configuration and trusted Stripe Price IDs resolved from environment variables. Never accept mode, amount, currency, or Price IDs from the client.
 - **No Env Modification in Phase 1**: Phase 1 must not modify `.env`, `.env.local`, or Vercel environment settings. It may only document required env variable names in `quickstart.md`.
@@ -38,11 +39,10 @@ sequenceDiagram
     participant Catalog as Server Billing Catalog
     participant Stripe as Stripe API (Server)
 
-    User->>Modal: Select package & allowed Add-ons
+    User->>Modal: Select package & optional Add-ons
     Note over Modal: User views legal & payment acknowledgement
     User->>API: Click Checkout (POST offerId + addonIds)
     Note over API: Validate offerId & addonIds against Map Catalog
-    Note over API: Validate addon currency matches package currency
     API->>Catalog: Resolve Env Keys for Price IDs
     alt Env Var Missing
         API-->>User: Return 500 Server Error (Fail Closed)
@@ -69,6 +69,7 @@ src/
         PackageAddonsSelector.tsx          # Allowed add-on selection checklist
       data/
         package-copy.ts                    # UI copy for exclusions and scope
+        package-rules.ts                   # Package rules structure (included/required/optional)
       types.ts                             # Pricing feature specific types
   server/
     billing/
@@ -78,7 +79,7 @@ src/
   app/
     api/
       checkout/
-        session/
+      session/
           route.ts                         # Session creation endpoint (Phase 3)
 ```
 
@@ -88,8 +89,8 @@ src/
 
 ### Server Catalog Schema
 Defined in `src/server/billing/types.ts`:
-- **`Package`**: `id`, `name`, `description`, `displayPriceLabel`, `displayBillingLabel?`, `currencyGroup`, `stripePriceEnvKey`, `allowedAddons`, `scope`, `exclusions`
-- **`Addon`**: `id`, `name`, `displayPriceLabelUsd?`, `displayPriceLabelAed?`, `displayBillingLabel?`, `currencyGroup`, `stripePriceEnvKeyUsd?`, `stripePriceEnvKeyAed?`
+- **`Package`**: `id`, `name`, `description`, `stripePriceEnvKey`, `allowedAddons`, `scope`, `exclusions`
+- **`Addon`**: `id`, `name`, `stripePriceEnvKeyUsd?`, `stripePriceEnvKeyAed?`
 
 ### Verification Boundaries
 - Client submits only `offerId` (string) and `addonIds` (string[]).
