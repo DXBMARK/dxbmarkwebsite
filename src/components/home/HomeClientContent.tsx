@@ -22,6 +22,11 @@ const TechStackSection = dynamic(
   { ssr: false }
 );
 
+const DigitalServicePackagesSection = dynamic(
+  () => import("@/features/pricing/components/DigitalServicePackagesSection").then((mod) => mod.DigitalServicePackagesSection),
+  { ssr: false }
+);
+
 export function HomeClientContent() {
   return (
     <>
@@ -29,6 +34,7 @@ export function HomeClientContent() {
       <SaasSystemsSection />
       <StatsSection />
       <TechStackSection />
+      <DigitalServicePackagesSection />
     </>
   );
 }

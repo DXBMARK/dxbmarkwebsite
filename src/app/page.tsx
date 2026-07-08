@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Glow } from "@/components/visual";
 import { HeroSection } from "@/components/home/hero/HeroSection";
 import { ServicesSection } from "@/components/home/services/ServicesSection";
-import { DigitalServicePackagesSection } from "@/features/pricing/components/DigitalServicePackagesSection";
 import { HomeClientContent } from "@/components/home/HomeClientContent";
 import { HomeScrollController } from "@/components/home/scroll/HomeScrollController";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -32,7 +31,6 @@ export default function Home() {
         <main className="relative z-10">
           <HeroSection />
           <ServicesSection />
-          <DigitalServicePackagesSection />
           <HomeClientContent />
         </main>
       </div>

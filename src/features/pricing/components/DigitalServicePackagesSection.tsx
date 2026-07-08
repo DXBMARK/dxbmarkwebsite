@@ -1,6 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { HomeSection } from "@/components/home/sections/HomeSection";
+import { Container } from "@/components/ui/layout";
+import { HeroBadge } from "@/components/home/hero/HeroBadge";
 import { PACKAGES_COPY } from "../data/package-copy";
 import { PackageCopy } from "../types";
 import { ServicePackageCard } from "./ServicePackageCard";
@@ -10,6 +14,7 @@ import { ArrowRight } from "lucide-react";
 export function DigitalServicePackagesSection() {
   const [selectedPkg, setSelectedPkg] = React.useState<PackageCopy | null>(null);
   const activeTriggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleOpenModal = (
     pkg: PackageCopy,
@@ -24,27 +29,54 @@ export function DigitalServicePackagesSection() {
   };
 
   return (
-    <section 
+    <HomeSection
       id="digital-packages"
-      className="relative w-full py-20 px-4 md:px-8 border-t border-slate-900 bg-gradient-to-b from-slate-950 via-[#0A1F46]/10 to-slate-950 overflow-hidden"
+      className="relative overflow-visible bg-transparent border-t border-border-soft-val/30"
+      aria-labelledby="home-packages-title"
     >
-      <div className="max-w-6xl mx-auto relative z-10">
+      {/* Ambient orange glow */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-glow opacity-10 blur-[160px]"
+        aria-hidden="true"
+      />
+
+      <Container className="relative z-10 flex min-h-[100svh] w-full flex-col justify-start pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-32 lg:pb-20">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block px-3.5 py-1 text-[10px] font-extrabold tracking-widest text-[#F97E1A] bg-[#F97E1A]/10 border border-[#F97E1A]/20 rounded-full uppercase mb-4">
-            DIGITAL SERVICE PACKAGES
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-100 font-display leading-tight">
-            Choose a clear digital package and move faster.
+        <motion.div
+          className="mb-8 flex w-full flex-col items-center text-center sm:mb-10 lg:mb-12"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 18, filter: "blur(8px)" }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="inline-flex">
+            <HeroBadge label="DIGITAL SERVICE PACKAGES" />
+          </div>
+
+          <h2
+            id="home-packages-title"
+            className="mx-auto mt-3 max-w-4xl font-display text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-[3.4rem] xl:text-[3.6rem] leading-[1.06]"
+          >
+            Choose a clear digital package and{" "}
+            <span className="bg-gradient-to-r from-[#FFE1C2] via-[#F97E1A] to-[#FF8A1F] bg-clip-text pb-1 text-transparent">
+              move faster.
+            </span>
           </h2>
-          <p className="text-slate-400 text-sm md:text-base mt-4 leading-relaxed">
+
+          <p className="mx-auto mt-3 max-w-2xl font-body text-xs leading-relaxed text-text-sub sm:text-sm md:text-base">
             Website and setup packages for businesses that want to launch faster, look more credible, and move online without the usual development headaches.
           </p>
-        </div>
+        </motion.div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <motion.div 
+          className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+        >
           {PACKAGES_COPY.map((pkg) => (
             <ServicePackageCard
               key={pkg.id}
@@ -52,22 +84,28 @@ export function DigitalServicePackagesSection() {
               onOpenModal={handleOpenModal}
             />
           ))}
-        </div>
+        </motion.div>
 
         {/* Section Footer / Custom Consultation CTA */}
-        <div className="text-center mt-16 max-w-xl mx-auto p-6 rounded-xl border border-slate-900 bg-slate-950/40">
-          <p className="text-xs text-slate-400 leading-relaxed mb-4">
+        <motion.div 
+          className="text-center mt-14 max-w-xl mx-auto p-5 rounded-xl border border-border-soft-val bg-white/[0.02] backdrop-blur-md"
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <p className="text-xs text-text-sub leading-relaxed mb-3">
             Need something more advanced? Custom web apps, portals, and automation systems are handled through a separate project proposal.
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center gap-2 text-xs font-extrabold text-[#F97E1A] hover:text-[#F97E1A]/90 transition-all uppercase tracking-wider group"
+            className="inline-flex items-center justify-center gap-2 text-xs font-bold text-brand-primary hover:text-brand-secondary transition-all uppercase tracking-wider group"
           >
             <span>Request Custom Proposal</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
-        </div>
-      </div>
+        </motion.div>
+      </Container>
 
       {/* Package Detail Modal Overlay */}
       {selectedPkg && (
@@ -77,6 +115,6 @@ export function DigitalServicePackagesSection() {
           triggerButtonRef={activeTriggerRef}
         />
       )}
-    </section>
+    </HomeSection>
   );
 }
