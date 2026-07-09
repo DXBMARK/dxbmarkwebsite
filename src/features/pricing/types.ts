@@ -20,10 +20,21 @@ export interface PackageAddonRule {
   note?: string;
 }
 
+export type AddonCategory =
+  | "google"
+  | "search"
+  | "website_setup"
+  | "contact_tools"
+  | "content"
+  | "extra_services"
+  | "commerce";
+
 export interface AddonCopy {
   id: string;
   name: string;
+  description?: string; // Optional short helper text
   pricingDisplayMode: "placeholder" | "stripe_synced" | "hidden";
+  category: AddonCategory;
 }
 
 export interface PackageCopy {
@@ -32,6 +43,9 @@ export interface PackageCopy {
   description: string;
   pricingDisplayMode: "placeholder" | "stripe_synced" | "hidden";
   basePricingCurrency: "USD";
+  bestFit: string;
+  outcome: string;
+  benefits: string[];
   scope: string[]; // Included in this package
   exclusions: string[];
   notes?: string[];

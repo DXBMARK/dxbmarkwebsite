@@ -120,9 +120,19 @@ const ADDONS_LIST: Addon[] = [
     stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_CHAT_USD",
   },
   {
-    id: "analytics-setup",
-    name: "Analytics Setup",
-    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_ANALYTICS_USD",
+    id: "google-business-profile",
+    name: "Google Business Profile Setup",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_GOOGLE_BUSINESS_PROFILE_USD",
+  },
+  {
+    id: "google-analytics-tag-setup",
+    name: "Google Analytics / Google Tag Setup",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_GOOGLE_ANALYTICS_TAG_SETUP_USD",
+  },
+  {
+    id: "basic-seo-setup",
+    name: "Basic SEO Setup",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_BASIC_SEO_SETUP_USD",
   },
   {
     id: "extra-page",
@@ -150,24 +160,24 @@ const ADDONS_LIST: Addon[] = [
     stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_LOGO_USD",
   },
   {
-    id: "advanced-seo",
-    name: "Advanced SEO",
-    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_SEO_USD",
+    id: "advanced-seo-pack",
+    name: "Advanced SEO Pack",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_ADVANCED_SEO_PACK_USD",
   },
   {
-    id: "geo",
-    name: "GEO (Generative Engine Optimization)",
-    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_GEO_USD",
+    id: "geo-setup",
+    name: "GEO Setup",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_GEO_SETUP_USD",
   },
   {
-    id: "aeo",
-    name: "AEO (Answer Engine Optimization)",
-    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_AEO_USD",
+    id: "aeo-setup",
+    name: "AEO Setup",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_AEO_SETUP_USD",
   },
   {
     id: "search-visibility-bundle",
     name: "Search Visibility Bundle",
-    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_BUNDLE_USD",
+    stripePriceEnvKeyUsd: "STRIPE_PRICE_ADDON_SEARCH_VISIBILITY_BUNDLE_USD",
   },
   {
     id: "content-writing",

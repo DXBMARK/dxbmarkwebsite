@@ -9,7 +9,7 @@ import { PACKAGES_COPY } from "../data/package-copy";
 import { PackageCopy } from "../types";
 import { ServicePackageCard } from "./ServicePackageCard";
 import { PackageDetailModal } from "./PackageDetailModal";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, HelpCircle, Layers, Globe } from "lucide-react";
 
 export function DigitalServicePackagesSection() {
   const [selectedPkg, setSelectedPkg] = React.useState<PackageCopy | null>(null);
@@ -56,16 +56,16 @@ export function DigitalServicePackagesSection() {
 
           <h2
             id="home-packages-title"
-            className="mx-auto mt-3 max-w-4xl font-display text-4xl font-black tracking-tight text-text-main sm:text-5xl lg:text-[3.4rem] xl:text-[3.6rem] leading-[1.06]"
+            className="mx-auto mt-3 max-w-4xl font-display text-3xl font-black tracking-tight text-text-main sm:text-4xl lg:text-5xl"
           >
-            Choose a clear digital package and{" "}
+            Choose your package and{" "}
             <span className="bg-gradient-to-r from-[#FFE1C2] via-[#F97E1A] to-[#FF8A1F] bg-clip-text pb-1 text-transparent">
               move faster.
             </span>
           </h2>
 
           <p className="mx-auto mt-3 max-w-2xl font-body text-xs leading-relaxed text-text-sub sm:text-sm md:text-base">
-            Website and setup packages for businesses that want to launch faster, look more credible, and move online without the usual development headaches.
+            Website and setup packages built for faster launch, stronger credibility, and a cleaner path to growth.
           </p>
         </motion.div>
 
@@ -86,9 +86,47 @@ export function DigitalServicePackagesSection() {
           ))}
         </motion.div>
 
+        {/* Trust Row */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl mx-auto mt-10 p-4 rounded-xl border border-border-soft-val bg-white/[0.01] text-left"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <div className="flex items-start gap-2.5">
+            <Layers className="h-4.5 w-4.5 text-[#62C4E1] shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-text-main">Clear Scope</p>
+              <p className="text-[10px] text-text-sub">No unexpected boundaries</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <ShieldCheck className="h-4.5 w-4.5 text-brand-primary shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-text-main">Secure Checkout</p>
+              <p className="text-[10px] text-text-sub">Stripe-hosted checkout</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <Globe className="h-4.5 w-4.5 text-[#62C4E1] shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-text-main">Stripe-managed pricing</p>
+              <p className="text-[10px] text-text-sub">No website-side conversion</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5">
+            <HelpCircle className="h-4.5 w-4.5 text-brand-primary shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-text-main">DXBMARK Support</p>
+              <p className="text-[10px] text-text-sub">Dedicated deployment help</p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Section Footer / Custom Consultation CTA */}
         <motion.div 
-          className="text-center mt-14 max-w-xl mx-auto p-5 rounded-xl border border-border-soft-val bg-white/[0.02] backdrop-blur-md"
+          className="text-center mt-12 max-w-xl mx-auto p-5 rounded-xl border border-border-soft-val bg-white/[0.02] backdrop-blur-md"
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
           viewport={{ once: true }}

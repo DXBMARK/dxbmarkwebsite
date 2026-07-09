@@ -32,6 +32,7 @@
 - [x] T009 Add the Digital Service Packages section to `src/app/page.tsx`
 - [x] T010 [P] Validate that UI compiles and has zero console warnings/errors
 - [x] T011 Verify accessibility compliance (contrast, keyboard navigation, esc to close modal)
+- [x] T011_UXF Phase 2F: wide modal UX redesign and optional add-on tabs
 
 **Checkpoint**: UI is interactive. Packages render on desktop/mobile and selection updates state correctly.
 
@@ -41,11 +42,11 @@
 
 **Purpose**: Define the official commercial parameters and pricing models before any Stripe setup.
 
-- [ ] T011A Define final package list and features
-- [ ] T011B Define final included / required / optional items and mapping rules
-- [ ] T011C Define renewal rules and customer billing lifecycles
-- [ ] T011D Research market pricing targets and propose pricing ladder
-- [ ] T011E Define Stripe Product and Price mappings structure
+- [x] T011A Define final package list and features
+- [x] T011B Define final included / required / optional items and mapping rules
+- [x] T011C Define renewal rules and customer billing lifecycles
+- [x] T011D Research market pricing targets and propose pricing ladder
+- [x] T011E Define Stripe Product and Price mappings structure
 - [ ] T011F Obtain explicit owner approval on commercial plan before Stripe setup
 
 ---
