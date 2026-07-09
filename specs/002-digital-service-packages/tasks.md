@@ -28,7 +28,7 @@
 - [x] T005 Implement the `DigitalServicePackagesSection` component under `src/features/pricing/components/`
 - [x] T006 [P] Implement the `ServicePackageCard` component
 - [x] T007 [P] Implement the `PackageDetailModal` component including the legal & payment acknowledgement checklist
-- [x] T008 [P] Implement the `PackageAddonsSelector` component (shows only allowed add-ons, no client total calculations, displays labels matching selected package currency)
+- [x] T008 [P] Implement the `PackageAddonsSelector` component (shows only approved optional add-ons, no client total calculations, no prices, no currency conversion, and approved customer-facing category labels only)
 - [x] T009 Add the Digital Service Packages section to `src/app/page.tsx`
 - [x] T010 [P] Validate that UI compiles and has zero console warnings/errors
 - [x] T011 Verify accessibility compliance (contrast, keyboard navigation, esc to close modal)
