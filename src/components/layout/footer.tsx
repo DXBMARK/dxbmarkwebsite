@@ -11,6 +11,7 @@ import { FooterSvgDivider } from "./FooterSvgDivider";
 import { PaymentTrustStrip } from "./PaymentTrustStrip";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ClutchReviewButton from "@/components/ClutchReviewButton";
 
 // Services Footer Links
 const SERVICES_FOOTER_LINKS = [
@@ -125,23 +126,50 @@ export function Footer() {
               <span>info@dxbmark.com</span>
             </a>
 
-            {/* Google Reviews Badge */}
-            <a 
-              href="https://g.page/r/CeDd6_H58zunEAE/review" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex items-center gap-2 rounded-radius-default border border-border-soft-val bg-white/5 px-3 py-1.5 text-xs text-text-sub hover:text-brand-primary hover:border-brand-primary/50 transition-all max-w-max"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/icons/google-g-logo.svg" alt="G" className="h-4 w-4" onError={(e) => {
-                e.currentTarget.style.display = "none";
-                const fallback = document.getElementById("google-g-fallback");
-                if (fallback) fallback.style.display = "inline";
-              }} />
-              <span id="google-g-fallback" style={{ display: "none" }} className="font-bold text-brand-primary">G</span>
-              <span>Google Reviews</span>
-              <span className="text-brand-secondary font-medium">★★★★★ Rate Us</span>
-            </a>
+            <div className="mt-3 flex flex-col items-start gap-2">
+              {/* Google Reviews: original appearance preserved */}
+              <a
+                href="https://g.page/r/CeDd6_H58zunEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex max-w-max items-center gap-2 rounded-radius-default border border-border-soft-val bg-white/5 px-3 py-1.5 text-xs text-text-sub transition-all hover:border-brand-primary/50 hover:text-brand-primary"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/icons/google-g-logo.svg"
+                  alt="Google"
+                  className="h-4 w-4"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+
+                    const fallback = document.getElementById("google-g-fallback");
+
+                    if (fallback) {
+                      fallback.style.display = "inline";
+                    }
+                  }}
+                />
+
+                <span
+                  id="google-g-fallback"
+                  style={{ display: "none" }}
+                  className="font-bold text-brand-primary"
+                >
+                  G
+                </span>
+
+                <span>Google Reviews</span>
+
+                <span className="font-medium text-brand-secondary">
+                  Rate Us
+                </span>
+              </a>
+
+              {/* Custom Clutch Review Button */}
+              <ClutchReviewButton
+                className="inline-flex max-w-max items-center gap-2 rounded-radius-default border border-border-soft-val bg-white/5 px-3 py-1.5 text-xs text-text-sub transition-all hover:border-brand-primary/50 hover:text-brand-primary"
+              />
+            </div>
           </div>
         </div>
 

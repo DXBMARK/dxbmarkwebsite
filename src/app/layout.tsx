@@ -185,6 +185,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 export default function RootLayout({
   children,
@@ -198,74 +199,78 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://consent.cookiebot.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://consentcdn.cookiebot.com" crossOrigin="anonymous" />
-        <Script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid="99d6ba11-8ea1-490c-aec8-c4fbd0848d5c"
-          data-blockingmode="auto"
-          strategy="afterInteractive"
-        />
-        <Script id="cookiebot-consent-bridge" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
+        {IS_PRODUCTION && (
+          <>
+            <link rel="preconnect" href="https://consent.cookiebot.com" crossOrigin="anonymous" />
+            <link rel="preconnect" href="https://consentcdn.cookiebot.com" crossOrigin="anonymous" />
+            <Script
+              id="Cookiebot"
+              src="https://consent.cookiebot.com/uc.js"
+              data-cbid="99d6ba11-8ea1-490c-aec8-c4fbd0848d5c"
+              data-blockingmode="auto"
+              strategy="afterInteractive"
+            />
+            <Script id="cookiebot-consent-bridge" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
 
-            function gtag(){dataLayer.push(arguments);}
+                function gtag(){dataLayer.push(arguments);}
 
-            gtag('consent', 'default', {
-              ad_storage: 'denied',
-              ad_user_data: 'denied',
-              ad_personalization: 'denied',
-              analytics_storage: 'denied',
-              functionality_storage: 'denied',
-              personalization_storage: 'denied',
-              security_storage: 'granted',
-              wait_for_update: 500
-            });
+                gtag('consent', 'default', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                  analytics_storage: 'denied',
+                  functionality_storage: 'denied',
+                  personalization_storage: 'denied',
+                  security_storage: 'granted',
+                  wait_for_update: 500
+                });
 
-            function updateConsentFromCookiebot() {
-              var consent = window.Cookiebot && window.Cookiebot.consent ? window.Cookiebot.consent : {};
+                function updateConsentFromCookiebot() {
+                  var consent = window.Cookiebot && window.Cookiebot.consent ? window.Cookiebot.consent : {};
 
-              var marketingGranted = consent.marketing === true;
-              var statisticsGranted = consent.statistics === true;
-              var preferencesGranted = consent.preferences === true;
+                  var marketingGranted = consent.marketing === true;
+                  var statisticsGranted = consent.statistics === true;
+                  var preferencesGranted = consent.preferences === true;
 
-              gtag('consent', 'update', {
-                ad_storage: marketingGranted ? 'granted' : 'denied',
-                ad_user_data: marketingGranted ? 'granted' : 'denied',
-                ad_personalization: marketingGranted ? 'granted' : 'denied',
-                analytics_storage: statisticsGranted ? 'granted' : 'denied',
-                functionality_storage: preferencesGranted ? 'granted' : 'denied',
-                personalization_storage: preferencesGranted ? 'granted' : 'denied',
-                security_storage: 'granted'
-              });
+                  gtag('consent', 'update', {
+                    ad_storage: marketingGranted ? 'granted' : 'denied',
+                    ad_user_data: marketingGranted ? 'granted' : 'denied',
+                    ad_personalization: marketingGranted ? 'granted' : 'denied',
+                    analytics_storage: statisticsGranted ? 'granted' : 'denied',
+                    functionality_storage: preferencesGranted ? 'granted' : 'denied',
+                    personalization_storage: preferencesGranted ? 'granted' : 'denied',
+                    security_storage: 'granted'
+                  });
 
-              var consentKey = [
-                marketingGranted,
-                statisticsGranted,
-                preferencesGranted
-              ].join('|');
+                  var consentKey = [
+                    marketingGranted,
+                    statisticsGranted,
+                    preferencesGranted
+                  ].join('|');
 
-              if (window.__lastCookiebotConsentKey === consentKey) {
-                return;
-              }
+                  if (window.__lastCookiebotConsentKey === consentKey) {
+                    return;
+                  }
 
-              window.__lastCookiebotConsentKey = consentKey;
+                  window.__lastCookiebotConsentKey = consentKey;
 
-              window.dataLayer.push({
-                event: 'cookiebot_consent_update',
-                cookiebot_marketing: marketingGranted,
-                cookiebot_statistics: statisticsGranted,
-                cookiebot_preferences: preferencesGranted
-              });
-            }
+                  window.dataLayer.push({
+                    event: 'cookiebot_consent_update',
+                    cookiebot_marketing: marketingGranted,
+                    cookiebot_statistics: statisticsGranted,
+                    cookiebot_preferences: preferencesGranted
+                  });
+                }
 
-            window.addEventListener('CookiebotOnConsentReady', updateConsentFromCookiebot);
-            window.addEventListener('CookiebotOnAccept', updateConsentFromCookiebot);
-            window.addEventListener('CookiebotOnDecline', updateConsentFromCookiebot);
-          `}
-        </Script>
+                window.addEventListener('CookiebotOnConsentReady', updateConsentFromCookiebot);
+                window.addEventListener('CookiebotOnAccept', updateConsentFromCookiebot);
+                window.addEventListener('CookiebotOnDecline', updateConsentFromCookiebot);
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="min-h-full flex flex-col bg-background-slate text-text-main pt-20" suppressHydrationWarning>
         {GTM_ID && (

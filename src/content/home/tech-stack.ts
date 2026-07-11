@@ -68,6 +68,8 @@ export type TechStackItem = {
   color?: string;
   alt?: string;
   fallback?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
 export const techStackItems: TechStackItem[] = [
@@ -202,7 +204,9 @@ export const techStackItems: TechStackItem[] = [
     name: "Bootstrap",
     category: "Development & Code",
     imageSrc: "/assets/tech-stack/bootstrap.svg",
-    imageClassName: "h-8 w-9 object-contain lg:h-9 lg:w-10",
+    imageClassName: "h-8 w-auto object-contain lg:h-9",
+    imageWidth: 256,
+    imageHeight: 204,
   },
   {
     id: "nodejs",
@@ -216,7 +220,9 @@ export const techStackItems: TechStackItem[] = [
     name: "v0",
     category: "Development & Code",
     imageSrc: "/assets/tech-stack/v0.svg",
-    imageClassName: "h-7 w-9 object-contain lg:h-8 lg:w-10",
+    imageClassName: "h-7 w-auto object-contain lg:h-8",
+    imageWidth: 16,
+    imageHeight: 16,
   },
   {
     id: "playwright",
@@ -636,7 +642,9 @@ export const techStackItems: TechStackItem[] = [
     name: "Google Business Profile",
     category: "Business, Automation & Commerce",
     imageSrc: "/assets/tech-stack/google-business-profile.svg",
-    imageClassName: "h-8 w-9 object-contain lg:h-9 lg:w-10",
+    imageClassName: "h-8 w-auto object-contain lg:h-9",
+    imageWidth: 123,
+    imageHeight: 107,
   },
   {
     id: "google-drive",
@@ -790,14 +798,18 @@ export const techStackItems: TechStackItem[] = [
     name: "Figma",
     category: "Design & Creative",
     imageSrc: "/assets/tech-stack/figma.svg",
-    imageClassName: "h-9 w-7 object-contain lg:h-10 lg:w-8",
+    imageClassName: "h-9 w-auto object-contain lg:h-10",
+    imageWidth: 54,
+    imageHeight: 80,
   },
   {
     id: "adobe",
     name: "Adobe",
     category: "Design & Creative",
     imageSrc: "/assets/tech-stack/adobe.svg",
-    imageClassName: "h-8 w-9 object-contain lg:h-9 lg:w-10",
+    imageClassName: "h-8 w-auto object-contain lg:h-9",
+    imageWidth: 91,
+    imageHeight: 80,
   },
 ];
 

@@ -47,7 +47,32 @@
 - [x] T011C Define renewal rules and customer billing lifecycles
 - [x] T011D Research market pricing targets and propose pricing ladder
 - [x] T011E Define Stripe Product and Price mappings structure
-- [ ] T011F Obtain explicit owner approval on commercial plan before Stripe setup
+- [x] T011F Obtain explicit owner approval on commercial plan before Stripe setup
+
+---
+
+## Phase 2L — Commercial Strategy v2 and Package Offer Architecture
+
+**Purpose**: Update the business model, visibility classifications, and product mapping before pricing research.
+
+- [x] T011L Update commercial-strategy.md with owner-approved business decisions
+- [x] T011M Update stripe-pricing-blueprint.md with offer architecture and add-on mappings
+- [x] T011N Confirm no official prices are introduced before pricing research
+- [x] T011O Prepare for UAE/Egypt market pricing research
+
+---
+
+## Phase 2M — UAE Market Pricing Research & Pricing Ladder
+
+**Purpose**: Research local market pricing and define proposed pricing ranges before Stripe Dashboard setup.
+
+- [ ] T011P Research UAE competitor pricing for landing pages, business websites, ecommerce websites, SEO, hosting, and add-ons
+- [ ] T011Q Research Egypt competitor pricing direction as a later-market reference
+- [ ] T011R Compare DXBMARK packages against cheap-market, mid-market, and premium-affordable positioning
+- [ ] T011S Propose pricing ladder for base packages
+- [ ] T011T Propose pricing logic for add-ons
+- [ ] T011U Define which products are direct checkout vs proposal-first after pricing review
+- [ ] T011V Produce owner approval checklist for final Stripe prices
 
 ---
 
@@ -67,7 +92,7 @@
 
 **Purpose**: Implement server-side validation and initiate the Stripe checkout session.
 
-- [ ] T012 Implement payload validation logic in `src/server/billing/checkout-validation.ts` (verifies offerId, allowed addonIds, currency groups)
+- [ ] T012 Implement payload validation logic in `src/server/billing/checkout-validation.ts` (verifies offerId, addonRules, required/included/optional relationships, and trusted Stripe Price env key availability)
 - [ ] T013 Create API route at `src/app/api/checkout/session/route.ts` to receive payload, validate, and create Stripe Checkout session (fails closed with a controlled 500 error if any required Price ID env key is missing)
 - [ ] T014 Connect frontend modal checkout CTA to POST `/api/checkout/session`
 - [ ] T015 Verify successful redirect behavior to Stripe Checkout test-mode page

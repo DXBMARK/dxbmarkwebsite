@@ -25,9 +25,9 @@ export function TechStackIcon({ item }: TechStackIconProps) {
           alt={item.alt ?? `${item.name} logo`}
           className={item.imageClassName ?? "h-8 w-8 object-contain lg:h-9 lg:w-9"}
           draggable={false}
-          height={40}
+          height={item.imageHeight ?? 40}
           src={item.imageSrc}
-          width={40}
+          width={item.imageWidth ?? 40}
         />
       ) : LobeIcon ? (
         <LobeIcon size={item.lobeIconSize ?? 32} />
