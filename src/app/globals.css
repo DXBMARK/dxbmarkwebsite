@@ -255,7 +255,7 @@ body {
      Slightly elevated so it's fully visible and not clipped by overflow-hidden. */
   position: absolute;
   left: 50%;
-  bottom: clamp(-1.1rem, -0.8vw, -0.1rem);
+  bottom: -35px;
   transform: translateX(-50%);
   font-family: var(--font-utopia), Georgia, serif;
   font-weight: 500;
@@ -281,7 +281,7 @@ body {
   .footer-brand-word {
     font-size: clamp(3.2rem, 19vw, 7rem);
     -webkit-text-stroke: 1px rgba(249, 126, 26, 0.22);
-    bottom: clamp(-0.8rem, -0.2vw, -0.2rem);
+    bottom: -20px;
   }
 
   .footer-glow-layer {

@@ -661,12 +661,13 @@ function DashPortal() {
             
             {/* The Image inside the dashboard */}
             <div className="relative flex-1 w-full overflow-hidden flex items-center justify-center p-1 bg-[#050911]/50 rounded-lg border border-white/[0.04]">
-              <div className="relative w-full h-full max-w-[260px] aspect-square mx-auto pointer-events-none select-none">
+              <div className="relative w-full max-w-[260px] aspect-square mx-auto pointer-events-none select-none">
                 <Image
                   src="/assets/images/saas-systems/client-portals.jpg"
                   alt="Isometric client portal system architecture layers"
                   fill
                   priority
+                  sizes="260px"
                   className="object-contain rounded-lg"
                 />
               </div>
