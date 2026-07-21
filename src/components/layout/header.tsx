@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "../ui/layout";
 import { Button } from "../ui/button";
@@ -68,10 +69,17 @@ export function Header() {
           )}
         >
           {/* Logo / Brand */}
-          <div className="flex items-center gap-1.5 font-sans text-xl font-black tracking-tight text-text-main">
-            DXB<span className="text-brand-primary">MARK</span>
-            <span className="h-2 w-2 rounded-full bg-brand-primary animate-pulse" />
-          </div>
+          <Link href="/" className="flex items-center group transition-opacity hover:opacity-90 py-1">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/brand/DXBMARK-Text-Right.webp"
+              alt="DXBMARK"
+              className={cn(
+                "w-auto object-contain transition-all duration-300",
+                isScrolled ? "h-8 sm:h-9" : "h-9 sm:h-10"
+              )}
+            />
+          </Link>
 
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center gap-2 font-label text-sm text-text-sub font-medium">

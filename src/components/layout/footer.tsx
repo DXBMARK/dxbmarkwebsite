@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { Container } from "../ui/layout";
 import { NAV_LINKS } from "@/content/navigation";
 import { LEGAL_DOCUMENTS } from "@/content/legal";
@@ -103,10 +104,14 @@ export function Footer() {
       <Container className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 pt-[55px] sm:pt-[66px] lg:pt-[87px]">
         {/* Brand Column (Wider - Spans 2 columns on large screens) */}
         <div className="flex flex-col gap-6 lg:col-span-2 text-left">
-          <div className="flex items-center gap-1.5 font-sans text-2xl font-black tracking-tight text-text-main">
-            DXB<span className="text-brand-primary">MARK</span>
-            <span className="h-2.5 w-2.5 rounded-full bg-brand-primary animate-pulse" />
-          </div>
+          <Link href="/" className="inline-block max-w-max transition-opacity hover:opacity-90">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/logo/logo-only.webp"
+              alt="DXBMARK"
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
+          </Link>
           
           <p className="text-xs font-bold tracking-widest text-brand-primary uppercase">
             BUILD. SCALE. RUN.
