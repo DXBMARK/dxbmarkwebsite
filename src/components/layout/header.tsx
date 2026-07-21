@@ -75,8 +75,8 @@ export function Header() {
               src="/assets/brand/DXBMARK-Text-Right.webp"
               alt="DXBMARK"
               className={cn(
-                "w-auto object-contain transition-all duration-300",
-                isScrolled ? "h-8 sm:h-9" : "h-9 sm:h-10"
+                "w-auto object-contain transition-all duration-300 ease-out",
+                isScrolled ? "h-[23px] sm:h-[27px] md:h-[31px]" : "h-[25px] sm:h-[33px] md:h-[39px]"
               )}
             />
           </Link>

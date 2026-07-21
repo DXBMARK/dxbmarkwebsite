@@ -109,7 +109,7 @@ export function Footer() {
             <img
               src="/assets/logo/logo-only.webp"
               alt="DXBMARK"
-              className="h-10 sm:h-12 w-auto object-contain"
+              className="h-10 sm:h-12 lg:h-16 w-auto object-contain"
             />
           </Link>
           
